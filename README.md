@@ -1,2 +1,2 @@
 # Ionic
-Learning ionic
+Learning Ionic while building different projects.
