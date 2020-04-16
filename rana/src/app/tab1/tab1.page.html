@@ -7,47 +7,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-img src="https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg"></ion-img>
+  <ion-card button *ngFor="let activity of (activityList | async)">
+    <ion-img [src]="activity.cropped"></ion-img>
     <ion-card-header>
       <ion-card-title>
-        John's Activity
-      </ion-card-title>
-    </ion-card-header>
-  </ion-card>
-
-  <ion-card>
-    <ion-img src="https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg"></ion-img>
-    <ion-card-header>
-      <ion-card-title>
-        John's Activity
-      </ion-card-title>
-    </ion-card-header>
-  </ion-card>
-
-  <ion-card>
-    <ion-img src="https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg"></ion-img>
-    <ion-card-header>
-      <ion-card-title>
-        John's Activity
-      </ion-card-title>
-    </ion-card-header>
-  </ion-card>
-
-  <ion-card>
-    <ion-img src="https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg"></ion-img>
-    <ion-card-header>
-      <ion-card-title>
-        John's Activity
-      </ion-card-title>
-    </ion-card-header>
-  </ion-card>
-
-  <ion-card>
-    <ion-img src="https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg"></ion-img>
-    <ion-card-header>
-      <ion-card-title>
-        John's Activity
+        {{activity.name}}
       </ion-card-title>
     </ion-card-header>
   </ion-card>
