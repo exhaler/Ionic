@@ -15,9 +15,10 @@ export class ActivityDetailPage implements OnInit {
   constructor(
     activityService: ActivityService,
     activatedRoute: ActivatedRoute
-  ) {
-    const activityID = activatedRoute.snapshot.params["activityID"];
-  }
+    ) { 
+      const activityID = activatedRoute.snapshot.params["activityID"];
+      this.activityDetail = activityService.getActivity(activityID);
+    }
 
   ngOnInit() {
   }
