@@ -3,22 +3,41 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>ActivityDetail</ion-title>
+    <ion-title></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-img [src]="(activityDetail | async).image"></ion-img>
+  <ion-img [src]="(activityDetail | async)?.image"></ion-img>
 
-  <ion-card>
+  <ion-card class="ion-no-margin">
     <ion-card-header>
       <ion-card-title>
-        {{(activityDetail | async).name}}
+        {{(activityDetail | async)?.name}}
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{(activityDetail | async).description}}
+      {{(activityDetail | async)?.description}}
     </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label>Duration</ion-label>
+        <ion-chip color="primary" mode="ios" outline="true">
+          <ion-label>{{ (activityDetail | async)?.duration }}</ion-label>
+        </ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Category</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Popularity</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-card>
 </ion-content>
  
