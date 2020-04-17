@@ -25,17 +25,23 @@
     <ion-list lines="none">
       <ion-item>
         <ion-label>Duration</ion-label>
-        <ion-chip color="primary" mode="ios" outline="true">
-          <ion-label>{{ (activityDetail | async)?.duration }}</ion-label>
+        <ion-chip color="primary">
+            {{ (activityDetail | async)?.duration }}
         </ion-chip>
       </ion-item>
 
       <ion-item>
         <ion-label>Category</ion-label>
+        <ion-chip color="primary">
+          {{ (activityDetail | async)?.category }}
+      </ion-chip>
       </ion-item>
 
       <ion-item>
         <ion-label>Popularity</ion-label>
+        <ion-chip color="primary">
+          {{ (activityDetail | async)?.popularity }}
+      </ion-chip>
       </ion-item>
     </ion-list>
   </ion-card>
