@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
     this._loginService.login(loginCredentials)
     .then((authData)=> {
       this._router.navigate(["/tabs"]);
-      console.log(authData);
+      //console.log(authData);
     })
     .catch((authError)=> {
       console.log("Auth Error => ", authError);

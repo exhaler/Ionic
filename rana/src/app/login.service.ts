@@ -12,7 +12,7 @@ export class LoginService {
   ) { }
 
   login(credentials: LoginCredential): Promise<any> {
-    return this._angularFireAuth
+    return this._angularFireAuth.auth
     .signInWithEmailAndPassword(
       credentials.email,
       credentials.password
