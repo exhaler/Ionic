@@ -7,18 +7,18 @@
 <ion-content>
  <ion-card>
    <ion-card-content>
-    <form>
+    <form [formGroup]="loginFormGroup">
       <ion-item>
         <ion-label>Email</ion-label>
-        <ion-input type="email"></ion-input>
+        <ion-input formControlName="email" type="email"></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-label>Password</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
 
-      <ion-button (click)="onClick()" expand="full" class="ion-margin-top">
+      <ion-button (click)="login()" expand="full" class="ion-margin-top" [disabled]="loginFormGroup.invalid">
         Login
       </ion-button>
     </form>
