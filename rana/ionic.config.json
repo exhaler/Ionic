@@ -1,7 +1,8 @@
 {
   "name": "rana",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
