@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-tab2',
@@ -6,7 +10,17 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  favoriteActivityList: Observable<any>;
 
-  constructor() {}
+  constructor(
+    private _angularFireStore: AngularFirestore,
+    private _angularFireAuth: AngularFireAuth
+  ) {
+    this.favoriteActivityList = _angularFireStore
+    .collection("favorites")
+    .doc(_angularFireAuth.auth.currentUser.uid)
+    .collection("favorites")
+    .valueChanges();
+  }
 
 }
