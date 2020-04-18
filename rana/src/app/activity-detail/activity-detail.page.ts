@@ -4,8 +4,9 @@ import { Activity } from '../types';
 import { ActivityService } from '../activity.service';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { ActivityVideoPageModule } from '../activity-video/activity-video.module';
 import { ActivityVideoPage } from '../activity-video/activity-video.page';
+
+import { SocialSharing } from '@ionic-native/social-sharing/ngx'
 
 @Component({
   selector: 'app-activity-detail',
@@ -16,7 +17,8 @@ export class ActivityDetailPage implements OnInit {
   activityDetail: Observable<Activity>;
 
   constructor(
-    private modalController: ModalController,
+    private _socialShare: SocialSharing,
+    private _modalController: ModalController,
     activityService: ActivityService,
     activatedRoute: ActivatedRoute
     ) { 
@@ -27,8 +29,14 @@ export class ActivityDetailPage implements OnInit {
   ngOnInit() {
   }
 
+  share() {
+    this.activityDetail.subscribe((activity)=>{
+      this._socialShare.share("Look what i found on this app", activity.name, "", activity.cropped);
+    });
+  }
+
   async openModal() {
-    const videoModal = await this.modalController.create({
+    const videoModal = await this._modalController.create({
       component: ActivityVideoPage
     });
 
