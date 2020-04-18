@@ -19,7 +19,12 @@ export class Tab3Page {
     private _angularFireAuth: AngularFireAuth,
     private _alertController: AlertController,
     private _camera: Camera
-  ) {}
+  ) {
+    this.myStoreProfileImage = _angularFireStore
+      .collection("user")
+      .doc(this._angularFireAuth.auth.currentUser.uid)
+      .valueChanges();
+  }
 
   async selectImageSource() {
     const cameraOptions: CameraOptions = {
@@ -54,11 +59,11 @@ export class Tab3Page {
               // this.myProfileImage = "data:image/jpeg;base64" + imageData;
               const image = "data:image/jpeg;base64" + imageData;
               this._angularFireStore
-              .collection("users")
-              .doc(this._angularFireAuth.auth.currentUser.uid)
-              .set({
-                image_src: image
-              });
+                .collection("users")
+                .doc(this._angularFireAuth.auth.currentUser.uid)
+                .set({
+                  image_src: image
+                });
             })
           }
         },
@@ -67,7 +72,14 @@ export class Tab3Page {
           handler: ()=> {
             this._camera.getPicture(galleryOptions)
             .then((imageData)=> {
-              this.myProfileImage = "data:image/jpeg;base64" + imageData;
+              // this.myProfileImage = "data:image/jpeg;base64" + imageData;
+              const image = "data:image/jpeg;base64" + imageData;
+              this._angularFireStore
+                .collection("users")
+                .doc(this._angularFireAuth.auth.currentUser.uid)
+                .set({
+                  image_src: image
+                });
             })
           }
         }
