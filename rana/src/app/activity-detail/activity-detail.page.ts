@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ActivityVideoPage } from '../activity-video/activity-video.page';
 
-import { SocialSharing } from '@ionic-native/social-sharing/ngx'
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-activity-detail',
