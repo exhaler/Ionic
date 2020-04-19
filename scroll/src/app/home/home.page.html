@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let char of charList">
+      <ion-label>{{ char }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreChars($event)">
+    <ion-infinite-scroll-content loadingText="Loading more chars...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
