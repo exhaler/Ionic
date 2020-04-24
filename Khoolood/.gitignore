@@ -30,5 +30,6 @@ npm-debug.log*
 /plugins
 /www
 
+# Envrionment Variables
 /src/environments
 /src/environments
