@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SegmentChangeEventDetail } from '@ionic/core';
 
 @Component({
   selector: 'app-home',
@@ -12,4 +13,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
+  segmentChanged(event: CustomEvent<SegmentChangeEventDetail>) {
+    console.log(event.detail);
+  }
 }

@@ -8,5 +8,15 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-segment value="individuals" (ionChange)="segmentChanged($event)" >
+    <ion-segment-button value="individuals">
+      Individuals
+    </ion-segment-button>
+    <ion-segment-button value="families">
+      Families
+    </ion-segment-button>
+    <ion-segment-button value="groups">
+      Groups
+    </ion-segment-button>
+  </ion-segment>
 </ion-content>
