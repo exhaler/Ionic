@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { LoadingController } from '@ionic/angular';
 
 import { AuthService } from './auth.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -11,6 +12,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
+  loginForm: FormGroup;
   isLoading = false;
   isLogin = true;
 
@@ -21,6 +23,22 @@ export class AuthPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [
+          Validators.required,
+          Validators.email
+        ]
+      }),
+      password: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [
+          Validators.required,
+          Validators.minLength(5),
+        ]
+      }),
+    });
   }
 
   onLogin() {
@@ -45,20 +63,20 @@ export class AuthPage implements OnInit {
     this.authService.logout();
   }
 
-  onSubmit(form: NgForm) {
-    if (!form.valid) {
-      return;
-    }
+  onSubmit() {
+    // if (!form.valid) {
+    //   return;
+    // }
 
-    const email = form.value.email;
-    const password = form.value.password;
-    console.log(email, password);
+    // const email = form.value.email;
+    // const password = form.value.password;
+    // console.log(email, password);
 
-    if (this.isLogin) {
-      // Send request to API to login
-    } else {
-      // Send request to API to signup
-    }
+    // if (this.isLogin) {
+    //   // Send request to API to login
+    // } else {
+    //   // Send request to API to signup
+    // }
   }
 
   onSwitchAuthMode() {
