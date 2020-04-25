@@ -20,7 +20,7 @@ export class AuthService {
     this._userIsAuthenticated = true;
     return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
       this.setUsername(username);
-      
+      return window.dispatchEvent(new CustomEvent('user:login'));
     });
   }
 
