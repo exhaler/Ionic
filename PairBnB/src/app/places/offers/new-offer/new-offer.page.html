@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>New Offer</ion-title>
     <ion-buttons slot="primary">
-      <ion-button (click)="onCreateOffer()">
+      <ion-button (click)="onCreateOffer()" [disabled]="!form.valid">
         <ion-icon slot="icon-only" name="checkmark"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -30,6 +30,12 @@
             <ion-label position="floating">Short description</ion-label>
             <ion-textarea rows="3" formControlName="description"></ion-textarea>
           </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!form.get('description').valid && form.get('description').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Description must not be longer that 180 characters</p>
         </ion-col>
       </ion-row>
 
