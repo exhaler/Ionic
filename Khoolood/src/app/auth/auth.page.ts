@@ -41,7 +41,15 @@ export class AuthPage implements OnInit {
     });
   }
 
-  onLogin() {
+  onLogout() {
+    this.authService.logout();
+  }
+
+  onLoginSubmit() {
+    if (!this.loginForm.valid) {
+      return;
+    }
+
     this.authService.login();
     this.isLoading = true;
     this.loadingCtrl
@@ -57,26 +65,16 @@ export class AuthPage implements OnInit {
         this.router.navigateByUrl('/app/home')
       }, 500);
     });
-  }
 
-  onLogout() {
-    this.authService.logout();
-  }
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    console.log(email, password);
 
-  onSubmit() {
-    // if (!form.valid) {
-    //   return;
-    // }
-
-    // const email = form.value.email;
-    // const password = form.value.password;
-    // console.log(email, password);
-
-    // if (this.isLogin) {
-    //   // Send request to API to login
-    // } else {
-    //   // Send request to API to signup
-    // }
+    if (this.isLogin) {
+      // Send request to API to login
+    } else {
+      // Send request to API to signup
+    }
   }
 
   onSwitchAuthMode() {
