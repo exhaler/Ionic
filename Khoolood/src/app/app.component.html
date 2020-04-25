@@ -9,7 +9,7 @@
     </ion-header>
 
     <ion-content>
-      <ion-list *ngIf="!isLoggedIn">
+      <ion-list *ngIf="!loggedIn">
         <ion-menu-toggle>
           <ion-item lines="none" [routerLink]="['/auth']">
             <ion-label>Login</ion-label>
@@ -47,9 +47,9 @@
         </ion-menu-toggle>
       </ion-list>
 
-      <ion-list *ngIf="isLoggedIn">
+      <ion-list *ngIf="loggedIn">
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
+          <ion-item lines="none" [routerLink]="['/app/home']">
             <ion-label>Home</ion-label>
           </ion-item>
         </ion-menu-toggle>

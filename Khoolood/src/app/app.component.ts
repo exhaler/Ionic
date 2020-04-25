@@ -13,16 +13,21 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  isLoggedIn: boolean;
+  loggedIn = false;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     this.initializeApp();
+  }
+
+  async ngOnInit() {
+    this.checkLoginStatus();
+    this.listenForLoginEvents();
   }
 
   initializeApp() {
@@ -30,12 +35,37 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
 
-    this.isLoggedIn = this.authService.userIsAuthenticated;
+  checkLoginStatus() {
+    return this.authService.isLoggedIn().then(loggedIn => {
+      return this.updateLoggedInStatus(loggedIn);
+    });
+  }
+
+  updateLoggedInStatus(loggedIn: boolean) {
+    setTimeout(() => {
+      this.loggedIn = loggedIn;
+    }, 300);
+  }
+
+  listenForLoginEvents() {
+    window.addEventListener('user:login', () => {
+      this.updateLoggedInStatus(true);
+    });
+
+    // window.addEventListener('user:signup', () => {
+    //   this.updateLoggedInStatus(true);
+    // });
+
+    window.addEventListener('user:logout', () => {
+      this.updateLoggedInStatus(false);
+    });
   }
 
   onLogout() {
-    this.authService.logout();
-    this.router.navigateByUrl('/auth')
+    this.authService.logout().then(() => {
+      return this.router.navigate(['/recent-obtis']);
+    });
   }
 }

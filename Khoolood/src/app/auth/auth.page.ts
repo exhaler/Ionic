@@ -50,7 +50,7 @@ export class AuthPage implements OnInit {
       return;
     }
 
-    this.authService.login();
+    this.authService.login(this.loginForm.value['email']);
     this.isLoading = true;
     this.loadingCtrl
     .create({
