@@ -13,6 +13,8 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  isLoggedIn: boolean;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -28,6 +30,8 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+    this.isLoggedIn = this.authService.userIsAuthenticated;
   }
 
   onLogout() {

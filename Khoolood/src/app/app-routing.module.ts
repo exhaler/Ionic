@@ -5,7 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "app/home",
+    redirectTo: "recent-obtis",
     pathMatch: "full",
   },
   {
@@ -14,16 +14,16 @@ const routes: Routes = [
       import("./auth/auth.module").then((m) => m.AuthPageModule),
   },
   {
+    path: 'recent-obtis',
+    loadChildren: () => import('./recent-obtis/recent-obtis.module').then( m => m.RecentObtisPageModule)
+  },
+  {
     path: "app",
     loadChildren: () =>
       import("./tabs/tabs.module").then((m) => m.TabsPageModule),
       canLoad: [AuthGuard]
       
-  },
-  {
-    path: 'saved',
-    loadChildren: () => import('./saved/saved.module').then( m => m.SavedPageModule)
-  },
+  }
 ];
 
 @NgModule({

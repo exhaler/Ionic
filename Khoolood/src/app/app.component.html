@@ -9,7 +9,45 @@
     </ion-header>
 
     <ion-content>
-      <ion-list>
+      <ion-list *ngIf="!isLoggedIn">
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="">
+            <ion-label>Login</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="">
+            <ion-label>Communities</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="">
+            <ion-label>Notifications</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="">
+            <ion-label>Contact Us</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="">
+            <ion-label>About Us</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="">
+            <ion-label>Help</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <ion-list *ngIf="isLoggedIn">
         <ion-menu-toggle>
           <ion-item lines="none" routerLink="">
             <ion-label>Home</ion-label>
