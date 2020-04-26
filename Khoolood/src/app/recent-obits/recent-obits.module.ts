@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RecentObtisPageRoutingModule } from './recent-obtis-routing.module';
+import { RecentObitsPageRoutingModule } from './recent-obits-routing.module';
 
-import { RecentObtisPage } from './recent-obtis.page';
+import { RecentObitsPage } from './recent-obits.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecentObtisPageRoutingModule
+    RecentObitsPageRoutingModule
   ],
-  declarations: [RecentObtisPage]
+  declarations: [RecentObitsPage]
 })
-export class RecentObtisPageModule {}
+export class RecentObitsPageModule {}

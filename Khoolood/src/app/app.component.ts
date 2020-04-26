@@ -65,7 +65,7 @@ export class AppComponent {
 
   onLogout() {
     this.authService.logout().then(() => {
-      return this.router.navigate(['/recent-obtis']);
+      return this.router.navigate(['/recent-obits']);
     });
   }
 }

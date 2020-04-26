@@ -9,7 +9,7 @@ export class AuthService {
   HAS_LOGGED_IN = 'hasLoggedIn';
   
   get userIsAuthenticated() {
-    return this._userIsAuthenticated;
+    return this.isLoggedIn();
   }
 
   constructor(
