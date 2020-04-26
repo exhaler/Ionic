@@ -49,6 +49,12 @@
 
       <ion-list *ngIf="loggedIn">
         <ion-menu-toggle>
+          <ion-item lines="none" [routerLink]="['/app/user']">
+            <ion-label>{{ username }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
           <ion-item lines="none" [routerLink]="['/app/home']">
             <ion-label>Home</ion-label>
           </ion-item>

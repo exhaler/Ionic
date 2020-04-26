@@ -14,6 +14,7 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   loggedIn = false;
+  username: string;
 
   constructor(
     private platform: Platform,
@@ -28,6 +29,7 @@ export class AppComponent {
   async ngOnInit() {
     this.checkLoginStatus();
     this.listenForLoginEvents();
+    this.getUsername();
   }
 
   initializeApp() {
@@ -46,7 +48,14 @@ export class AppComponent {
   updateLoggedInStatus(loggedIn: boolean) {
     setTimeout(() => {
       this.loggedIn = loggedIn;
+      this.getUsername();
     }, 300);
+  }
+
+  getUsername() {
+    this.authService.getUsername().then((username) => {
+      this.username = username;
+    });
   }
 
   listenForLoginEvents() {

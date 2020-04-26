@@ -37,6 +37,12 @@ export class AuthService {
     return this.storage.set('username', username);
   }
 
+  getUsername(): Promise<string> {
+    return this.storage.get('username').then((value) => {
+      return value;
+    });
+  }
+
   isLoggedIn(): Promise<boolean> {
     return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
       return value === true;
