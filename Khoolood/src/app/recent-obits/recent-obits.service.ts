@@ -1,19 +1,22 @@
 import { Injectable } from "@angular/core";
 import { CanLoad, Router } from "@angular/router";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 
 import { BehaviorSubject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
-import { AuthService } from '../auth/auth.service';
-import { RecentObituary, ObituaryObject } from './recent-obits.model';
-import { environment } from '../../environments/environment';
-import { RecentObituaryData } from './recent-obits-types';
+import { AuthService } from "../auth/auth.service";
+import {
+  RecentObituary,
+  ObituaryObject,
+  FuneralObject,
+} from "./recent-obits.model";
+import { environment } from "../../environments/environment";
+import { RecentObituaryData } from "./recent-obits-types";
 
 @Injectable({
   providedIn: "root",
 })
-
 export class RecentObitsService implements CanLoad {
   private _recentObits = new BehaviorSubject<RecentObituary[]>([]);
 
@@ -25,7 +28,7 @@ export class RecentObitsService implements CanLoad {
     private router: Router,
     private authService: AuthService,
     private http: HttpClient
-    ) {}
+  ) {}
 
   canLoad() {
     return this.authService.isLoggedIn().then((res) => {
@@ -54,7 +57,14 @@ export class RecentObitsService implements CanLoad {
                   new ObituaryObject(
                     resData[key].object.categoryId,
                     resData[key].object.deathDay,
-                    resData[key].object.funeral,
+                    new FuneralObject(
+                      resData[key].object.funeral.communityId,
+                      resData[key].object.funeral.funeralDate,
+                      resData[key].object.funeral.funeralTime,
+                      resData[key].object.funeral.lat,
+                      resData[key].object.funeral.long,
+                      resData[key].object.funeral.place
+                    ),
                     resData[key].object.name,
                     resData[key].object.obituaryId,
                     resData[key].object.photo
@@ -65,7 +75,7 @@ export class RecentObitsService implements CanLoad {
           }
           return places;
         }),
-        tap(places => {
+        tap((places) => {
           this._recentObits.next(places);
         })
       );

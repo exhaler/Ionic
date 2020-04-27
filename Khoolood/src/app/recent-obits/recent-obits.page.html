@@ -3,12 +3,12 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Recent Obituaries & Commemorations</ion-title>
+    <ion-title size="small">Recent Obituaries & Commemorations</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="isLoading" class="ion-text-center">
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
     <ion-spinner color="primary"></ion-spinner>
   </div>
   <p class="ion-text-center" *ngIf="!isLoading && recentObits.length <= 0">
@@ -16,11 +16,16 @@
   </p>
 
   <ion-list *ngIf="!isLoading && recentObits.length > 0">
-    <ion-item *ngFor="let recentObit of recentObits" routerLink="/obituary-detail/{{ recentObit.object.obituaryId }}">
+    <ion-item *ngFor="let recentObit of recentObits" routerLink="/obituary-detail/{{ recentObit.object.obituaryId }}" detail>
       <ion-avatar slot="start">
         <img [src]="recentObit.object.photo" />
       </ion-avatar>
-      <ion-label>{{ recentObit.object.name }}</ion-label>
+      <ion-label>
+        <h2>{{ recentObit.object.name }}</h2>
+        <p class="death-date">Date of death <span>{{ recentObit.object.deathDay }}</span></p>
+        <p class="death-date">Funeral <span>{{ recentObit.object.funeral.funeralDate }}</span></p>
+        <p class="funeral-place">{{ recentObit.object.funeral.place }}</p>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
