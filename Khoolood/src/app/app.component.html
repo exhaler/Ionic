@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>
-          Khoolood
+          <img src="assets/img/khoolood_logo_alt.png" class="logo" />
         </ion-title>
       </ion-toolbar>
     </ion-header>
@@ -23,26 +23,20 @@
         </ion-menu-toggle>
 
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
+          <ion-item lines="none" [routerLink]="['/notifications']">
             <ion-label>Notifications</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
+          <ion-item lines="none" [routerLink]="['/contact-us']">
             <ion-label>Contact Us</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
+          <ion-item lines="none" [routerLink]="['/about-us']">
             <ion-label>About Us</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-
-        <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
-            <ion-label>Help</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
@@ -85,13 +79,13 @@
         </ion-menu-toggle>
 
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
+          <ion-item lines="none" [routerLink]="['/contact-us']">
             <ion-label>Contact Us</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
+          <ion-item lines="none" [routerLink]="['/about-us']">
             <ion-label>About us</ion-label>
           </ion-item>
         </ion-menu-toggle>
