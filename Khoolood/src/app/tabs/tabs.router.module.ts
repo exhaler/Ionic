@@ -52,6 +52,14 @@ const routes: Routes = [
     path: 'notifications',
     loadChildren: () => import('../notifications/notifications.module').then( m => m.NotificationsPageModule)
   },
+  {
+    path: 'user',
+    loadChildren: () => import('../user/user.module').then( m => m.UserPageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule)
+  },
   // /app/ redirect
   {
     path: '',

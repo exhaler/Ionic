@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SegmentChangeEventDetail } from '@ionic/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,18 @@ import { SegmentChangeEventDetail } from '@ionic/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
   segmentChanged(event: CustomEvent<SegmentChangeEventDetail>) {
     console.log(event.detail);
+  }
+
+  searchPage() {
+    this.router.navigateByUrl('/app/search')
   }
 }
