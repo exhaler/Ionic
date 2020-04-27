@@ -17,7 +17,7 @@
 
   <ion-list *ngIf="!isLoading && recentObits.length > 0">
     <ion-item *ngFor="let recentObit of recentObits" routerLink="/obituary-detail/{{ recentObit.object.obituaryId }}">
-      <ion-avatar>
+      <ion-avatar slot="start">
         <img [src]="recentObit.object.photo" />
       </ion-avatar>
       <ion-label>{{ recentObit.object.name }}</ion-label>
