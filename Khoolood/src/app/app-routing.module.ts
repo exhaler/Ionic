@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 import { AuthGuard } from './auth/auth.guard';
-import { RecentObits } from './recent-obits/recent-obits.service';
+import { RecentObitsService } from './recent-obits/recent-obits.service';
 
 const routes: Routes = [
   {
@@ -15,9 +15,13 @@ const routes: Routes = [
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthPageModule)
   },
   {
+    path: "obituary-detail/:obituaryId",
+    loadChildren: () => import("./obituary-detail/obituary-detail.module").then((m) => m.ObituaryDetailPageModule)
+  },
+  {
     path: 'recent-obits',
     loadChildren: () => import('./recent-obits/recent-obits.module').then( m => m.RecentObitsPageModule),
-    canLoad: [RecentObits]
+    canLoad: [RecentObitsService]
   },
   {
     path: "app",

@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'obituary-detail',
-    loadChildren: () => import('./obituary-detail/obituary-detail.module').then( m => m.ObituaryDetailPageModule)
+    loadChildren: () => import('../../obituary-detail/obituary-detail.module').then( m => m.ObituaryDetailPageModule)
   }
 ];
 
