@@ -32,15 +32,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./tabs/tabs.module").then((m) => m.TabsPageModule),
       canLoad: [AuthGuard]
-  },  {
-    path: 'about-us',
-    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule)
   },
   {
-    path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+    path: 'about-us',
+    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule)
   }
-
 ];
 
 @NgModule({

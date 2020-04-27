@@ -48,6 +48,10 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'notifications',
+    loadChildren: () => import('../notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },
   // /app/ redirect
   {
     path: '',
