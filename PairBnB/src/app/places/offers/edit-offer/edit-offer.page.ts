@@ -3,7 +3,11 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 
-import { NavController, LoadingController } from "@ionic/angular";
+import {
+  NavController,
+  LoadingController,
+  AlertController,
+} from "@ionic/angular";
 
 import { Place } from "../../place.model";
 import { PlacesService } from "../../places.service";
@@ -25,7 +29,8 @@ export class EditOfferPage implements OnInit, OnDestroy {
     private navCtrl: NavController,
     private placesService: PlacesService,
     private router: Router,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -38,21 +43,39 @@ export class EditOfferPage implements OnInit, OnDestroy {
       this.isLoading = true;
       this.placeSub = this.placesService
         .getPlace(paramMap.get("placeId"))
-        .subscribe((place) => {
-          this.place = place;
+        .subscribe(
+          (place) => {
+            this.place = place;
 
-          this.form = new FormGroup({
-            title: new FormControl(this.place.title, {
-              updateOn: "blur",
-              validators: [Validators.required],
-            }),
-            description: new FormControl(this.place.description, {
-              updateOn: "blur",
-              validators: [Validators.required, Validators.maxLength(180)],
-            }),
-          });
-          this.isLoading = false;
-        });
+            this.form = new FormGroup({
+              title: new FormControl(this.place.title, {
+                updateOn: "blur",
+                validators: [Validators.required],
+              }),
+              description: new FormControl(this.place.description, {
+                updateOn: "blur",
+                validators: [Validators.required, Validators.maxLength(180)],
+              }),
+            });
+            this.isLoading = false;
+          },
+          (error) => {
+            this.alertCtrl.create({
+              header: "An error occurred",
+              message: "Place could not be fetched",
+              buttons: [
+                {
+                  text: "Okay",
+                  handler: () => {
+                    this.router.navigate(["/places/tabs/offers"]);
+                  },
+                },
+              ],
+            }).then(alertEl => {
+              alertEl.present();
+            });
+          }
+        );
     });
   }
 
