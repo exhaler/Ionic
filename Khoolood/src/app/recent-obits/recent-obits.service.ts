@@ -6,13 +6,11 @@ import { BehaviorSubject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
 import { AuthService } from "../auth/auth.service";
-import {
-  RecentObituary,
-  ObituaryObject,
-  FuneralObject,
-} from "./recent-obits.model";
+import { RecentObituary } from "./recent-obits.model";
+
 import { environment } from "../../environments/environment";
 import { RecentObituaryData } from "./recent-obits-types";
+import { ObituaryObject, FuneralObject } from '../home/obituaries/obituary.model';
 
 @Injectable({
   providedIn: "root",
@@ -48,10 +46,10 @@ export class RecentObitsService implements CanLoad {
       )
       .pipe(
         map((resData) => {
-          const places = [];
+          const recentObits = [];
           for (const key in resData) {
             if (resData.hasOwnProperty(key)) {
-              places.push(
+              recentObits.push(
                 new RecentObituary(
                   resData[key].type,
                   new ObituaryObject(
@@ -73,10 +71,10 @@ export class RecentObitsService implements CanLoad {
               );
             }
           }
-          return places;
+          return recentObits;
         }),
-        tap((places) => {
-          this._recentObits.next(places);
+        tap((recentObits) => {
+          this._recentObits.next(recentObits);
         })
       );
   }

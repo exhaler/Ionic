@@ -9,9 +9,9 @@ const routes: Routes = [
     component: ObituariesPage
   },
   {
-    path: 'obituary-detail',
-    loadChildren: () => import('../../obituary-detail/obituary-detail.module').then( m => m.ObituaryDetailPageModule)
-  }
+    path: "obituary-detail/:obituaryId",
+    loadChildren: () => import("../../obituary-detail/obituary-detail.module").then((m) => m.ObituaryDetailPageModule)
+  },
 ];
 
 @NgModule({
