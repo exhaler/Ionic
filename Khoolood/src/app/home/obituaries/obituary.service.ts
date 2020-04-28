@@ -37,7 +37,7 @@ export class ObituaryService {
   getObituaries() {
     return this.http
       .get<{ [key: string]: ObituariesData }>(
-        environment.firebaseURL + "/obituaries.json"
+        `${environment.firebaseURL}/obituaries.json`
       )
       .pipe(
         map((resData) => {

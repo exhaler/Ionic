@@ -42,7 +42,7 @@ export class RecentObitsService implements CanLoad {
   getRecentObituaries() {
     return this.http
       .get<{ [key: string]: RecentObituaryData }>(
-        environment.firebaseURL + "/recent-obituaries.json"
+        `${environment.firebaseURL}/obituaries.json`
       )
       .pipe(
         map((resData) => {
