@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
 import { RecentObitsService } from './recent-obits.service';
-import { RecentObituary } from './recent-obits.model';
+import { RecentObituary } from '../shared/models';
 
 @Component({
   selector: 'app-recent-obits',

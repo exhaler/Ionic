@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+
+import { NavController } from "@ionic/angular";
+
 import { Subscription } from "rxjs";
 
-import { ObituaryObject } from "../home/obituaries/obituary.model";
-import { ActivatedRoute, Router } from "@angular/router";
-import { NavController } from "@ionic/angular";
+import { ObituaryObject } from "../shared/models";
 import { ObituaryService } from "../home/obituaries/obituary.service";
 
 @Component({

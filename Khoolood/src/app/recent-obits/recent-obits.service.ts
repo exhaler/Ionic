@@ -6,11 +6,11 @@ import { BehaviorSubject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
 import { AuthService } from "../auth/auth.service";
-import { RecentObituary } from "./recent-obits.model";
+import { RecentObituary } from "../shared/models"
 
 import { environment } from "../../environments/environment";
-import { RecentObituaryData } from "./recent-obits-types";
-import { ObituaryObject, FuneralObject } from '../home/obituaries/obituary.model';
+import { ObituaryObject, FuneralObject } from '../shared/models';
+import { RecentObituaryData } from '../shared/types';
 
 @Injectable({
   providedIn: "root",
