@@ -17,6 +17,15 @@ export interface SingleObituaryData {
   photo: string;
 }
 
+export interface DetailedObituaryData {
+  categoryId: string;
+  dateOfDeath: string;
+  funerals: FuneralData;
+  firstName: string;
+  obituaryId: number;
+  photo: string;
+}
+
 export interface FuneralData {
   communityId: number;
   funeralDate: string;

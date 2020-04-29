@@ -1,12 +1,36 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/recent-obits"></ion-back-button>
     </ion-buttons>
-    <ion-title>Obituary Detail</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="share(detailObituary)">
+        <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="save(detailObituary)">
+        <ion-icon name="star-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<div class="obituary-background">
+    <h2 *ngIf="!isLoading">{{ detailObituary?.firstName }}</h2>
+    <p *ngIf="!isLoading">Date of death: {{ detailObituary?.dateOfDeath }}</p>
+    <img *ngIf="!isLoading" [src]="detailObituary?.photo" [alt]="detailObituary?.firstName" />
 
+    <ion-col class="ion-text-center loader" *ngIf="isLoading">
+      <ion-spinner color="light"></ion-spinner>
+    </ion-col>
+</div>
+
+<ion-content>
+  <ion-grid class="ion-padding-top">
+    <ion-row *ngIf="isLoading">
+      <ion-col class="ion-text-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

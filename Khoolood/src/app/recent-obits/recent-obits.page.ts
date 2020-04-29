@@ -26,7 +26,6 @@ export class RecentObitsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.recentObitsSub = this.recentObitsService.places.subscribe(places => {
       this.recentObits = places;
-      console.log(this.recentObits);
     });
 
     this.isLoading = true;

@@ -1,0 +1,46 @@
+ion-toolbar {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  --background: transparent;
+  --color: white;
+}
+
+.obituary-background {
+  position: relative;
+  display: flex;
+  padding-top: var(--ion-safe-area-top);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(250px + var(--ion-safe-area-top));
+  background: linear-gradient(to bottom, #1e3260, #2f6590);
+
+  .loader {
+      top: 50%;
+  }
+}
+
+.obituary-background img {
+  width: 140px;
+  border-radius: 50%;
+  top: 30px;
+  position: relative;
+}
+
+.obituary-background h2 {
+  position: absolute;
+  top: 1px;
+  color: white;
+  font-size: 20px;
+}
+
+.obituary-background p {
+  position: absolute;
+  top: 40px;
+  color: white;
+  font-size: 13px;
+}

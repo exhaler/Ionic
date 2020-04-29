@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
-import { NavController } from "@ionic/angular";
+import { NavController, AlertController } from "@ionic/angular";
 
 import { Subscription } from "rxjs";
 
-import { ObituaryObject } from "../shared/models";
+import { DetailedObituaryObject } from "../shared/models";
 import { ObituaryService } from "../home/obituaries/obituary.service";
 
 @Component({
@@ -14,14 +14,17 @@ import { ObituaryService } from "../home/obituaries/obituary.service";
   styleUrls: ["./obituary-detail.page.scss"],
 })
 export class ObituaryDetailPage implements OnInit, OnDestroy {
-  obituary: ObituaryObject;
+  detailObituary: DetailedObituaryObject;
+  obituaryId: number;
+  isLoading = false;
   private obituarySub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private navCtrl: NavController,
-    private obituaryService: ObituaryService
+    private obituaryService: ObituaryService,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -31,12 +34,41 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
         return;
       }
 
-      // this.obituarySub = this.obituaryService
-      //   .getObituary(+paramMap.get("obituaryId"))
-      //   .subscribe((obituary) => {
-      //     this.obituary = obituary;
-      //   });
+      this.obituaryId = +paramMap.get("obituaryId");
+      this.isLoading = true;
+      this.obituarySub = this.obituaryService
+        .getObituary(+paramMap.get("obituaryId"))
+        .subscribe(
+          (obituary) => {
+            this.detailObituary = obituary;
+            this.isLoading = false;
+          },
+          (error) => {
+            this.alertCtrl.create({
+              header: "An error occurred",
+              message: "Place could not be fetched",
+              buttons: [
+                {
+                  text: "Okay",
+                  handler: () => {
+                    this.router.navigate(["/recent-obits"]);
+                  },
+                },
+              ],
+            }).then(alertEl => {
+              alertEl.present();
+            });
+          }
+        );
     });
+  }
+
+  share(obituary) {
+    console.log(obituary)
+  }
+
+  save(obituary) {
+    console.log(obituary)
   }
 
   ngOnDestroy() {

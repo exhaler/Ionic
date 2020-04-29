@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { BehaviorSubject } from 'rxjs';
-import { take, map, tap } from 'rxjs/operators';
+import { BehaviorSubject } from "rxjs";
+import { take, map, tap } from "rxjs/operators";
 
-import { ObituaryObject, Obituaries, FuneralObject } from '../../shared/models';
-import { ObituariesData } from '../../shared/types';
-import { environment } from '../../../environments/environment';
+import {
+  ObituaryObject,
+  Obituaries,
+  FuneralObject,
+  DetailedObituaryObject,
+} from "../../shared/models";
+import { ObituariesData, DetailedObituaryData } from "../../shared/types";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ObituaryService {
   private _obituaries = new BehaviorSubject<Obituaries[]>([]);
@@ -18,20 +23,32 @@ export class ObituaryService {
     return this._obituaries.asObservable();
   }
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getObituary(id: number) {
-    // return this.http
-    // .get<{ [key: string]: SingleObituaryData }>(
-    //   environment.firebaseURL + "/obituary.json"
-    // ).pipe(
-    //   take(1),
-    //   map((obituary) => {
-    //     return { ...obituary.find((o) => o.obituaryId === id) };
-    //   })
-    // );
+    return this.http
+      .get<DetailedObituaryData>(
+        `${environment.firebaseURL}/obituary/${id}.json`
+      )
+      .pipe(
+        map((obitData) => {
+          return new DetailedObituaryObject(
+            obitData.categoryId,
+            obitData.dateOfDeath,
+            new FuneralObject(
+              obitData.funerals.communityId,
+              obitData.funerals.funeralDate,
+              obitData.funerals.funeralTime,
+              obitData.funerals.lat,
+              obitData.funerals.long,
+              obitData.funerals.place
+            ),
+            obitData.firstName,
+            obitData.obituaryId,
+            obitData.photo
+          );
+        })
+      );
   }
 
   getObituaries() {
