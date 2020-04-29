@@ -1,4 +1,11 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  Renderer2
+} from "@angular/core";
 import { ModalController } from "@ionic/angular";
 
 @Component({
@@ -7,12 +14,31 @@ import { ModalController } from "@ionic/angular";
   styleUrls: ["./map-modal.component.scss"],
 })
 export class MapModalComponent implements OnInit, AfterViewInit {
-  constructor(private modalCtrl: ModalController) {}
+  @ViewChild("map", { static: false }) mapElementRef: ElementRef;
+
+  constructor(private modalCtrl: ModalController, private renderer : Renderer2) {}
 
   ngOnInit() {}
 
   ngAfterViewInit() {
-    
+    this.getGoogleMaps()
+      .then((googleMaps) => {
+        const mapEl = this.mapElementRef.nativeElement;
+        const map = new googleMaps.Map(mapEl, {
+          center: {
+            lat: 33.8908314,
+            lng: 35.4999483,
+          },
+          zoom: 16,
+        });
+
+        googleMaps.event.addListenerOnce(map, "idle", () => {
+          this.renderer.addClass(mapEl, 'visible');
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   onCancel() {
@@ -26,9 +52,9 @@ export class MapModalComponent implements OnInit, AfterViewInit {
       return Promise.resolve(googleModule.maps);
     }
     return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.src =
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyB3P1U1KZYcRvql3VMXl2-g5GQlaK6AVlQ';
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyAoBXuHO8PtumB1Sskinvt2FPYtKlGPCyc";
       script.async = true;
       script.defer = true;
       document.body.appendChild(script);
@@ -37,7 +63,7 @@ export class MapModalComponent implements OnInit, AfterViewInit {
         if (loadedGoogleModule && loadedGoogleModule.maps) {
           resolve(loadedGoogleModule.maps);
         } else {
-          reject('Google maps SDK not available.');
+          reject("Google maps SDK not available.");
         }
       };
     });
