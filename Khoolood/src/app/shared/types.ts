@@ -22,6 +22,8 @@ export interface DetailedObituaryData {
   dateOfDeath: string;
   funerals: FuneralData;
   firstName: string;
+  middleName: string;
+  lastName: string;
   obituaryId: number;
   photo: string;
 }

@@ -32,6 +32,7 @@ export class ObituaryService {
       )
       .pipe(
         map((obitData) => {
+          console.log(obitData)
           return new DetailedObituaryObject(
             obitData.categoryId,
             obitData.dateOfDeath,
@@ -44,6 +45,8 @@ export class ObituaryService {
               obitData.funerals.place
             ),
             obitData.firstName,
+            obitData.middleName,
+            obitData.lastName,
             obitData.obituaryId,
             obitData.photo
           );

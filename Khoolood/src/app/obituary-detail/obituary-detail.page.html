@@ -16,7 +16,7 @@
 </ion-header>
 
 <div class="obituary-background">
-    <h2 *ngIf="!isLoading">{{ detailObituary?.firstName }}</h2>
+    <h2 *ngIf="!isLoading">{{ detailObituary?.firstName }} {{ detailObituary?.middleName }} {{ detailObituary?.lastName }}</h2>
     <p *ngIf="!isLoading">Date of death: {{ detailObituary?.dateOfDeath }}</p>
     <img *ngIf="!isLoading" [src]="detailObituary?.photo" [alt]="detailObituary?.firstName" />
 

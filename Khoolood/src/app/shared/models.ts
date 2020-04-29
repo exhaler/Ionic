@@ -23,6 +23,8 @@ export class DetailedObituaryObject {
     public dateOfDeath: string,
     public funerals: FuneralObject,
     public firstName: string,
+    public middleName: string,
+    public lastName: string,
     public obituaryId: number,
     public photo: string
   ) {}
