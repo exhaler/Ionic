@@ -6,6 +6,7 @@ import { take, tap, delay, switchMap, map } from "rxjs/operators";
 
 import { Booking } from "./booking.model";
 import { AuthService } from "../auth/auth.service";
+import { environment } from '../../environments/environment.prod';
 
 interface bookingData {
   bookedFrom: string;
@@ -56,7 +57,7 @@ export class BookingService {
     );
     return this.http
       .post<{ name: string }>(
-        "https://pairbnb-97ed6.firebaseio.com/bookings.json",
+        `${environment.firebaseURL}/bookings.json`,
         {
           ...newBooking,
           id: null,
@@ -77,7 +78,7 @@ export class BookingService {
 
   cancelBooking(bookingId: string) {
     return this.http
-      .delete(`https://pairbnb-97ed6.firebaseio.com/bookings/${bookingId}.json`)
+      .delete(`${environment.firebaseURL}/bookings/${bookingId}.json`)
       .pipe(
         switchMap(() => {
           return this.bookings;
@@ -92,7 +93,7 @@ export class BookingService {
   fetchBookings() {
     return this.http
       .get<{ [key: string]: bookingData }>(
-        `https://pairbnb-97ed6.firebaseio.com/bookings.json?orderBy="userId"&equalTo="${this.authService.userId}"`
+        `${environment.firebaseURL}/bookings.json?orderBy="userId"&equalTo="${this.authService.userId}"`
       )
       .pipe(
         map((bookingData) => {

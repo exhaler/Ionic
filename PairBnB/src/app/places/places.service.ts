@@ -6,6 +6,7 @@ import { take, map, tap, switchMap } from "rxjs/operators";
 
 import { Place } from "./place.model";
 import { AuthService } from "../auth/auth.service";
+import { environment } from '../../environments/environment.prod';
 
 interface PlaceData {
   availableFrom: string;
@@ -32,7 +33,7 @@ export class PlacesService {
   fetchPlaces() {
     return this.http
       .get<{ [key: string]: PlaceData }>(
-        "https://pairbnb-97ed6.firebaseio.com/offered-places.json"
+        `${environment.firebaseURL}/offered-places.json`
       )
       .pipe(
         map((resData) => {
@@ -64,7 +65,7 @@ export class PlacesService {
   getPlace(id: string) {
     return this.http
       .get<PlaceData>(
-        `https://pairbnb-97ed6.firebaseio.com/offered-places/${id}.json`
+        `${environment.firebaseURL}/offered-places/${id}.json`
       )
       .pipe(
         map((placeData) => {
@@ -103,7 +104,7 @@ export class PlacesService {
 
     return this.http
       .post<{ name: string }>(
-        "https://pairbnb-97ed6.firebaseio.com/offered-places.json",
+        `${environment.firebaseURL}/offered-places.json`,
         {
           ...newPlace,
           id: null,
@@ -149,7 +150,7 @@ export class PlacesService {
           oldPlace.userId
         );
         return this.http.put(
-          `https://pairbnb-97ed6.firebaseio.com/offered-places/${placeId}.json`,
+          `${environment.firebaseURL}/offered-places/${placeId}.json`,
           { ...updatedPlaces[updatedPlaceIndex], id: null }
         );
       }),
