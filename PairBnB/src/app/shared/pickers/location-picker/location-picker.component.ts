@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ɵdevModeEqual } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { MapModalComponent } from "../../map-modal/map-modal.component";
 
@@ -18,6 +18,9 @@ export class LocationPickerComponent implements OnInit {
         component: MapModalComponent,
       })
       .then((modalEl) => {
+        modalEl.onDidDismiss().then((modalData) => {
+          console.log(modalData.data);
+        });
         modalEl.present();
       });
   }

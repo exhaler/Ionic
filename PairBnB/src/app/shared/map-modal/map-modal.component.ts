@@ -4,7 +4,7 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
-  Renderer2
+  Renderer2,
 } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 
@@ -16,7 +16,10 @@ import { ModalController } from "@ionic/angular";
 export class MapModalComponent implements OnInit, AfterViewInit {
   @ViewChild("map", { static: false }) mapElementRef: ElementRef;
 
-  constructor(private modalCtrl: ModalController, private renderer : Renderer2) {}
+  constructor(
+    private modalCtrl: ModalController,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit() {}
 
@@ -33,7 +36,15 @@ export class MapModalComponent implements OnInit, AfterViewInit {
         });
 
         googleMaps.event.addListenerOnce(map, "idle", () => {
-          this.renderer.addClass(mapEl, 'visible');
+          this.renderer.addClass(mapEl, "visible");
+        });
+
+        map.addListener("click", (event) => {
+          const selectedCoords = {
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng(),
+          };
+          this.modalCtrl.dismiss(selectedCoords);
         });
       })
       .catch((err) => {
