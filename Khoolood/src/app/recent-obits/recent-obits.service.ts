@@ -39,10 +39,10 @@ export class RecentObitsService implements CanLoad {
     });
   }
 
-  getRecentObituaries() {
+  getRecentObituaries(pageNumber: number) {
     return this.http
       .get<RecentObituaryData>(
-        `${environment.apiURL}recentObituaries`
+        `${environment.apiURL}recentObituaries&page=${pageNumber}`
       )
       .pipe(
         map((resData) => {

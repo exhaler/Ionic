@@ -15,17 +15,33 @@
     No obituaries found
   </p>
 
-  <ion-list *ngIf="!isLoading && recentObits.length > 0">
-    <ion-item *ngFor="let recentObit of recentObits" routerLink="/obituary-detail/{{ recentObit.object.obituaryId }}" detail>
+  <ion-list *ngIf="!isLoading && recentObits.length > 0" class="ion-no-padding">
+    <ion-item
+      *ngFor="let recentObit of recentObits"
+      routerLink="/obituary-detail/{{ recentObit.object.obituaryId }}"
+      detail
+    >
       <ion-avatar slot="start">
         <img [src]="recentObit.object.photo" />
       </ion-avatar>
       <ion-label>
         <h2>{{ recentObit.object.name }}</h2>
-        <p class="death-date">Date of death <span>{{ recentObit.object.deathDay }}</span></p>
-        <p class="death-date">Funeral <span>{{ recentObit.object.funeral.funeralDate }}</span></p>
+        <p class="death-date">
+          Date of death <span>{{ recentObit.object.deathDay }}</span>
+        </p>
+        <p class="death-date">
+          Funeral <span>{{ recentObit.object.funeral.funeralDate }}</span>
+        </p>
         <p class="funeral-place">{{ recentObit.object.funeral.place }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll
+    class="ion-padding"
+    threshold="100px"
+    (ionInfinite)="loadNextPage($event)"
+  >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
