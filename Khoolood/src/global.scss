@@ -29,6 +29,14 @@
 @import "theme/fonts";
 
 p {
-    font-size: 15px;
-    color: #525252;
+  font-size: 15px;
+  color: #525252;
+}
+
+.ion-invalid.ion-touched ion-label {
+  color: var(--ion-color-danger);
+}
+
+ion-skeleton-text {
+  --background-rgb: var(--ion-color-primary-rgb);
 }

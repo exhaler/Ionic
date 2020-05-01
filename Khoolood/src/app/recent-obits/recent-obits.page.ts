@@ -17,6 +17,8 @@ export class RecentObitsPage implements OnInit, OnDestroy {
   private recentObitsSub: Subscription;
   pageNumber: number = 1; // default page number
   isLoading = false;
+  Arr = Array;
+  num: number = 15;
 
   constructor(
     private authService: AuthService,
