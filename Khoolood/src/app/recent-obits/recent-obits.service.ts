@@ -10,7 +10,7 @@ import { RecentObituary } from "../shared/models"
 
 import { environment } from "../../environments/environment";
 import { ObituaryObject, FuneralObject } from '../shared/models';
-import { ApiData } from '../shared/types';
+import { RecentObituaryData } from '../shared/types';
 
 @Injectable({
   providedIn: "root",
@@ -41,8 +41,8 @@ export class RecentObitsService implements CanLoad {
 
   getRecentObituaries() {
     return this.http
-      .get<ApiData>(
-        `${environment.localApiURL}recentObituaries`
+      .get<RecentObituaryData>(
+        `${environment.apiURL}recentObituaries`
       )
       .pipe(
         map((resData) => {

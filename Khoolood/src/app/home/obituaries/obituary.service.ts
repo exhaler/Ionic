@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { BehaviorSubject } from "rxjs";
-import { take, map, tap } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 import {
   ObituaryObject,
@@ -28,11 +28,12 @@ export class ObituaryService {
   getObituary(id: number) {
     return this.http
       .get<DetailedObituaryData>(
-        `${environment.firebaseURL}/obituary/${id}.json`
+        `${environment.apiURL}viewObituary&obituaryId=${id}`
       )
       .pipe(
         map((obitData) => {
-          console.log(obitData)
+          obitData = obitData.data.obituary;
+          console.log(obitData);
           return new DetailedObituaryObject(
             obitData.categoryId,
             obitData.dateOfDeath,
