@@ -1,3 +1,11 @@
+export class ApiObject {
+  constructor(
+    public error: string,
+    public session_id: string,
+    public data: any
+  ) {}
+}
+
 export class Obituaries {
   constructor(public type: string, public object: ObituaryObject) {}
 }
@@ -40,5 +48,3 @@ export class FuneralObject {
     public place: string
   ) {}
 }
-
-

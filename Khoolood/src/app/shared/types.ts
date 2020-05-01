@@ -1,14 +1,20 @@
-export interface RecentObituaryData {
+export interface ApiData {
+  error: string;
+  session_id: string;
+  data: any;
+}
+
+export interface RecentObituaryData extends ApiData {
   type: string;
   object: SingleObituaryData;
 }
 
-export interface ObituariesData {
+export interface ObituariesData extends ApiData {
   type: string;
   object: SingleObituaryData;
 }
 
-export interface SingleObituaryData {
+export interface SingleObituaryData extends ApiData {
   categoryId: string;
   deathDay: string;
   funeral: FuneralData;
@@ -17,7 +23,7 @@ export interface SingleObituaryData {
   photo: string;
 }
 
-export interface DetailedObituaryData {
+export interface DetailedObituaryData extends ApiData {
   categoryId: string;
   dateOfDeath: string;
   funerals: FuneralData;
@@ -28,7 +34,7 @@ export interface DetailedObituaryData {
   photo: string;
 }
 
-export interface FuneralData {
+export interface FuneralData extends ApiData {
   communityId: number;
   funeralDate: string;
   funeralTime: string;

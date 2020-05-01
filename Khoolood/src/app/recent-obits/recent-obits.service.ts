@@ -10,7 +10,7 @@ import { RecentObituary } from "../shared/models"
 
 import { environment } from "../../environments/environment";
 import { ObituaryObject, FuneralObject } from '../shared/models';
-import { RecentObituaryData } from '../shared/types';
+import { ApiData } from '../shared/types';
 
 @Injectable({
   providedIn: "root",
@@ -41,11 +41,12 @@ export class RecentObitsService implements CanLoad {
 
   getRecentObituaries() {
     return this.http
-      .get<{ [key: string]: RecentObituaryData }>(
-        `${environment.firebaseURL}/obituaries.json`
+      .get<ApiData>(
+        `${environment.localApiURL}recentObituaries`
       )
       .pipe(
         map((resData) => {
+          resData = resData.data.items;
           const recentObits = [];
           for (const key in resData) {
             if (resData.hasOwnProperty(key)) {
