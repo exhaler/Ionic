@@ -1,5 +1,7 @@
 {
   "name": "Khoolood",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
