@@ -9,6 +9,7 @@ import {
   Obituaries,
   FuneralObject,
   DetailedObituaryObject,
+  RelativesObject,
 } from "../../shared/models";
 import { ObituariesData, DetailedObituaryData } from "../../shared/types";
 import { environment } from "../../../environments/environment";
@@ -32,11 +33,17 @@ export class ObituaryService {
       )
       .pipe(
         map((obitData) => {
+          console.log(obitData)
           obitData = obitData.data.obituary;
-          console.log(obitData);
           return new DetailedObituaryObject(
             obitData.categoryId,
             obitData.dateOfDeath,
+            obitData.firstName,
+            obitData.middleName,
+            obitData.lastName,
+            obitData.obituaryId,
+            obitData.photo,
+            obitData.contents,
             new FuneralObject(
               obitData.funerals.communityId,
               obitData.funerals.funeralDate,
@@ -45,11 +52,16 @@ export class ObituaryService {
               obitData.funerals.long,
               obitData.funerals.place
             ),
-            obitData.firstName,
-            obitData.middleName,
-            obitData.lastName,
-            obitData.obituaryId,
-            obitData.photo
+            new RelativesObject(
+              obitData.relatives.brothers,
+              obitData.relatives.children,
+              obitData.relatives.father,
+              obitData.relatives.husband,
+              obitData.relatives.mother,
+              obitData.relatives.relatives,
+              obitData.relatives.sisters,
+              obitData.relatives.wife
+            ),
           );
         })
       );

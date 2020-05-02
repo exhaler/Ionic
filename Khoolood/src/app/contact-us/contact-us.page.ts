@@ -13,7 +13,7 @@ export class ContactUsPage implements OnInit {
 
   ngOnInit() {
     this.contactUsForm = new FormGroup({
-      enquiry: new FormControl(null, {}),
+      enquiry: new FormControl('general', {}),
       name: new FormControl(null, {
         validators: [Validators.required],
       }),

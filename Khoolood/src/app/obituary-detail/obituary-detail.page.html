@@ -8,7 +8,7 @@
       <ion-button (click)="share(detailObituary)">
         <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button (click)="save(detailObituary)">
+      <ion-button *ngIf="loggedIn" (click)="save(detailObituary)">
         <ion-icon name="star-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -16,20 +16,144 @@
 </ion-header>
 
 <div class="obituary-background">
-    <h2 *ngIf="!isLoading">{{ detailObituary?.firstName }} {{ detailObituary?.middleName }} {{ detailObituary?.lastName }}</h2>
-    <p *ngIf="!isLoading">Date of death: {{ detailObituary?.dateOfDeath }}</p>
-    <img *ngIf="!isLoading" [src]="detailObituary?.photo" [alt]="detailObituary?.firstName" />
+  <h2 *ngIf="!isLoading">
+    {{ detailObituary?.firstName }} {{ detailObituary?.middleName }} {{
+    detailObituary?.lastName }}
+  </h2>
+  <p *ngIf="!isLoading">Date of death: {{ detailObituary?.dateOfDeath }}</p>
+  <img
+    *ngIf="!isLoading"
+    [src]="detailObituary?.photo"
+    [alt]="detailObituary?.firstName"
+  />
 
-    <ion-col class="ion-text-center loader" *ngIf="isLoading">
-      <ion-spinner color="light"></ion-spinner>
-    </ion-col>
+  <ion-col class="ion-text-center loader" *ngIf="isLoading">
+    <ion-spinner color="light"></ion-spinner>
+  </ion-col>
 </div>
 
 <ion-content>
-  <ion-grid class="ion-padding-top">
-    <ion-row *ngIf="isLoading">
+  <ion-grid class="ion-padding-top" *ngIf="isLoading">
+    <ion-row>
       <ion-col class="ion-text-center">
         <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col>
+        <h3>Relatives</h3>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.husband">
+      <ion-col size="4">
+        <ion-label>Husband</ion-label>
+      </ion-col>
+      <ion-col size="8"><p dir="auto">{{ detailObituary?.relatives.husband }}</p></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.wife">
+      <ion-col size="4">
+        <ion-label>Wife</ion-label>
+      </ion-col>
+      <ion-col size="8"><p dir="auto">{{ detailObituary?.relatives.wife }}</p></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.brothers">
+      <ion-col size="4">
+        <ion-label>Brothers</ion-label>
+      </ion-col>
+      <ion-col size="8"
+        ><p dir="auto">{{ detailObituary?.relatives.brothers }}</p></ion-col
+      >
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.children">
+      <ion-col size="4">
+        <ion-label>Children</ion-label>
+      </ion-col>
+      <ion-col size="8"
+        ><p dir="auto">{{ detailObituary?.relatives.children }}</p></ion-col
+      >
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.father">
+      <ion-col size="4">
+        <ion-label>Father</ion-label>
+      </ion-col>
+      <ion-col size="8"><p dir="auto">{{ detailObituary?.relatives.father }}</p></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.mother">
+      <ion-col size="4">
+        <ion-label>Mother</ion-label>
+      </ion-col>
+      <ion-col size="8"><p dir="auto">{{ detailObituary?.relatives.mother }}</p></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.sisters">
+      <ion-col size="4">
+        <ion-label>Sisters</ion-label>
+      </ion-col>
+      <ion-col size="8"><p dir="auto">{{ detailObituary?.relatives.sisters }}</p></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.relatives.relatives">
+      <ion-col size="4">
+        <ion-label>Relatives</ion-label>
+      </ion-col>
+      <ion-col size="8"
+        ><p dir="auto">{{ detailObituary?.relatives.relatives }}</p></ion-col
+      >
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col>
+        <h3>Funeral</h3>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.funerals.funeralDate">
+      <ion-col size="2">
+        <ion-label>Date</ion-label>
+      </ion-col>
+      <ion-col size="10"
+        ><p>{{ detailObituary?.funerals.funeralDate }}</p></ion-col
+      >
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.funerals.funeralTime">
+      <ion-col size="2">
+        <ion-label>Time</ion-label>
+      </ion-col>
+      <ion-col size="10"
+        ><p>{{ detailObituary?.funerals.funeralTime }}</p></ion-col
+      >
+    </ion-row>
+
+    <ion-row *ngIf="detailObituary?.funerals.place">
+      <ion-col size="2">
+        <ion-label>Place</ion-label>
+      </ion-col>
+      <ion-col size="10"><p dir="auto">{{ detailObituary?.funerals.place }}</p></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col>
+        <h3>Notes</h3>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p dir="auto">{{ detailObituary?.contents }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>

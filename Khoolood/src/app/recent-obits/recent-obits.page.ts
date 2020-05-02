@@ -15,7 +15,7 @@ import { RecentObituary } from "../shared/models";
 export class RecentObitsPage implements OnInit, OnDestroy {
   recentObits: RecentObituary[];
   private recentObitsSub: Subscription;
-  pageNumber: number = 1; // default page number
+  pageNumber: number = 1;
   isLoading = false;
   Arr = Array;
   num: number = 15;

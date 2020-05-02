@@ -7,6 +7,7 @@ import { Subscription } from "rxjs";
 
 import { DetailedObituaryObject } from "../shared/models";
 import { ObituaryService } from "../home/obituaries/obituary.service";
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: "app-obituary-detail",
@@ -17,6 +18,7 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
   detailObituary: DetailedObituaryObject;
   obituaryId: number;
   isLoading = false;
+  loggedIn = false;
   private obituarySub: Subscription;
 
   constructor(
@@ -24,10 +26,15 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
     private router: Router,
     private navCtrl: NavController,
     private obituaryService: ObituaryService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.authService.isLoggedIn().then(loggedIn => {
+      this.loggedIn = loggedIn;
+    });
+
     this.route.paramMap.subscribe((paramMap) => {
       if (!paramMap.has("obituaryId")) {
         this.navCtrl.navigateBack("/recent-obits");
@@ -41,39 +48,48 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
         .subscribe(
           (obituary) => {
             this.detailObituary = obituary;
+            console.log(obituary);
+
             this.isLoading = false;
           },
           (error) => {
-            this.alertCtrl.create({
-              header: "An error occurred",
-              message: "Place could not be fetched",
-              buttons: [
-                {
-                  text: "Okay",
-                  handler: () => {
-                    this.router.navigate(["/recent-obits"]);
+            this.alertCtrl
+              .create({
+                header: "An error occurred",
+                message: "Place could not be fetched",
+                buttons: [
+                  {
+                    text: "Okay",
+                    handler: () => {
+                      this.router.navigate(["/recent-obits"]);
+                    },
                   },
-                },
-              ],
-            }).then(alertEl => {
-              alertEl.present();
-            });
+                ],
+              })
+              .then((alertEl) => {
+                alertEl.present();
+              });
           }
         );
     });
   }
 
   share(obituary) {
-    console.log(obituary)
+    console.log(obituary);
   }
 
   save(obituary) {
-    console.log(obituary)
+    console.log(obituary);
   }
 
   ngOnDestroy() {
     if (this.obituarySub) {
       this.obituarySub.unsubscribe();
     }
+  }
+
+  isArabic(text) {
+    var pattern = /[\u0600-\u06FF]/;
+    alert(pattern.test(text));
   }
 }

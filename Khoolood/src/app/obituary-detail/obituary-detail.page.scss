@@ -33,14 +33,32 @@ ion-toolbar {
 
 .obituary-background h2 {
   position: absolute;
-  top: 1px;
+  top: 10px;
   color: white;
   font-size: 20px;
 }
 
 .obituary-background p {
   position: absolute;
-  top: 40px;
+  top: 45px;
   color: white;
   font-size: 13px;
+}
+
+h3 {
+  color: var(--ion-color-primary);
+  font-weight: bold;
+  margin-top: 0;
+}
+
+ion-label {
+  color: #8E8E8E;
+  font-size: 14px;
+}
+
+ion-col p {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  white-space: pre-wrap;
 }

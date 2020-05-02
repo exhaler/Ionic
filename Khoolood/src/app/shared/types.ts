@@ -32,6 +32,8 @@ export interface DetailedObituaryData extends ApiData {
   lastName: string;
   obituaryId: number;
   photo: string;
+  contents: string;
+  relatives: RelativesData;
 }
 
 export interface FuneralData extends ApiData {
@@ -41,4 +43,15 @@ export interface FuneralData extends ApiData {
   lat: number;
   long: number;
   place: string;
+}
+
+export interface RelativesData extends ApiData {
+  brothers: string;
+  children: string;
+  father: string;
+  husband: string;
+  mother: string;
+  relatives: string;
+  sisters: string;
+  wife: string;
 }

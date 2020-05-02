@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   private obituariesSub: Subscription;
   private commemorationsSub: Subscription;
   isLoading = false;
+  pageNumber: number = 1;
 
   constructor(
     private router: Router,

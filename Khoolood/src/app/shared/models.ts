@@ -29,12 +29,14 @@ export class DetailedObituaryObject {
   constructor(
     public categoryId: string,
     public dateOfDeath: string,
-    public funerals: FuneralObject,
     public firstName: string,
     public middleName: string,
     public lastName: string,
     public obituaryId: number,
-    public photo: string
+    public photo: string,
+    public contents: string,
+    public funerals: FuneralObject,
+    public relatives: RelativesObject,
   ) {}
 }
 
@@ -46,5 +48,18 @@ export class FuneralObject {
     public lat: number,
     public long: number,
     public place: string
+  ) {}
+}
+
+export class RelativesObject {
+  constructor(
+    public brothers: string,
+    public children: string,
+    public father: string,
+    public husband: string,
+    public mother: string,
+    public relatives: string,
+    public sisters: string,
+    public wife: string,
   ) {}
 }
