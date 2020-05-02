@@ -1,5 +1,7 @@
 {
   "name": "PairBnB",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
