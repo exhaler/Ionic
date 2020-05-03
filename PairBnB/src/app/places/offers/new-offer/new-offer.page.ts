@@ -56,6 +56,10 @@ export class NewOfferPage implements OnInit {
     });
   }
 
+  onImagePicked(imageData: string) {
+    
+  }
+
   onCreateOffer() {
     if (!this.form.valid) {
       return;

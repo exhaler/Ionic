@@ -6,12 +6,15 @@
     [src]="selectedImage"
     *ngIf="selectedImage"
   ></ion-img>
-  <ion-button
-    (click)="onPickImage()"
-    color="primary"
-    *ngIf="!selectedImage"
-  >
+  <ion-button (click)="onPickImage()" color="primary" *ngIf="!selectedImage">
     <ion-icon slot="start" name="camera"></ion-icon>
     <ion-label>Take picture</ion-label>
   </ion-button>
 </div>
+
+<input
+  type="file"
+  *ngIf="userPicker"
+  #filePicker
+  (change)="onFileChosen($event)"
+/>
