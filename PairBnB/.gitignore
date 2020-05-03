@@ -33,7 +33,6 @@ firebase.*
 /www
 /android
 /ios
-/functions
 
 # Envrionment Variables
 /src/environments
