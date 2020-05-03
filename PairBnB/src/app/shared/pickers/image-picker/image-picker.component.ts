@@ -20,7 +20,7 @@ import { Platform } from "@ionic/angular";
   styleUrls: ["./image-picker.component.scss"],
 })
 export class ImagePickerComponent implements OnInit {
-  @ViewChild("filePicker", { static: false }) filePicker: ElementRef<
+  @ViewChild("filePicker", { static: false }) filePickerRef: ElementRef<
     HTMLInputElement
   >;
   @Output() imagePick = new EventEmitter<string | File>();
@@ -39,8 +39,8 @@ export class ImagePickerComponent implements OnInit {
   }
 
   onPickImage() {
-    if (!Capacitor.isPluginAvailable("Camera") || this.userPicker) {
-      this.filePicker.nativeElement.click();
+    if (!Capacitor.isPluginAvailable("Camera")) {
+      this.filePickerRef.nativeElement.click();
       return;
     }
 
@@ -58,6 +58,9 @@ export class ImagePickerComponent implements OnInit {
       })
       .catch((error) => {
         console.log(error);
+        if (this.userPicker) {
+          this.filePickerRef.nativeElement.click();
+        }
         return false;
       });
   }
