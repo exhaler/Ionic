@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pairbnb-97ed6": {
+      "hosting": {
+        "app": [
+          "pairbnb-97ed6"
+        ]
+      }
+    }
+  }
+}

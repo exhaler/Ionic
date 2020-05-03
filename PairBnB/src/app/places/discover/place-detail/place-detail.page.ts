@@ -17,6 +17,7 @@ import { PlacesService } from "../../places.service";
 import { BookingService } from "../../../bookings/booking.service";
 import { AuthService } from "../../../auth/auth.service";
 import { MapModalComponent } from "../../../shared/map-modal/map-modal.component";
+import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-place-detail",
@@ -49,13 +50,21 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         return;
       }
       this.isLoading = true;
-
-      this.placeSub = this.placesService
-        .getPlace(paramMap.get("placeId"))
+      let fetchedUserId: string;
+      this.authService.userId
+        .pipe(
+          switchMap((userId) => {
+            if (!userId) {
+              throw new Error("No user id found");
+            }
+            fetchedUserId = userId;
+            return this.placesService.getPlace(paramMap.get("placeId"));
+          })
+        )
         .subscribe(
           (place) => {
             this.place = place;
-            this.isBookable = place.userId !== this.authService.userId;
+            this.isBookable = place.userId !== fetchedUserId;
             this.isLoading = false;
           },
           (error) => {
@@ -150,11 +159,14 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
       .create({
         component: MapModalComponent,
         componentProps: {
-          center: { lat: this.place.location.lat, lng: this.place.location.lng },
+          center: {
+            lat: this.place.location.lat,
+            lng: this.place.location.lng,
+          },
           selectable: false,
-          closeButtonText: 'Close',
-          title: this.place.location.address
-        }
+          closeButtonText: "Close",
+          title: this.place.location.address,
+        },
       })
       .then((modalEl) => {
         modalEl.present();
