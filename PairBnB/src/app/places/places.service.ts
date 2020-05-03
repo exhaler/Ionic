@@ -6,8 +6,8 @@ import { take, map, tap, switchMap } from "rxjs/operators";
 
 import { Place } from "./place.model";
 import { AuthService } from "../auth/auth.service";
-import { environment } from '../../environments/environment.prod';
-import { PlaceLocation } from './location.model';
+import { environment } from "../../environments/environment.prod";
+import { PlaceLocation } from "./location.model";
 
 interface PlaceData {
   availableFrom: string;
@@ -67,9 +67,7 @@ export class PlacesService {
 
   getPlace(id: string) {
     return this.http
-      .get<PlaceData>(
-        `${environment.firebaseURL}/offered-places/${id}.json`
-      )
+      .get<PlaceData>(`${environment.firebaseURL}/offered-places/${id}.json`)
       .pipe(
         map((placeData) => {
           return new Place(
@@ -87,20 +85,31 @@ export class PlacesService {
       );
   }
 
+  uploadImage(image: File) {
+    const uploadData = new FormData();
+    uploadData.append("image", image);
+
+    return this.http.post<{ imageUrl: string; imagePatch: string }>(
+      `${environment.firebaseFunction}`,
+      uploadData
+    );
+  }
+
   addPlace(
     title: string,
     description: string,
     price: number,
     dateFrom: Date,
     dateTo: Date,
-    location: PlaceLocation
+    location: PlaceLocation,
+    imageUrl: string
   ) {
     let generateID: string;
     const newPlace = new Place(
       Math.random().toString(),
       title,
       description,
-      "https://cdn.theculturetrip.com/wp-content/uploads/2016/04/screenshot-958.png",
+      imageUrl,
       price,
       dateFrom,
       dateTo,
