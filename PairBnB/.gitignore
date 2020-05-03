@@ -12,10 +12,12 @@
 Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
+*.firebaserc
 
 *.log
 log.txt
 npm-debug.log*
+firebase.*
 
 /.idea
 /.ionic
@@ -31,6 +33,7 @@ npm-debug.log*
 /www
 /android
 /ios
+/functions
 
 # Envrionment Variables
 /src/environments
