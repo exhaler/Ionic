@@ -48,7 +48,7 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
         .subscribe(
           (obituary) => {
             this.detailObituary = obituary;
-            console.log(obituary);
+            //console.log(obituary);
 
             this.isLoading = false;
           },

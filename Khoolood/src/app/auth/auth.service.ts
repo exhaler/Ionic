@@ -15,7 +15,6 @@ import { environment } from "../../environments/environment";
 })
 export class AuthService {
   private _user = new BehaviorSubject<User>(null);
-  HAS_LOGGED_IN = "hasLoggedIn";
 
   get userIsAuthenticated() {
     return this._user.asObservable().pipe(
@@ -115,6 +114,16 @@ export class AuthService {
     window.dispatchEvent(new CustomEvent('user:logout'));
   }
 
+  async getUserToken(): Promise<string> {
+    const token = await Plugins.Storage.get({ key: "authData" });
+    
+    if (!token.value) {
+      return;
+    }
+    const value = JSON.parse(token.value);
+    return value.token;
+  }
+
   async getUsername(): Promise<string> {
     const displayName = await Plugins.Storage.get({ key: "authData" });
     
@@ -122,7 +131,7 @@ export class AuthService {
       return;
     }
     const value = JSON.parse(displayName.value);
-    console.log("display name", value.displayName);
+    //console.log("display name", value.displayName);
     return value.displayName;
   }
 

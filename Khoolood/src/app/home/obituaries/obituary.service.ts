@@ -13,6 +13,7 @@ import {
 } from "../../shared/models";
 import { ObituariesData, DetailedObituaryData } from "../../shared/types";
 import { environment } from "../../../environments/environment";
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: "root",
@@ -24,7 +25,7 @@ export class ObituaryService {
     return this._obituaries.asObservable();
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getObituary(id: number) {
     return this.http
@@ -33,7 +34,7 @@ export class ObituaryService {
       )
       .pipe(
         map((obitData) => {
-          console.log(obitData);
+          //console.log(obitData);
           obitData = obitData.data.obituary;
           return new DetailedObituaryObject(
             obitData.categoryId,
@@ -68,9 +69,14 @@ export class ObituaryService {
   }
 
   getObituaries() {
+    this.authService.getUserToken().then(token => {
+      //console.log(token);
+    });
+
+    const data = `getFeed&token=&type=obituaries`;
     return this.http
       .get<{ [key: string]: ObituariesData }>(
-        `${environment.apiURL}/obituaries.json`
+        `${environment.apiURL}`
       )
       .pipe(
         map((resData) => {

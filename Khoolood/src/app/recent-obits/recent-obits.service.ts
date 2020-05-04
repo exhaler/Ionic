@@ -15,7 +15,7 @@ import { RecentObituaryData } from "../shared/types";
 @Injectable({
   providedIn: "root",
 })
-export class RecentObitsService {
+export class RecentObitsService implements CanLoad {
   private _recentObits = new BehaviorSubject<RecentObituary[]>([]);
 
   get places() {
@@ -27,6 +27,17 @@ export class RecentObitsService {
     private authService: AuthService,
     private http: HttpClient
   ) {}
+
+  canLoad() {
+    return this.authService.isLoggedIn().then((res) => {
+      if (res) {
+        this.router.navigate(["/app", "home"]);
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
 
   getRecentObituaries(pageNumber: number) {
     return this.http

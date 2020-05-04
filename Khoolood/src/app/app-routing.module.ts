@@ -35,6 +35,7 @@ const routes: Routes = [
       import("./recent-obits/recent-obits.module").then(
         (m) => m.RecentObitsPageModule
       ),
+    canLoad: [RecentObitsService],
   },
   {
     path: "app",
