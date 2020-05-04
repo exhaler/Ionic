@@ -33,7 +33,7 @@ export class ObituaryService {
       )
       .pipe(
         map((obitData) => {
-          console.log(obitData)
+          console.log(obitData);
           obitData = obitData.data.obituary;
           return new DetailedObituaryObject(
             obitData.categoryId,
@@ -61,7 +61,7 @@ export class ObituaryService {
               obitData.relatives.relatives,
               obitData.relatives.sisters,
               obitData.relatives.wife
-            ),
+            )
           );
         })
       );
@@ -70,7 +70,7 @@ export class ObituaryService {
   getObituaries() {
     return this.http
       .get<{ [key: string]: ObituariesData }>(
-        `${environment.firebaseURL}/obituaries.json`
+        `${environment.apiURL}/obituaries.json`
       )
       .pipe(
         map((resData) => {
@@ -110,7 +110,7 @@ export class ObituaryService {
   getCommemorations() {
     return this.http
       .get<{ [key: string]: ObituariesData }>(
-        environment.firebaseURL + "/commemorations.json"
+        environment.apiURL + "/commemorations.json"
       )
       .pipe(
         map((resData) => {

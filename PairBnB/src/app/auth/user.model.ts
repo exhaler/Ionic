@@ -10,7 +10,7 @@ export class User {
     if (!this.tokenExpirationDate || this.tokenExpirationDate <= new Date()) {
       return null;
     } else {
-        return this._token;
+      return this._token;
     }
   }
 }

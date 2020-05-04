@@ -2,6 +2,7 @@ export interface ApiData {
   error: string;
   session_id: string;
   data: any;
+  message?: string;
 }
 
 export interface RecentObituaryData extends ApiData {
@@ -54,4 +55,11 @@ export interface RelativesData extends ApiData {
   relatives: string;
   sisters: string;
   wife: string;
+}
+
+export interface AuthResponseData extends ApiData {
+  userId: string;
+  displayName: string;
+  email: string;
+  _token: string;
 }

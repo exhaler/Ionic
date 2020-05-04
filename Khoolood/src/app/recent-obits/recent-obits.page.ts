@@ -39,13 +39,7 @@ export class RecentObitsPage implements OnInit, OnDestroy {
       });
   }
 
-  ionViewWillEnter() {
-    this.authService.userIsAuthenticated.then((res) => {
-      if (res === true) {
-        this.router.navigateByUrl("/app/home", { replaceUrl: true });
-      }
-    });
-  }
+  ionViewWillEnter() {}
 
   loadNextPage(infiniteScroll: any) {
     this.pageNumber++;

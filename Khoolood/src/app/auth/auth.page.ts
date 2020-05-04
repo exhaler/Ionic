@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from "@ionic/angular";
 
-import { AuthService } from './auth.service';
+import { Observable } from "rxjs";
+
+import { AuthService } from "./auth.service";
+import { AuthResponseData } from "../shared/types";
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.page.html',
-  styleUrls: ['./auth.page.scss'],
+  selector: "app-auth",
+  templateUrl: "./auth.page.html",
+  styleUrls: ["./auth.page.scss"],
 })
 export class AuthPage implements OnInit {
   loginForm: FormGroup;
@@ -19,26 +22,68 @@ export class AuthPage implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
       email: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [
-          Validators.required,
-          Validators.email
-        ]
+        validators: [Validators.required, Validators.email],
       }),
       password: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [
-          Validators.required,
-          Validators.minLength(5),
-        ]
+        validators: [Validators.required, Validators.minLength(5)],
       }),
     });
+  }
+
+  authenticate(email: string, password: string) {
+    this.isLoading = true;
+    this.loadingCtrl
+      .create({
+        keyboardClose: true,
+        message: "Logging in..",
+      })
+      .then((loadingEl) => {
+        loadingEl.present();
+        let authObs: Observable<AuthResponseData>;
+        if (this.isLogin) {
+          authObs = this.authService.login(email, password);
+        } else {
+          //authObs = this.authService.signup(email, password);
+        }
+        authObs.subscribe(
+          (resData) => {
+            if (resData.error) {
+              loadingEl.dismiss();
+              this.showAlert(resData.message);
+            } else {
+              this.isLoading = false;
+              loadingEl.dismiss();
+              window.dispatchEvent(new CustomEvent('user:login'));
+              this.router.navigateByUrl("/app/home");
+              this.loginForm.reset();
+            }
+          },
+          (errRes) => {
+            console.log(errRes);
+            loadingEl.dismiss();
+            this.showAlert(errRes);
+          }
+        );
+      });
+  }
+
+  private showAlert(message: string) {
+    this.alertCtrl
+      .create({
+        header: "Authentication failed",
+        message: message,
+        buttons: ["Okay"],
+      })
+      .then((alertEl) => {
+        alertEl.present();
+      });
   }
 
   onLogout() {
@@ -50,35 +95,14 @@ export class AuthPage implements OnInit {
       return;
     }
 
-    this.authService.login(this.loginForm.value['email']);
-    this.isLoading = true;
-    this.loadingCtrl
-    .create({
-      keyboardClose: true,
-      message: 'Logging in..'
-    })
-    .then(loadingEl => {
-      loadingEl.present();
-      setTimeout(() => {
-        this.isLoading = false;
-        loadingEl.dismiss();
-        this.router.navigateByUrl('/app/home')
-      }, 500);
-    });
-
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    console.log(email, password);
+    //console.log(email, password);
 
-    if (this.isLogin) {
-      // Send request to API to login
-    } else {
-      // Send request to API to signup
-    }
+    this.authenticate(email, password);
   }
 
   onSwitchAuthMode() {
     this.isLogin = !this.isLogin;
   }
-
 }

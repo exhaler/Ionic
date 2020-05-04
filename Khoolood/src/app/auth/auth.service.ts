@@ -1,51 +1,141 @@
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+
+import { Plugins } from "@capacitor/core";
+
+import { BehaviorSubject, from } from "rxjs";
+import { map, tap } from "rxjs/operators";
+
+import { User } from "../shared/models";
+import { AuthResponseData } from "../shared/types";
+import { environment } from "../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-  private _userIsAuthenticated = false;
-  HAS_LOGGED_IN = 'hasLoggedIn';
-  
+  private _user = new BehaviorSubject<User>(null);
+  HAS_LOGGED_IN = "hasLoggedIn";
+
   get userIsAuthenticated() {
-    return this.isLoggedIn();
+    return this._user.asObservable().pipe(
+      map((user) => {
+        if (user) {
+          return !!user.token;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
-  constructor(
-    public storage: Storage
-  ) { }
+  constructor(private http: HttpClient) {}
 
-  login(username: string): Promise<any> {
-    this._userIsAuthenticated = true;
-    return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
-      this.setUsername(username);
-      return window.dispatchEvent(new CustomEvent('user:login'));
+  private setUserData(userData: AuthResponseData) {
+    if (!userData.error) {
+      this._user.next(
+        new User(
+          userData.data.userId,
+          userData.data.displayName,
+          userData.data.email,
+          userData.data.token
+        )
+      );
+      this.storeAuthData(
+        userData.data.userId,
+        userData.data.displayName,
+        userData.data.email,
+        userData.data.token
+      );
+    }
+  }
+
+  autoLogin() {
+    return from(Plugins.Storage.get({ key: "authData" })).pipe(
+      map((storedData) => {
+        if (!storedData || !storedData.value) {
+          return null;
+        }
+
+        const parsedData = JSON.parse(storedData.value) as {
+          userId: string;
+          displayName: string;
+          email: string;
+          _token: string;
+        };
+
+        const user = new User(
+          parsedData.userId,
+          parsedData.displayName,
+          parsedData.email,
+          parsedData._token
+        );
+
+        return user;
+      }),
+      tap((user) => {
+        if (user) {
+          this._user.next(user);
+        }
+      }),
+      map((user) => {
+        return !!user;
+      })
+    );
+  }
+
+  login(email: string, password: string) {
+    const data = `user_login&email=${email}&password=${password}`;
+    return this.http
+      .post<AuthResponseData>(`${environment.apiURL}${data}`, null)
+      .pipe(tap(this.setUserData.bind(this)));
+  }
+
+  private storeAuthData(
+    userId: string,
+    displayName: string,
+    email: string,
+    _token: string
+  ) {
+    const data = JSON.stringify({
+      userId: userId,
+      displayName: displayName,
+      email: email,
+      token: _token,
+    });
+    Plugins.Storage.set({
+      key: "authData",
+      value: data,
     });
   }
 
-  logout(): Promise<any> {
-    this._userIsAuthenticated = false;
-    return this.storage.remove(this.HAS_LOGGED_IN).then(() => {
-      return this.storage.remove('username');
-    }).then(() => {
-      window.dispatchEvent(new CustomEvent('user:logout'));
-    });
+  logout() {
+    this._user.next(null);
+    Plugins.Storage.remove({ key: "authData" });
+    window.dispatchEvent(new CustomEvent('user:logout'));
   }
 
-  setUsername(username: string): Promise<any> {
-    return this.storage.set('username', username);
+  async getUsername(): Promise<string> {
+    const displayName = await Plugins.Storage.get({ key: "authData" });
+    
+    if (!displayName.value) {
+      return;
+    }
+    const value = JSON.parse(displayName.value);
+    console.log("display name", value.displayName);
+    return value.displayName;
   }
 
-  getUsername(): Promise<string> {
-    return this.storage.get('username').then((value) => {
-      return value;
-    });
-  }
+  async isLoggedIn(): Promise<boolean> {
+    const authData = await Plugins.Storage.get({ key: "authData" });
+    if (authData.value) {
+      const parsedAuthData = JSON.parse(authData.value);
 
-  isLoggedIn(): Promise<boolean> {
-    return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
-      return value === true;
-    });
+      if (!parsedAuthData.token) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 }

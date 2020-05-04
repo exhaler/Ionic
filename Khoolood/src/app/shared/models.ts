@@ -63,3 +63,20 @@ export class RelativesObject {
     public wife: string,
   ) {}
 }
+
+export class User {
+  constructor(
+    public userId: string,
+    public displayName: string,
+    public email: string,
+    public _token: string,
+  ) {}
+
+  get token() {
+    if (!this._token) {
+      return null;
+    } else {
+      return this._token;
+    }
+  }
+}

@@ -6,16 +6,16 @@ import { BehaviorSubject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
 import { AuthService } from "../auth/auth.service";
-import { RecentObituary } from "../shared/models"
+import { RecentObituary } from "../shared/models";
 
 import { environment } from "../../environments/environment";
-import { ObituaryObject, FuneralObject } from '../shared/models';
-import { RecentObituaryData } from '../shared/types';
+import { ObituaryObject, FuneralObject } from "../shared/models";
+import { RecentObituaryData } from "../shared/types";
 
 @Injectable({
   providedIn: "root",
 })
-export class RecentObitsService implements CanLoad {
+export class RecentObitsService {
   private _recentObits = new BehaviorSubject<RecentObituary[]>([]);
 
   get places() {
@@ -27,17 +27,6 @@ export class RecentObitsService implements CanLoad {
     private authService: AuthService,
     private http: HttpClient
   ) {}
-
-  canLoad() {
-    return this.authService.isLoggedIn().then((res) => {
-      if (res) {
-        this.router.navigate(["/app", "home"]);
-        return false;
-      } else {
-        return true;
-      }
-    });
-  }
 
   getRecentObituaries(pageNumber: number) {
     return this.http

@@ -71,6 +71,7 @@ export class AuthService {
   }
 
   private setUserData(userData: AuthResponseData) {
+    console.log('set user data', userData);
     const expirationTime = new Date(
       new Date().getTime() + +userData.expiresIn * 1000
     );

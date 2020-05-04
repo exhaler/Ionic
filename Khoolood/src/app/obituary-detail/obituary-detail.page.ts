@@ -31,9 +31,9 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn().then(loggedIn => {
-      this.loggedIn = loggedIn;
-    });
+    // this.authService.isLoggedIn().then(loggedIn => {
+    //   this.loggedIn = loggedIn;
+    // });
 
     this.route.paramMap.subscribe((paramMap) => {
       if (!paramMap.has("obituaryId")) {
