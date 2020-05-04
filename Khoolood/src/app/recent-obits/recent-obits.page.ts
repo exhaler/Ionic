@@ -27,8 +27,8 @@ export class RecentObitsPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.recentObitsSub = this.recentObitsService.places.subscribe((places) => {
-      this.recentObits = places;
+    this.recentObitsSub = this.recentObitsService.obituaries.subscribe((obits) => {
+      this.recentObits = obits;
     });
 
     this.isLoading = true;
@@ -49,13 +49,17 @@ export class RecentObitsPage implements OnInit, OnDestroy {
 
   loadNextPage(infiniteScroll: any) {
     this.pageNumber++;
+    if (this.recentObits.length < 15) {
+      infiniteScroll.target.disabled = true;
+      return;
+    }
     let moreRecentObits = [...this.recentObits];
     this.recentObitsService.getRecentObituaries(this.pageNumber).subscribe(
-      (places) => {
-        if (places.length < 15) {
+      (recentObits) => {
+        if (recentObits.length < 15) {
           infiniteScroll.target.disabled = true;
         }
-        this.recentObits = moreRecentObits.concat(places);
+        this.recentObits = moreRecentObits.concat(recentObits);
       },
       (error) => {
         console.log(error);

@@ -18,7 +18,7 @@ import { RecentObituaryData } from "../shared/types";
 export class RecentObitsService implements CanLoad {
   private _recentObits = new BehaviorSubject<RecentObituary[]>([]);
 
-  get places() {
+  get obituaries() {
     return this._recentObits.asObservable();
   }
 

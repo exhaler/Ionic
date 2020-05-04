@@ -14,7 +14,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment value="obituaries" (ionChange)="segmentChanged($event)" >
+  <ion-segment value="obituaries" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="updates">
       Updates
     </ion-segment-button>
@@ -26,24 +26,68 @@
     </ion-segment-button>
   </ion-segment>
 
-  <div *ngIf="isLoading" class="ion-text-center ion-padding">
-    <ion-spinner color="primary"></ion-spinner>
-  </div>
-  <p class="ion-text-center" *ngIf="!isLoading && relevantObituaries.length <= 0">
+  <p
+    class="ion-text-center"
+    *ngIf="!isLoading && relevantObituaries.length <= 0"
+  >
     No obituaries found
   </p>
 
-  <ion-list *ngIf="!isLoading && relevantObituaries.length > 0">
-    <ion-item *ngFor="let obituary of loadedObituaries" routerLink="/obituary-detail/{{ obituary.object.obituaryId }}" detail>
+  <ion-list *ngIf="isLoading" class="ion-no-padding">
+    <ion-item *ngFor="let i of Arr(num).fill(1)">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2>
+          <ion-skeleton-text
+            animated
+            style="height: 20px; width: 75%;"
+          ></ion-skeleton-text>
+        </h2>
+        <p>
+          <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list
+    *ngIf="!isLoading && relevantObituaries.length > 0"
+    class="ion-no-padding"
+  >
+    <ion-item
+      *ngFor="let obituary of loadedObituaries"
+      routerLink="/obituary-detail/{{ obituary.object.obituaryId }}"
+      detail
+    >
       <ion-avatar slot="start">
         <img [src]="obituary.object.photo" />
       </ion-avatar>
       <ion-label>
         <h2>{{ obituary.object.name }}</h2>
-        <p class="death-date">Date of death <span>{{ obituary.object.deathDay }}</span></p>
-        <p class="death-date">Funeral <span>{{ obituary.object.funeral.funeralDate }}</span></p>
+        <p class="death-date">
+          Date of death <span>{{ obituary.object.deathDay }}</span>
+        </p>
+        <p class="death-date">
+          Funeral <span>{{ obituary.object.funeral.funeralDate }}</span>
+        </p>
         <p class="funeral-place">{{ obituary.object.funeral.place }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll
+    class="ion-padding"
+    threshold="100px"
+    (ionInfinite)="loadNextPage($event)"
+  >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

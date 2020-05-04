@@ -20,12 +20,14 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class ObituaryService {
   private _obituaries = new BehaviorSubject<Obituaries[]>([]);
+  private userToken: string;
 
-  get obituary() {
+  get obituaries() {
     return this._obituaries.asObservable();
   }
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+  }
 
   getObituary(id: number) {
     return this.http
@@ -68,18 +70,15 @@ export class ObituaryService {
       );
   }
 
-  getObituaries() {
-    this.authService.getUserToken().then(token => {
-      //console.log(token);
-    });
-
-    const data = `getFeed&token=&type=obituaries`;
+  getObituaries(token: string, pageNumber: number) {
+    const data = `getFeed&token=${token}&type=Obituary&page=${pageNumber}`;
     return this.http
-      .get<{ [key: string]: ObituariesData }>(
-        `${environment.apiURL}`
+      .get<ObituariesData>(
+        `${environment.apiURL}${data}`
       )
       .pipe(
         map((resData) => {
+          resData = resData.data.items;
           const obituaries = [];
           for (const key in resData) {
             if (resData.hasOwnProperty(key)) {
