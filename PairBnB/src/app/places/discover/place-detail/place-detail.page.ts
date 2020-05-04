@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 
 import { Subscription } from "rxjs";
+import { switchMap, take } from "rxjs/operators";
 
 import { ActivatedRoute, Router } from "@angular/router";
 import {
@@ -17,7 +18,6 @@ import { PlacesService } from "../../places.service";
 import { BookingService } from "../../../bookings/booking.service";
 import { AuthService } from "../../../auth/auth.service";
 import { MapModalComponent } from "../../../shared/map-modal/map-modal.component";
-import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-place-detail",
@@ -53,6 +53,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
       let fetchedUserId: string;
       this.authService.userId
         .pipe(
+          take(1),
           switchMap((userId) => {
             if (!userId) {
               throw new Error("No user id found");
