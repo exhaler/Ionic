@@ -1,2 +1,2 @@
 # Khoolood
-Converting [khoolood](www.khoolood.com) into an app.
+Converting [khoolood](https://www.khoolood.com) into an app.
