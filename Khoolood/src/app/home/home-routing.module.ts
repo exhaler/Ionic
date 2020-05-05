@@ -7,18 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage
-  },
-  {
-    path: 'updates',
-    loadChildren: () => import('./updates/updates.module').then( m => m.UpdatesPageModule)
-  },
-  {
-    path: 'obituaries',
-    loadChildren: () => import('./obituaries/obituaries.module').then( m => m.ObituariesPageModule)
-  },
-  {
-    path: 'commemorations',
-    loadChildren: () => import('./commemorations/commemorations.module').then( m => m.CommemorationsPageModule)
   }
 ];
 
