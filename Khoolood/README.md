@@ -1,2 +1,2 @@
 # Khoolood
-Converting www.khoolood.com into an app
+Converting [khoolood](www.khoolood.com){:target="_blank"} into an app.
