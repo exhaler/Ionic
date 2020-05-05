@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   isLoading = false;
   Arr = Array;
   num: number = 15;
-  userToken: string;
+  showPage: string = "obituaries";
 
   constructor(
     private router: Router,
@@ -33,17 +33,14 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.isLoading = true;
 
-    this.authService.getUserToken().then((token) => {
-      this.userToken = token;
-      // Get obituaries
-      this.obituariesSub = this.obituaryService
-        .getObituaries(this.userToken, this.pageNumber)
-        .subscribe((obituaries) => {
-          this.loadedObituaries = obituaries;
-          this.relevantObituaries = this.loadedObituaries;
-          this.isLoading = false;
-        });
-    });
+    // Get obituaries
+    this.obituariesSub = this.obituaryService
+      .getObituaries(this.pageNumber)
+      .subscribe((obituaries) => {
+        this.loadedObituaries = obituaries;
+        //this.relevantObituaries = this.loadedObituaries;
+        this.isLoading = false;
+      });
 
     // Get updates
 
@@ -63,7 +60,7 @@ export class HomePage implements OnInit {
     }
     let moreObits = [...this.loadedObituaries];
     this.obituaryService
-      .getObituaries(this.userToken, this.pageNumber)
+      .getObituaries(this.pageNumber)
       .subscribe(
         (obits) => {
           if (obits.length < 15) {
@@ -81,12 +78,16 @@ export class HomePage implements OnInit {
   }
 
   segmentChanged(event: CustomEvent<SegmentChangeEventDetail>) {
+    console.log(this.showPage);
     if (event.detail.value === "updates") {
-      this.relevantObituaries = [];
+      this.showPage = "updates";
+      //this.relevantObituaries = [];
     } else if (event.detail.value === "obituaries") {
-      this.relevantObituaries = this.loadedObituaries;
+      this.showPage = "obituaries";
+      //this.relevantObituaries = this.loadedObituaries;
     } else {
-      this.relevantObituaries = [];
+      this.showPage = "commemorations";
+      //this.relevantObituaries = [];
     }
   }
 

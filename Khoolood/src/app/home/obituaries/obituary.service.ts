@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { BehaviorSubject } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { map, tap, take } from "rxjs/operators";
 
 import {
   ObituaryObject,
@@ -27,7 +27,11 @@ export class ObituaryService {
   }
 
   constructor(private http: HttpClient, private authService: AuthService) {
+    this.authService.userToken.pipe(take(1)).subscribe((token) => {
+      this.userToken = token;
+    });
   }
+  
 
   getObituary(id: number) {
     return this.http
@@ -70,8 +74,8 @@ export class ObituaryService {
       );
   }
 
-  getObituaries(token: string, pageNumber: number) {
-    const data = `getFeed&token=${token}&type=Obituary&page=${pageNumber}`;
+  getObituaries(pageNumber: number) {
+    const data = `getFeed&token=${this.userToken}&type=Obituary&page=${pageNumber}`;
     return this.http
       .get<ObituariesData>(
         `${environment.apiURL}${data}`

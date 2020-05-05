@@ -28,6 +28,18 @@ export class AuthService {
     );
   }
 
+  get userToken() {
+    return this._user.asObservable().pipe(
+      map((user) => {
+        if (user) {
+          return user._token;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
   constructor(private http: HttpClient) {}
 
   private setUserData(userData: AuthResponseData) {
@@ -60,14 +72,14 @@ export class AuthService {
           userId: string;
           displayName: string;
           email: string;
-          _token: string;
+          token: string;
         };
 
         const user = new User(
           parsedData.userId,
           parsedData.displayName,
           parsedData.email,
-          parsedData._token
+          parsedData.token
         );
 
         return user;
