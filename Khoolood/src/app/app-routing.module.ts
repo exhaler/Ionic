@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 import { AuthGuard } from "./auth/auth.guard";
-import { RecentObitsService } from "./recent-obits/recent-obits.service";
+import { RecentObitsService } from "./shared/services/recent-obits.service";
 
 const routes: Routes = [
   {

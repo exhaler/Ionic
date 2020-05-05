@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RecentObitsService } from './recent-obits.service';
+import { RecentObitsService } from '../shared/services/recent-obits.service';
 
 describe('RecentObitsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

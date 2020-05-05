@@ -10,8 +10,8 @@ import {
   FuneralObject,
   DetailedObituaryObject,
   RelativesObject,
-} from "../../shared/models";
-import { ObituariesData, DetailedObituaryData } from "../../shared/types";
+} from "../models";
+import { ObituariesData, DetailedObituaryData } from "../types";
 import { environment } from "../../../environments/environment";
 import { AuthService } from '../../auth/auth.service';
 
@@ -83,46 +83,6 @@ export class ObituaryService {
       .pipe(
         map((resData) => {
           resData = resData.data.items;
-          const obituaries = [];
-          for (const key in resData) {
-            if (resData.hasOwnProperty(key)) {
-              obituaries.push(
-                new Obituaries(
-                  resData[key].type,
-                  new ObituaryObject(
-                    resData[key].object.categoryId,
-                    resData[key].object.deathDay,
-                    new FuneralObject(
-                      resData[key].object.funeral.communityId,
-                      resData[key].object.funeral.funeralDate,
-                      resData[key].object.funeral.funeralTime,
-                      resData[key].object.funeral.lat,
-                      resData[key].object.funeral.long,
-                      resData[key].object.funeral.place
-                    ),
-                    resData[key].object.name,
-                    resData[key].object.obituaryId,
-                    resData[key].object.photo
-                  )
-                )
-              );
-            }
-          }
-          return obituaries;
-        }),
-        tap((obituaries) => {
-          this._obituaries.next(obituaries);
-        })
-      );
-  }
-
-  getCommemorations() {
-    return this.http
-      .get<{ [key: string]: ObituariesData }>(
-        environment.apiURL + "/commemorations.json"
-      )
-      .pipe(
-        map((resData) => {
           const obituaries = [];
           for (const key in resData) {
             if (resData.hasOwnProperty(key)) {

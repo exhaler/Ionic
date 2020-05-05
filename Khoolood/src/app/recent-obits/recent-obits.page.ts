@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { AuthService } from "../auth/auth.service";
-import { RecentObitsService } from "./recent-obits.service";
+import { RecentObitsService } from "../shared/services/recent-obits.service";
 import { RecentObituary } from "../shared/models";
 
 @Component({
@@ -27,9 +27,11 @@ export class RecentObitsPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.recentObitsSub = this.recentObitsService.obituaries.subscribe((obits) => {
-      this.recentObits = obits;
-    });
+    this.recentObitsSub = this.recentObitsService.recentObituaries.subscribe(
+      (obits) => {
+        this.recentObits = obits;
+      }
+    );
 
     this.isLoading = true;
     this.recentObitsService

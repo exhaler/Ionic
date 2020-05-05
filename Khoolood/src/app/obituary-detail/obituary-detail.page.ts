@@ -6,7 +6,7 @@ import { NavController, AlertController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 
 import { DetailedObituaryObject } from "../shared/models";
-import { ObituaryService } from "../home/obituaries/obituary.service";
+import { ObituaryService } from "../shared/services/obituary.service";
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -31,9 +31,9 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.authService.isLoggedIn().then(loggedIn => {
-    //   this.loggedIn = loggedIn;
-    // });
+    this.authService.isLoggedIn().then(loggedIn => {
+      this.loggedIn = loggedIn;
+    });
 
     this.route.paramMap.subscribe((paramMap) => {
       if (!paramMap.has("obituaryId")) {

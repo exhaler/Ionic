@@ -5,12 +5,12 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
-import { AuthService } from "../auth/auth.service";
-import { RecentObituary } from "../shared/models";
+import { AuthService } from "../../auth/auth.service";
+import { RecentObituary } from "../models";
 
-import { environment } from "../../environments/environment";
-import { ObituaryObject, FuneralObject } from "../shared/models";
-import { RecentObituaryData } from "../shared/types";
+import { environment } from "../../../environments/environment";
+import { ObituaryObject, FuneralObject } from "../models";
+import { RecentObituaryData } from "../types";
 
 @Injectable({
   providedIn: "root",
@@ -18,7 +18,7 @@ import { RecentObituaryData } from "../shared/types";
 export class RecentObitsService implements CanLoad {
   private _recentObits = new BehaviorSubject<RecentObituary[]>([]);
 
-  get obituaries() {
+  get recentObituaries() {
     return this._recentObits.asObservable();
   }
 
