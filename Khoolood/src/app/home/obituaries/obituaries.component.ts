@@ -13,6 +13,7 @@ import { ObituaryService } from "../../shared/services/obituary.service";
 export class ObituariesComponent implements OnInit, OnDestroy {
   loadedObituaries: Obituaries[];
   private obituariesSub: Subscription;
+  obitType = 'Obituary';
   pageNumber: number = 1;
   isLoading = false;
   Arr = Array;
@@ -24,7 +25,7 @@ export class ObituariesComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     this.obituariesSub = this.obituaryService
-      .getObituaries(this.pageNumber)
+      .getObituaries(this.pageNumber, this.obitType)
       .subscribe((obituaries) => {
         this.loadedObituaries = obituaries;
         this.isLoading = false;
@@ -38,7 +39,7 @@ export class ObituariesComponent implements OnInit, OnDestroy {
       return;
     }
     let moreObits = [...this.loadedObituaries];
-    this.obituaryService.getObituaries(this.pageNumber).subscribe(
+    this.obituaryService.getObituaries(this.pageNumber, this.obitType).subscribe(
       (obits) => {
         if (obits.length < 15) {
           infiniteScroll.target.disabled = true;

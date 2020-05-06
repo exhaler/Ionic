@@ -21,7 +21,6 @@ export class HomePage implements OnInit {
   ngOnInit() {}
 
   segmentChanged(event: CustomEvent<SegmentChangeEventDetail>) {
-    console.log(this.showPage);
     if (event.detail.value === "updates") {
       this.showPage = "updates";
     } else if (event.detail.value === "obituaries") {

@@ -70,12 +70,12 @@ export class ObituaryService {
     );
   }
 
-  getObituaries(pageNumber: number) {
+  getObituaries(pageNumber: number, obitType: string) {
     return this.authService.userToken.pipe(
       take(1),
       switchMap((token) => {
         return this.http.get<ObituariesData>(
-          `${environment.apiURL}getFeed&token=${token}&type=Obituary&page=${pageNumber}`
+          `${environment.apiURL}getFeed&token=${token}&type=${obitType}&page=${pageNumber}`
         );
       }),
       map((resData) => {
