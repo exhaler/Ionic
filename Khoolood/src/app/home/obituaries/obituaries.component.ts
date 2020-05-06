@@ -23,7 +23,6 @@ export class ObituariesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
 
-    // Get obituaries
     this.obituariesSub = this.obituaryService
       .getObituaries(this.pageNumber)
       .subscribe((obituaries) => {
