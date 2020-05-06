@@ -1,2 +1,2 @@
 # W.E.T
-What to eat app, using API from https://www.themealdb.com
+What to Eat Today app, using API from https://www.themealdb.com
