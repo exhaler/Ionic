@@ -20,7 +20,6 @@ import { AuthService } from "../../auth/auth.service";
 })
 export class ObituaryService {
   private _obituaries = new BehaviorSubject<Obituaries[]>([]);
-  private userToken: string;
 
   get obituaries() {
     return this._obituaries.asObservable();
