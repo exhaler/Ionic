@@ -1,6 +1,7 @@
 export enum MEALDB_Category {
     'Beef' = 'Beef',
     'Chicken' = 'Chicken',
+    'Dessert' = 'Dessert',
     'Lamb' = 'Lamb',
     'Pasta' = 'Pasta',
     'Pork' = 'Pork',

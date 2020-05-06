@@ -4,12 +4,15 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { MEALDB_Category, MEALDB_ListItem } from "./model";
+import { MEALDB_Category, MEALDB_ListItem, MEALDB_Meal } from "./model";
 
 export const MEALDB_API = {
   ROOT: "https://www.themealdb.com/api/json/v1/1/",
   get FILTER() {
     return this.ROOT + "filter.php";
+  },
+  get LOOKUP() {
+    return this.ROOT + "lookup.php";
   },
 };
 
@@ -20,6 +23,12 @@ export class MealdbApiService {
   meals$: BehaviorSubject<any[]> = new BehaviorSubject([]);
   usedIds = new Set();
   constructor(private http: HttpClient) {}
+
+  getMealById(id: string): Observable<MEALDB_Meal> {
+    return this.http
+      .get(`${MEALDB_API.LOOKUP}?i=${id}`)
+      .pipe(map((res: { meals: MEALDB_Meal[] }) => res.meals[0]));
+  }
 
   getWhatToEat(): Observable<void> {
     const categoryAsArray = Object.keys(MEALDB_Category).map(

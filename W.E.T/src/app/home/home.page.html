@@ -9,16 +9,18 @@
 <ion-content>
   <ion-grid *ngIf="meals$ | async as meals">
     <ion-row>
-      <ion-col *ngFor="let meal of meals" size="6">
+      <ion-col
+        *ngFor="let meal of meals"
+        size="6"
+        [routerLink]="['/meal', meal.idMeal]"
+      >
         <img [src]="meal.strMealThumb" />
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingText="Loading more deliciousness">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

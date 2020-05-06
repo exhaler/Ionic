@@ -231,7 +231,7 @@
 :root {
   --ion-font-family: "Montserrat", sans-serif;
   font-family: var(--ion-font-family);
-  ion-toolbar ion-title {
+  ion-toolbar ion-title, h1 {
     font-family: "Merriweather";
     font-weight: 800;
     font-size: 20px;
