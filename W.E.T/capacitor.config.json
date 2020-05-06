@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "W.E.T",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
