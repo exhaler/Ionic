@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
+
+import { NativeAudio } from "@ionic-native/native-audio/ngx";
+import { Insomnia } from "@ionic-native/insomnia/ngx";
+
 import { BehaviorSubject } from "rxjs";
+import { Platform } from "@ionic/angular";
 
 const circleR = 80;
 const circleDasharray = 2 * Math.PI * circleR;
@@ -15,11 +20,19 @@ export class HomePage {
   timer: number;
   interval;
   state: "start" | "stop" = "stop";
-  startDuration = 5;
+  startDuration = 25;
   circleR = circleR;
   circleDasharray = circleDasharray;
 
-  constructor() {}
+  constructor(
+    private nativeAudio: NativeAudio,
+    private platform: Platform,
+    private insomnia: Insomnia
+  ) {
+    this.platform.ready().then(() => {
+      this.nativeAudio.preloadSimple("bell", "assets/sound/bell.wav");
+    });
+  }
 
   toggleStartStop() {
     if (this.state === "start") {
@@ -34,18 +47,21 @@ export class HomePage {
   }
 
   startTimer(duration: number) {
+    this.insomnia.keepAwake();
     this.state = "start";
     clearInterval(this.interval);
     this.timer = duration * 60;
     this.updateTimeValue();
     this.interval = setInterval(() => {
       this.updateTimeValue();
-    }, 1000);
+    }, 5);
   }
 
   stopTimer() {
+    this.insomnia.allowSleepAgain();
     clearInterval(this.interval);
     this.time.next("00:00");
+    this.percent.next(100);
     this.state = "stop";
   }
 
@@ -66,6 +82,8 @@ export class HomePage {
     --this.timer;
 
     if (this.timer < -1) {
+      this.swapDuration();
+      this.nativeAudio.play("bell");
       this.startTimer(this.startDuration);
     }
   }
