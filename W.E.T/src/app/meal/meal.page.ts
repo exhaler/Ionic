@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { DomSanitizer } from "@angular/platform-browser";
 
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
 import { MealdbApiService } from "../services/mealdb-api.service";
 import { MEALDB_Meal } from "../services/model";
-import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-meal",
