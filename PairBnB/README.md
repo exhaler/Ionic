@@ -1,6 +1,7 @@
 # PairBnB
-Booking app, think of it as a lite Airbnb, features:
+Booking app, think of it as a lite Airbnb.
 
+## Features
 * Firebase authentication
 * View discoverable places
 * View bookable places
