@@ -21,13 +21,13 @@
     <ion-item lines="none">
       <h1>
         {{ meal.strMeal }}
-        <ion-badge color="secondary">{{ meal.strCategory }}</ion-badge>
       </h1>
+      <ion-badge color="secondary" slot="end">{{ meal.strCategory }}</ion-badge>
     </ion-item>
 
     <ion-list>
       <ion-list-header>
-        <ion-label>Ingredients</ion-label>
+        <ion-label class="title">Ingredients</ion-label>
       </ion-list-header>
 
       <ion-item *ngFor="let ingredient of ingredients">
@@ -38,8 +38,8 @@
 
     <ion-list>
       <ion-list-header>
-        <ion-label>Instructions</ion-label>
-      </ion-list-header>  
+        <ion-label class="title">Instructions</ion-label>
+      </ion-list-header>
 
       <ion-item *ngFor="let instruction of instructions" lines="none">
         <ion-label class="ion-text-wrap">{{ instruction }}</ion-label>
