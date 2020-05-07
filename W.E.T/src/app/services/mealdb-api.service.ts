@@ -40,7 +40,7 @@ export class MealdbApiService {
     );
     return forkJoin(arrayOfHttpCalls).pipe(
       map((res: Array<MEALDB_ListItem>) => {
-        console.log(res);
+        // console.log(res);
         this.meals$.next(this.meals$.getValue().concat(res));
       })
     );
