@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
-import { MealdbApiService } from "../services/mealdb-api.service";
+import { Router } from '@angular/router';
+
 import { take } from "rxjs/operators";
+
+import { MealdbApiService } from "../services/mealdb-api.service";
 
 @Component({
   selector: "app-home",
@@ -13,7 +16,7 @@ export class HomePage {
   Arr = Array;
   num: number = 5;
 
-  constructor(private mealdb: MealdbApiService) {
+  constructor(private mealdb: MealdbApiService, private router: Router) {
     this.loadData();
   }
 
@@ -28,5 +31,9 @@ export class HomePage {
           $event.target.complete();
         }
       });
+  }
+
+  searchPage() {
+    this.router.navigateByUrl("/search");
   }
 }

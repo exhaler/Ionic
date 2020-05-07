@@ -14,6 +14,9 @@ export const MEALDB_API = {
   get LOOKUP() {
     return this.ROOT + "lookup.php";
   },
+  get SEARCH() {
+    return this.ROOT + "search.php";
+  }
 };
 
 @Injectable({
@@ -42,6 +45,19 @@ export class MealdbApiService {
       map((res: Array<MEALDB_ListItem>) => {
         console.log(res);
         this.meals$.next(this.meals$.getValue().concat(res));
+      })
+    );
+  }
+
+  searchForMeals(query: string): Observable<MEALDB_ListItem> {
+    console.log(query);
+    return this.http.get(`${MEALDB_API.SEARCH}?s=${query}`).pipe(
+      map((res: any) => {
+        if (res.meals) {
+          return res.meals;
+        } else {
+          return null;
+        }
       })
     );
   }

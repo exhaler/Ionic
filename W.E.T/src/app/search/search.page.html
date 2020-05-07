@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar
+      #searchbar
+      placeholder="Search for meal"
+      [(ngModel)]="queryText"
+      (ionChange)="search()"
+      setFocus
+      debounce="500"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding" *ngIf="isLoading">
+    <ion-row>
+      <ion-col>
+        <ion-card *ngFor="let i of Arr(num).fill(1)">
+          <ion-skeleton-text
+            animated
+            class="skeleton-image"
+          ></ion-skeleton-text>
+          <ion-card-header>
+            <ion-card-title
+              ><ion-skeleton-text
+                animated
+                style="width: 80%;"
+              ></ion-skeleton-text
+            ></ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p *ngIf="meals === null && !isLoading" class="ion-padding ion-text-center">
+    No meals found
+  </p>
+
+  <ion-grid class="ion-no-padding" *ngIf="!isLoading && meals">
+    <ion-row>
+      <ion-col>
+        <ion-card
+          *ngFor="let meal of meals"
+          button
+          [routerLink]="['/meal', meal.idMeal]"
+        >
+          <img [src]="meal.strMealThumb" [alt]="meal.strMeal" />
+          <ion-card-header>
+            <ion-card-title>{{ meal.strMeal }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
