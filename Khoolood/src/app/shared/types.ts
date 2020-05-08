@@ -15,6 +15,32 @@ export interface ObituariesData extends ApiData {
   object: SingleObituaryData;
 }
 
+export interface FeedData extends ApiData {
+  type: string;
+  object: SingleObituaryData | ReactionData;
+}
+
+export interface ReactionData extends ApiData {
+  actionId: string;
+  obituaryId: string;
+  categoryId: string;
+  timestamp: string;
+  userName: string;
+  userPhoto: string;
+  deceasedName: string;
+  thanked: string;
+  community: CommunityData;
+  obituarySponsorId: string;
+}
+
+export interface CommunityData extends ApiData {
+  id: number;
+  name_en: string;
+  place: number;
+  membersCount: string;
+  image: string;
+}
+
 export interface SingleObituaryData extends ApiData {
   categoryId: string;
   deathDay: string;

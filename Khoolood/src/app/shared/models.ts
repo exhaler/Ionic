@@ -6,12 +6,31 @@ export class ApiObject {
   ) {}
 }
 
+export class Feed {
+  constructor(public type: string, public object: ObituaryObject | ReactionObject) {}
+}
+
 export class Obituaries {
   constructor(public type: string, public object: ObituaryObject) {}
 }
 
 export class RecentObituary {
   constructor(public type: string, public object: ObituaryObject) {}
+}
+
+export class ReactionObject {
+  constructor(
+    public actionId: string,
+    public obituaryId: string,
+    public categoryId: string,
+    public timestamp: string,
+    public userName: string,
+    public userPhoto: string,
+    public deceasedName: string,
+    public thanked: string,
+    public community: CommunityObject,
+    public obituarySponsorId: string
+  ) {}
 }
 
 export class ObituaryObject {
@@ -36,7 +55,7 @@ export class DetailedObituaryObject {
     public photo: string,
     public contents: string,
     public funerals: FuneralObject,
-    public relatives: RelativesObject,
+    public relatives: RelativesObject
   ) {}
 }
 
@@ -51,6 +70,16 @@ export class FuneralObject {
   ) {}
 }
 
+export class CommunityObject {
+  constructor(
+    public id: number,
+    public name_en: string,
+    public place: number,
+    public membersCount: string,
+    public image: string
+  ) {}
+}
+
 export class RelativesObject {
   constructor(
     public brothers: string,
@@ -60,7 +89,7 @@ export class RelativesObject {
     public mother: string,
     public relatives: string,
     public sisters: string,
-    public wife: string,
+    public wife: string
   ) {}
 }
 
@@ -69,7 +98,7 @@ export class User {
     public userId: string,
     public displayName: string,
     public email: string,
-    public _token: string,
+    public _token: string
   ) {}
 
   get token() {
