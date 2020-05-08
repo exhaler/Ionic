@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'inventory-edit/:id',
     loadChildren: () => import('./inventory-edit/inventory-edit.module').then( m => m.InventoryEditPageModule)
+  },
+  {
+    path: 'inventory-notifications',
+    loadChildren: () => import('./inventory-notifications/inventory-notifications.module').then( m => m.InventoryNotificationsPageModule)
   }
 ];
 
