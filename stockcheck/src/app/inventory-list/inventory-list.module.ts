@@ -1,20 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { InventoryListPageRoutingModule } from './inventory-list-routing.module';
+import { InventoryListPageRoutingModule } from "./inventory-list-routing.module";
 
-import { InventoryListPage } from './inventory-list.page';
+import { InventoryListPage } from "./inventory-list.page";
+import { ComponentsModule } from "../components/components.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InventoryListPageRoutingModule
+    ComponentsModule,
+    InventoryListPageRoutingModule,
   ],
-  declarations: [InventoryListPage]
+  declarations: [InventoryListPage],
 })
 export class InventoryListPageModule {}
