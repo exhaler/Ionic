@@ -1,0 +1,7 @@
+{
+  "name": "stockcheck",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

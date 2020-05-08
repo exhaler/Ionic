@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "stockcheck-681ab": {
+      "hosting": {
+        "app": [
+          "stockcheck-681ab"
+        ]
+      }
+    }
+  }
+}
