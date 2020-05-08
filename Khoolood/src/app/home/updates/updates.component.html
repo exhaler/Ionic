@@ -15,11 +15,21 @@
   </ion-item>
 </ion-list>
 
-
 <ion-list *ngIf="!isLoading && loadedFeed.length > 0" class="ion-no-padding">
   <ion-item *ngFor="let feed of loadedFeed">
-    <ion-label>
-      {{ feed.type }}
-    </ion-label>
+    <ng-container
+      *ngIf="
+        feed.type === 'candle' ||
+        feed.type === 'flower' ||
+        feed.type === 'message'
+      "
+    >
+      <ion-avatar slot="start">
+        <img src="../../../assets/img/{{ feed.type }}-icon.svg" />
+      </ion-avatar>
+      <ion-label>
+        {{ feed.type }}
+      </ion-label>
+    </ng-container>
   </ion-item>
 </ion-list>
