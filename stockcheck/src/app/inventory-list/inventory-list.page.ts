@@ -1,12 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { tap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 
-import { MenuController } from "@ionic/angular";
+import { MenuController, Platform } from "@ionic/angular";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 
 import { InventoryService } from '../services/inventory.service';
+import { Inventory } from '../services/model';
 
 @Component({
   selector: "app-inventory-list",
@@ -23,16 +24,30 @@ export class InventoryListPage implements OnInit {
     private router: Router,
     private menu: MenuController,
     private inventoryServ: InventoryService,
+    private platform: Platform,
   ) {}
 
   ngOnInit() {}
 
   openBarcodeScanner() {
-    this.barcode.scan().then((data) => {
-      const code = data.text;
-      alert(code);
-    });
-  }
+    if (this.platform.is('mobile')) {
+        this.barcode.scan().then(data => {
+            const code = data.text;
+            this.inventoryServ
+                .getByCode(code)
+                .pipe(take(1))
+                .subscribe((item: Inventory) => {
+                    if (item) {
+                        this.goToInventory(item.id);
+                    } else {
+                        this.goToInventory('new', { code });
+                    }
+                });
+        });
+    } else {
+        this.goToInventory('new');
+    }
+}
 
   goToInventory(id, params = {}) {
     this.router.navigate(["inventory-edit", id], {
