@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { InventoryNotificationsPageRoutingModule } from './inventory-notifications-routing.module';
 
 import { InventoryNotificationsPage } from './inventory-notifications.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InventoryNotificationsPageRoutingModule
+    InventoryNotificationsPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [InventoryNotificationsPage]
 })
