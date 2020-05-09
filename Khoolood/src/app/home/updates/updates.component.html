@@ -16,7 +16,7 @@
 </ion-list>
 
 <ion-list *ngIf="!isLoading && loadedFeed.length > 0" class="ion-no-padding">
-  <ion-item *ngFor="let feed of loadedFeed">
+  <ng-container *ngFor="let feed of loadedFeed">
     <ng-container
       *ngIf="
         feed.type === 'candle' ||
@@ -24,22 +24,49 @@
         feed.type === 'comment'
       "
     >
-      <ion-avatar slot="start">
-        <img src="../../../assets/img/{{ feed.type }}-icon.svg" />
-      </ion-avatar>
-      <ion-label class="ion-text-wrap">
-        {{ feed.object.userName }}
-        <ng-container *ngIf="feed.type === 'candle'">
-          lit a candle on
-        </ng-container>
-        <ng-container *ngIf="feed.type === 'flower'">
-          placed a flower on
-        </ng-container>
-        <ng-container *ngIf="feed.type === 'comment'">
-          wrote a message on
-        </ng-container>
-        <a routerLink="/obituary-detail/{{ feed.object.obituaryId }}">{{ feed.object.deceasedName }}</a>
-      </ion-label>
+      <ion-item class="reactions-list">
+        <ion-avatar slot="start">
+          <img src="../../../assets/img/{{ feed.type }}-icon.svg" />
+        </ion-avatar>
+        <ion-label class="ion-text-wrap">
+          {{ feed.object.userName }}
+          <ng-container *ngIf="feed.type === 'candle'">
+            lit a candle on
+          </ng-container>
+          <ng-container *ngIf="feed.type === 'flower'">
+            placed a flower on
+          </ng-container>
+          <ng-container *ngIf="feed.type === 'comment'">
+            wrote a message on
+          </ng-container>
+          <a routerLink="/obituary-detail/{{ feed.object.obituaryId }}">{{
+            feed.object.deceasedName
+          }}</a>
+        </ion-label>
+      </ion-item>
     </ng-container>
-  </ion-item>
+
+    <ng-container
+      *ngIf="feed.type === 'Obituary' || feed.type === 'Commemoration'"
+    >
+      <ion-item class="obituaries-list"
+        routerLink="/obituary-detail/{{ feed.object.obituaryId }}"
+        detail
+      >
+        <ion-avatar slot="start">
+          <img [src]="feed.object.photo" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ feed.object.name }}</h2>
+          <p class="death-date">
+            Date of death <span>{{ feed.object.deathDay }}</span>
+          </p>
+          <p class="death-date">
+            Funeral <span>{{ feed.object.funeral.funeralDate }}</span>
+          </p>
+          <p class="funeral-place">{{ feed.object.funeral.place }}</p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ng-container>
 </ion-list>

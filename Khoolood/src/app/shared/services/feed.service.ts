@@ -6,7 +6,7 @@ import { take, switchMap, map, tap } from "rxjs/operators";
 
 import { environment } from "../../../environments/environment";
 import { AuthService } from "../../auth/auth.service";
-import { Feed, ReactionObject } from "../models";
+import { Feed, ReactionObject, ObituaryObject, FuneralObject } from "../models";
 import { FeedData } from "../types";
 
 @Injectable({
@@ -33,25 +33,45 @@ export class FeedService {
         resData = resData.data.items;
         console.log(resData);
         const feed = [];
+        let feedTypeObject: ReactionObject | ObituaryObject;
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
-            feed.push(
-              new Feed(
-                resData[key].type,
-                new ReactionObject(
-                  resData[key].object.actionId,
-                  resData[key].object.obituaryId,
-                  resData[key].object.categoryId,
-                  resData[key].object.timestamp,
-                  resData[key].object.userName,
-                  resData[key].object.userPhoto,
-                  resData[key].object.deceasedName,
-                  resData[key].object.thanked,
-                  resData[key].object.community,
-                  resData[key].object.obituarySponsorId,
-                )
-              )
-            );
+            if (
+              resData[key].type === "comment" ||
+              resData[key].type === "flower" ||
+              resData[key].type === "candle"
+            ) {
+              feedTypeObject = new ReactionObject(
+                resData[key].object.actionId,
+                resData[key].object.obituaryId,
+                resData[key].object.categoryId,
+                resData[key].object.timestamp,
+                resData[key].object.userName,
+                resData[key].object.userPhoto,
+                resData[key].object.deceasedName,
+                resData[key].object.thanked,
+                resData[key].object.community,
+                resData[key].object.obituarySponsorId
+              );
+            } else {
+              feedTypeObject = new ObituaryObject(
+                resData[key].object.categoryId,
+                resData[key].object.deathDay,
+                new FuneralObject(
+                  resData[key].object.funeral.communityId,
+                  resData[key].object.funeral.funeralDate,
+                  resData[key].object.funeral.funeralTime,
+                  resData[key].object.funeral.lat,
+                  resData[key].object.funeral.long,
+                  resData[key].object.funeral.place
+                ),
+                resData[key].object.name,
+                resData[key].object.obituaryId,
+                resData[key].object.photo
+              );
+            }
+
+            feed.push(new Feed(resData[key].type, feedTypeObject));
           }
         }
         return feed;
