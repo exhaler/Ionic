@@ -10,7 +10,7 @@ import { Feed } from '../../shared/models';
   templateUrl: './updates.component.html',
   styleUrls: ['./updates.component.scss'],
 })
-export class UpdatesComponent implements OnInit {
+export class UpdatesComponent implements OnInit, OnDestroy {
   loadedFeed: Feed[];
   private feedSub: Subscription;
   pageNumber: number = 1;
