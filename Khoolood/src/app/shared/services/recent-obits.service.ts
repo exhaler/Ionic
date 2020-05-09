@@ -46,6 +46,9 @@ export class RecentObitsService implements CanLoad {
       )
       .pipe(
         map((resData) => {
+          if (!resData.data) {
+            return [];
+          }
           resData = resData.data.items;
           const recentObits = [];
           for (const key in resData) {

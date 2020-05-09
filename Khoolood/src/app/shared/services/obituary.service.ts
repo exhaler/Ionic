@@ -79,6 +79,9 @@ export class ObituaryService {
         );
       }),
       map((resData) => {
+        if (!resData.data) {
+          return [];
+        }
         resData = resData.data.items;
         const obituaries = [];
         for (const key in resData) {
