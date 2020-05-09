@@ -21,14 +21,24 @@
       *ngIf="
         feed.type === 'candle' ||
         feed.type === 'flower' ||
-        feed.type === 'message'
+        feed.type === 'comment'
       "
     >
       <ion-avatar slot="start">
         <img src="../../../assets/img/{{ feed.type }}-icon.svg" />
       </ion-avatar>
       <ion-label>
-        {{ feed.type }}
+        {{ feed.object.userName }}
+        <ng-container *ngIf="feed.type === 'candle'">
+          lit a candle on
+        </ng-container>
+        <ng-container *ngIf="feed.type === 'flower'">
+          placed a flower on
+        </ng-container>
+        <ng-container *ngIf="feed.type === 'comment'">
+          wrote a message on
+        </ng-container>
+        <a routerLink="/obituary-detail/{{ feed.object.obituaryId }}">{{ feed.object.deceasedName }}</a>
       </ion-label>
     </ng-container>
   </ion-item>

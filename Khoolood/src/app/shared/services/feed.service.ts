@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { take, switchMap, map, tap } from "rxjs/operators";
 import { BehaviorSubject } from "rxjs";
+import { take, switchMap, map, tap } from "rxjs/operators";
 
 import { environment } from "../../../environments/environment";
 import { AuthService } from "../../auth/auth.service";

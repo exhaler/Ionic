@@ -7,7 +7,10 @@ export class ApiObject {
 }
 
 export class Feed {
-  constructor(public type: string, public object: ObituaryObject | ReactionObject) {}
+  constructor(
+    public type: string,
+    public object: ReactionObject | ObituaryObject
+  ) {}
 }
 
 export class Obituaries {

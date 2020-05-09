@@ -17,7 +17,7 @@ export interface ObituariesData extends ApiData {
 
 export interface FeedData extends ApiData {
   type: string;
-  object: SingleObituaryData | ReactionData;
+  object: ReactionData | SingleObituaryData;
 }
 
 export interface ReactionData extends ApiData {
