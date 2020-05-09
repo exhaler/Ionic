@@ -39,6 +39,9 @@ export interface CommunityData extends ApiData {
   place: number;
   membersCount: string;
   image: string;
+  type?: string;
+  lat?: string;
+  long?: string;
 }
 
 export interface SingleObituaryData extends ApiData {

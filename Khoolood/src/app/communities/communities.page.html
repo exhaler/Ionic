@@ -3,17 +3,30 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Communities</ion-title>
+    <ion-title>My Communities</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-segment value="communities" (ionChange)="segmentChanged($event)" >
-    <ion-segment-button value="communities">
-      My communities
-    </ion-segment-button>
-    <ion-segment-button value="friends">
-      My Friends
-    </ion-segment-button>
-  </ion-segment>
+  <ion-list
+    *ngIf="!isLoading && loadedCommunities.length > 0"
+    class="ion-no-padding"
+  >
+    <ion-item
+      *ngFor="let community of loadedCommunities"
+      routerLink="/community-detail/{{ community.id }}"
+      detail
+      class="obituaries-list"
+    >
+      <ion-avatar slot="start">
+        <img [src]="community.image" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ community.name_en }}</h2>
+        <p>
+          {{ community.place }} - {{ community.membersCount }} members
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

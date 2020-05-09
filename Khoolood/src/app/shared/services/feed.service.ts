@@ -31,7 +31,6 @@ export class FeedService {
       }),
       map((resData) => {
         resData = resData.data.items;
-        console.log(resData);
         const feed = [];
         let feedTypeObject: ReactionObject | ObituaryObject;
         for (const key in resData) {

@@ -79,7 +79,10 @@ export class CommunityObject {
     public name_en: string,
     public place: number,
     public membersCount: string,
-    public image: string
+    public image: string,
+    public type?: string,
+    public lat?: string,
+    public long?: string
   ) {}
 }
 
