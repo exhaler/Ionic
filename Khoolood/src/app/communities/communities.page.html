@@ -8,6 +8,22 @@
 </ion-header>
 
 <ion-content>
+  <p class="ion-text-center" *ngIf="!isLoading && loadedCommunities.length <= 0">
+    No communities found
+  </p>
+
+  <ion-list *ngIf="isLoading" class="ion-no-padding"> 
+    <ion-item *ngFor="let i of Arr(num).fill(1)" class="list-loaders">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2><ion-skeleton-text animated style="height: 20px; width: 70%"></ion-skeleton-text></h2>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
   <ion-list
     *ngIf="!isLoading && loadedCommunities.length > 0"
     class="ion-no-padding"
