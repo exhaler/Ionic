@@ -11,6 +11,7 @@
       <p>
         <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
       </p>
+      <p><ion-skeleton-text animated style="width: 45%;"></ion-skeleton-text></p>
     </ion-label>
   </ion-item>
 </ion-list>
@@ -42,6 +43,7 @@
           <a routerLink="/obituary-detail/{{ feed.object.obituaryId }}">{{
             feed.object.deceasedName
           }}</a>
+          <p>{{ feed.object.timestamp }}</p>
         </ion-label>
       </ion-item>
     </ng-container>
