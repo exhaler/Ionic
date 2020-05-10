@@ -56,7 +56,7 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
             this.alertCtrl
               .create({
                 header: "An error occurred",
-                message: "Place could not be fetched",
+                message: "Obituary could not be fetched",
                 buttons: [
                   {
                     text: "Okay",

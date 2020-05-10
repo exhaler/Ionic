@@ -86,6 +86,19 @@ export class CommunityObject {
   ) {}
 }
 
+export class DetailedCommunityObject {
+  constructor(
+    public id: number,
+    public name_en: string,
+    public place: number,
+    public membersCount: string,
+    public image: string,
+    public type?: string,
+    public lat?: string,
+    public long?: string
+  ) {}
+}
+
 export class RelativesObject {
   constructor(
     public brothers: string,

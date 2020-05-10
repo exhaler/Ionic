@@ -6,8 +6,8 @@ import { take, switchMap, map, tap } from "rxjs/operators";
 
 import { environment } from "../../../environments/environment";
 import { AuthService } from "../../auth/auth.service";
-import { CommunityObject } from "../models";
-import { CommunityData } from "../types";
+import { CommunityObject, DetailedCommunityObject } from "../models";
+import { CommunityData, DetailedCommunityData } from "../types";
 
 @Injectable({
   providedIn: "root",
@@ -50,6 +50,30 @@ export class CommunityService {
       }),
       tap((myCommunities) => {
         this._communities.next(myCommunities);
+      })
+    );
+  }
+
+  getCommunity(id: number) {
+    return this.authService.userToken.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http.get<DetailedCommunityData>(
+          `${environment.apiURL}viewCommunity&communityId=${id}&token=${token}`
+        );
+      }),
+      map((resData) => {
+        resData = resData.data.community;
+        return new DetailedCommunityObject(
+          resData.id,
+          resData.name_en,
+          resData.place,
+          resData.membersCount,
+          resData.image,
+          resData.type,
+          resData.lat,
+          resData.long,
+        );
       })
     );
   }

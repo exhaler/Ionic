@@ -44,6 +44,17 @@ export interface CommunityData extends ApiData {
   long?: string;
 }
 
+export interface DetailedCommunityData extends ApiData {
+  id: number;
+  name_en: string;
+  place: number;
+  membersCount: string;
+  image: string;
+  type?: string;
+  lat?: string;
+  long?: string;
+}
+
 export interface SingleObituaryData extends ApiData {
   categoryId: string;
   deathDay: string;
