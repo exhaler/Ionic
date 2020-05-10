@@ -43,6 +43,7 @@ ion-skeleton-text {
   }
 
   h2 {
+    //white-space: normal;
     font-weight: 600;
     color: #6b6b6b;
     line-height: 25px;
@@ -57,10 +58,10 @@ ion-skeleton-text {
   }
 
   .funeral-place {
-    white-space: initial;
+    //white-space: normal;
     font-size: 13px;
   }
-  
+
   p {
     font-size: 15px;
     color: #525252;

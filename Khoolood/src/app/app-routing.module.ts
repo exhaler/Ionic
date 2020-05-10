@@ -48,6 +48,13 @@ const routes: Routes = [
     loadChildren: () =>
       import("./about-us/about-us.module").then((m) => m.AboutUsPageModule),
   },
+  {
+    path: "community-detail/:communityId",
+    loadChildren: () =>
+      import("./community-detail/community-detail.module").then(
+        (m) => m.CommunityDetailPageModule
+      ),
+  },
 ];
 
 @NgModule({
