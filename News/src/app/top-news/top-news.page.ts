@@ -12,7 +12,19 @@ export class TopNewsPage implements OnInit {
   constructor(private newService: NewsService) {}
 
   ngOnInit() {
+    this.getData();
+  }
+
+  getData() {
     // change country to geolocation
     this.news = this.newService.getData("top-headlines?country=us");
+  }
+
+  onRefresh(event) {
+    this.getData();
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
   }
 }
