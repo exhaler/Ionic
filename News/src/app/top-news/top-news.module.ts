@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TopNewsPageRoutingModule } from './top-news-routing.module';
 
 import { TopNewsPage } from './top-news.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TopNewsPageRoutingModule
+    TopNewsPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [TopNewsPage]
 })
