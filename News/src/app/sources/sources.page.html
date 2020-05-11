@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sources</ion-title>
+    <ion-searchbar placeholder="Filter sources" [(ngModel)]="term"  [debounce]="500" ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid fixed>
-    <ion-row>
-      <ion-col size="12" *ngFor="let source of (sources | async)?.sources">
+    <ion-row *ngIf="sources">
+      <ion-col size="12" *ngFor="let source of sources | search: term">
         <ion-list>
           <ion-item detail color="light">
             <ion-label class="ion-text-wrap"
