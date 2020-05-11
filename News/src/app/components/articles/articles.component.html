@@ -1,5 +1,28 @@
 <ion-grid fixed>
-  <ion-row>
+  <ion-row *ngIf="!(news | async)">
+    <ion-col size="12" *ngFor="let article of fakeArticles">
+      <ion-card>
+        <ion-skeleton-text
+          animated
+          style="height: 195px;"
+          class="ion-no-padding"
+        ></ion-skeleton-text>
+
+        <ion-item>
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+        </ion-item>
+
+        <ion-card-header>
+          <ion-card-title
+            ><ion-skeleton-text animated></ion-skeleton-text
+          ></ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row> 
     <ion-col size="12" *ngFor="let article of (news | async)?.articles">
       <app-article [article]="article"></app-article>
     </ion-col>
