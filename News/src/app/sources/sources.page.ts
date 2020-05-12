@@ -19,4 +19,8 @@ export class SourcesPage implements OnInit {
     })
   }
 
+  favorite(source) {
+    console.log(source);
+  }
+
 }
