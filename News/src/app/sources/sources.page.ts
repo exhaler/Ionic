@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 
+import { ToastController, IonItemSliding } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
 
 import { NewsService } from "../services/news.service";
-import { ToastController } from "@ionic/angular";
 
 @Component({
   selector: "app-sources",
@@ -30,8 +30,7 @@ export class SourcesPage implements OnInit {
     });
   }
 
-  addFavorite(source) {
-    console.log(source);
+  addFavorite(source, slidingEl: IonItemSliding) {
     this.storage.get("favorite").then((val) => {
       let items = [];
       if (val != null) {
@@ -42,11 +41,14 @@ export class SourcesPage implements OnInit {
       this.storage.set("favorite", JSON.stringify(items));
       this.toastCtrl
         .create({
-          color: 'success',
-          message: "Added to favorites",
+          color: "success",
+          message: source.name + " added to favorites",
           duration: 1500,
         })
-        .then((toastEl) => toastEl.present());
+        .then((toastEl) => {
+          toastEl.present();
+          slidingEl.close();
+        });
     });
   }
 }

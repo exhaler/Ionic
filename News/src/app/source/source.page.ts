@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
-import { tap, take } from 'rxjs/operators';
+import { tap, take } from "rxjs/operators";
 
 import { NewsService } from "../services/news.service";
 
@@ -13,6 +13,8 @@ import { NewsService } from "../services/news.service";
 export class SourcePage implements OnInit {
   news;
   sourceName: string;
+  isLoading = false;
+  fakeSources = new Array(15);
 
   constructor(
     private newsService: NewsService,
@@ -20,9 +22,14 @@ export class SourcePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     const id = this.activatedRoute.snapshot.paramMap.get("id");
-    this.news = this.newsService.getData(`everything?sources=${id}`).pipe(take(1), tap(res => {
-      this.sourceName = res["articles"][0].source.name;
-    }));
+    this.news = this.newsService.getData(`everything?sources=${id}`).pipe(
+      take(1),
+      tap((res) => {
+        this.sourceName = res["articles"][0].source.name;
+        this.isLoading = false;
+      })
+    );
   }
 }
