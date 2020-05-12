@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
-import { tap } from "rxjs/operators";
-
 import { environment } from "../../environments/environment";
 
 const apiKey = environment.apiKey;
@@ -13,15 +11,9 @@ const params = new HttpParams().set("apiKey", apiKey);
   providedIn: "root",
 })
 export class NewsService {
-
-  constructor(
-    private http: HttpClient,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getData(url) {
-    return this.http.get(`${apiUrl}/${url}`, { params }).pipe(tap(value => {
-    }));
+    return this.http.get(`${apiUrl}/${url}`, { params });
   }
-
 }
- 
