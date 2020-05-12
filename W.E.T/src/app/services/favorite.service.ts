@@ -1,23 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { Storage } from '@ionic/storage';
+import { Storage } from "@ionic/storage";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class FavoriteService {
-  STORAGE_KEY = 'favoriteMeals';
+  STORAGE_KEY = "favoriteMeals";
+  hasMatch = false;
 
-  constructor(public storage: Storage) { }
+  constructor(public storage: Storage) {}
 
   isFavorite(mealId) {
-    return this.getAllFavoriteMeals().then(result => {
-      return result && result.indexOf(mealId) !== -1;
+    return this.getAllFavoriteMeals().then((result) => {
+      return (
+        result.filter((val) => {
+          return val.idMeal === mealId;
+        }).length > 0
+      );
     });
   }
- 
+
   favoriteMeal(mealId) {
-    return this.getAllFavoriteMeals().then(result => {
+    return this.getAllFavoriteMeals().then((result) => {
       if (result) {
         result.push(mealId);
         return this.storage.set(this.STORAGE_KEY, result);
@@ -26,9 +31,9 @@ export class FavoriteService {
       }
     });
   }
- 
+
   unfavoriteMeal(mealId) {
-    return this.getAllFavoriteMeals().then(result => {
+    return this.getAllFavoriteMeals().then((result) => {
       if (result) {
         var index = result.indexOf(mealId);
         result.splice(index, 1);
@@ -36,7 +41,7 @@ export class FavoriteService {
       }
     });
   }
- 
+
   getAllFavoriteMeals() {
     return this.storage.get(this.STORAGE_KEY);
   }

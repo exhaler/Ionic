@@ -29,9 +29,10 @@ export class MealPage implements OnInit {
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get("mealId");
     this.favoriteService.isFavorite(this.id).then((isFav) => {
-      console.log(isFav);
+      //console.log(isFav)
       this.isFavorite = isFav;
     });
+
     this.meal$ = this.mealdb.getMealById(this.id).pipe(
       tap((meal) => {
         this.ingredients = this.getIngredientsArray(meal);
@@ -63,13 +64,13 @@ export class MealPage implements OnInit {
   }
 
   addToFavorites(meal) {
-    this.favoriteService.favoriteMeal(meal.idMeal).then(() => {
+    this.favoriteService.favoriteMeal(meal).then(() => {
       this.isFavorite = true;
     });
   }
 
   removeFromFavorites(meal) {
-    this.favoriteService.unfavoriteMeal(meal.idMeal).then(() => {
+    this.favoriteService.unfavoriteMeal(meal).then(() => {
       this.isFavorite = false;
     });
   }
