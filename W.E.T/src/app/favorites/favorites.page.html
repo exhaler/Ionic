@@ -7,8 +7,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-grid class="ion-no-padding">
+<ion-content [fullscreen]="true">
+  <div id="container" *ngIf="meals.length <= 0">
+    <ion-title>No favorites</ion-title>
+    <ion-icon name="heart-dislike-outline"></ion-icon>
+  </div>
+
+  <ion-grid class="ion-no-padding" *ngIf="meals.length > 0">
     <ion-row>
       <ion-col>
         <ion-card
