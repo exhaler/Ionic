@@ -14,29 +14,31 @@
   >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
-  <ion-row *ngIf="isLoading">
-    <ion-col size="12" *ngFor="let article of fakeArticles">
-      <ion-card>
-        <ion-skeleton-text
-          animated
-          style="height: 195px;"
-          class="ion-no-padding"
-        ></ion-skeleton-text>
-
-        <ion-item>
-          <ion-icon slot="start" name="calendar-outline"></ion-icon>
-          <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
-        </ion-item>
-
-        <ion-card-header>
-          <ion-card-title
-            ><ion-skeleton-text animated></ion-skeleton-text
-          ></ion-card-title>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
   
+  <ion-grid>
+    <ion-row *ngIf="isLoading">
+      <ion-col size="12" *ngFor="let article of fakeArticles">
+        <ion-card>
+          <ion-skeleton-text
+            animated
+            style="height: 195px;"
+            class="ion-no-padding"
+          ></ion-skeleton-text>
+
+          <ion-item>
+            <ion-icon slot="start" name="calendar-outline"></ion-icon>
+            <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+          </ion-item>
+
+          <ion-card-header>
+            <ion-card-title
+              ><ion-skeleton-text animated></ion-skeleton-text
+            ></ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <app-articles [news]="news"></app-articles>
 </ion-content>

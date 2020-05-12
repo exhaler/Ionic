@@ -13,6 +13,8 @@ import { ToastController } from "@ionic/angular";
 export class SourcesPage implements OnInit {
   sources;
   term = "";
+  isLoading = false;
+  fakeSources = new Array(15);
 
   constructor(
     private newsService: NewsService,
@@ -21,8 +23,10 @@ export class SourcesPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.newsService.getData("sources").subscribe((sources) => {
       this.sources = sources["sources"];
+      this.isLoading = false;
     });
   }
 
