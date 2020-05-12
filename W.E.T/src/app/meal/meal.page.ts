@@ -7,6 +7,7 @@ import { tap } from "rxjs/operators";
 
 import { MealdbApiService } from "../services/mealdb-api.service";
 import { MEALDB_Meal } from "../services/model";
+import { FavoriteService } from "../services/favorite.service";
 
 @Component({
   selector: "app-meal",
@@ -18,18 +19,24 @@ export class MealPage implements OnInit {
   meal$: Observable<any>;
   ingredients;
   instructions;
+  isFavorite = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private mealdb: MealdbApiService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public favoriteService: FavoriteService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get("mealId");
+    this.favoriteService.isFavorite(this.id).then((isFav) => {
+      console.log(isFav);
+      this.isFavorite = isFav;
+    });
     this.meal$ = this.mealdb.getMealById(this.id).pipe(
       tap((meal) => {
         this.ingredients = this.getIngredientsArray(meal);
         this.instructions = this.convertInstructionsToArray(meal);
-        console.log(meal);
+        //console.log(meal);
       })
     );
   }
@@ -56,6 +63,14 @@ export class MealPage implements OnInit {
   }
 
   addToFavorites(meal) {
-    console.log(meal);
+    this.favoriteService.favoriteMeal(meal.idMeal).then(() => {
+      this.isFavorite = true;
+    });
+  }
+
+  removeFromFavorites(meal) {
+    this.favoriteService.unfavoriteMeal(meal.idMeal).then(() => {
+      this.isFavorite = false;
+    });
   }
 }
