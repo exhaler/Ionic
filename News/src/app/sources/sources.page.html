@@ -9,7 +9,7 @@
     <ion-row *ngIf="sources">
       <ion-col size="12" *ngFor="let source of sources | search: term">
         <ion-list>
-          <ion-item detail color="light">
+          <ion-item detail color="light" routerLink="/tabs/sources/{{ source.id }}">
             <ion-label class="ion-text-wrap"
               >{{ source.name }}
               <ion-badge color="primary">{{ source.category }}</ion-badge>

@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../sources/sources.module').then(m => m.SourcesPageModule)
       },
       {
+        path: 'sources/:id',
+        loadChildren: () => import('../source/source.module').then(m => m.SourcePageModule)
+      },
+      {
         path: 'favorites',
         loadChildren: () => import('../favorites/favorites.module').then(m => m.FavoritesPageModule)
       },
