@@ -1,8 +1,6 @@
 # Rana
 Application to find activities around your area, api used: https://orangevalleycaa.org/api/videos 
 
-
-
 ## Features
 * View activity details: duration, description, video, etc..
 * Share that activity to social media
