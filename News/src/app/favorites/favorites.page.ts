@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+
+import { Storage } from "@ionic/storage";
 
 @Component({
-  selector: 'app-favorites',
-  templateUrl: './favorites.page.html',
-  styleUrls: ['./favorites.page.scss'],
+  selector: "app-favorites",
+  templateUrl: "./favorites.page.html",
+  styleUrls: ["./favorites.page.scss"],
 })
 export class FavoritesPage implements OnInit {
+  sources = [];
 
-  constructor() { }
+  constructor(private storage: Storage) {}
 
   ngOnInit() {
+    this.storage.get("favorite").then((val) => {
+      let items = [];
+      if (val != null) {
+        this.sources = JSON.parse(val);
+      }
+      console.log(this.sources);
+    });
   }
-
 }
