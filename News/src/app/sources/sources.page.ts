@@ -38,8 +38,9 @@ export class SourcesPage implements OnInit {
       this.storage.set("favorite", JSON.stringify(items));
       this.toastCtrl
         .create({
+          color: 'success',
           message: "Added to favorites",
-          duration: 2000,
+          duration: 1500,
         })
         .then((toastEl) => toastEl.present());
     });

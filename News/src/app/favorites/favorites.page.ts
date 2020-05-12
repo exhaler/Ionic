@@ -24,5 +24,10 @@ export class FavoritesPage implements OnInit {
     });
   }
 
-  removeFavorite() {}
+  removeFavorite(source) {
+    console.log(source);
+    const index = this.sources.indexOf(source);
+    this.sources.splice(index, 1);
+    this.storage.set("favorite", JSON.stringify(this.sources));
+  }
 }
