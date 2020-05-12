@@ -12,7 +12,9 @@ export class FavoritesPage implements OnInit {
 
   constructor(private storage: Storage) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.storage.get("favorite").then((val) => {
       let items = [];
       if (val != null) {
@@ -21,4 +23,6 @@ export class FavoritesPage implements OnInit {
       console.log(this.sources);
     });
   }
+
+  removeFavorite() {}
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
 
 import { NewsService } from "../services/news.service";
+import { ToastController } from "@ionic/angular";
 
 @Component({
   selector: "app-sources",
@@ -13,7 +14,11 @@ export class SourcesPage implements OnInit {
   sources;
   term = "";
 
-  constructor(private newsService: NewsService, private storage: Storage) {}
+  constructor(
+    private newsService: NewsService,
+    private storage: Storage,
+    private toastCtrl: ToastController
+  ) {}
 
   ngOnInit() {
     this.newsService.getData("sources").subscribe((sources) => {
@@ -21,7 +26,7 @@ export class SourcesPage implements OnInit {
     });
   }
 
-  favorite(source) {
+  addFavorite(source) {
     console.log(source);
     this.storage.get("favorite").then((val) => {
       let items = [];
@@ -31,6 +36,12 @@ export class SourcesPage implements OnInit {
 
       items.push(source);
       this.storage.set("favorite", JSON.stringify(items));
+      this.toastCtrl
+        .create({
+          message: "Added to favorites",
+          duration: 2000,
+        })
+        .then((toastEl) => toastEl.present());
     });
   }
 }
