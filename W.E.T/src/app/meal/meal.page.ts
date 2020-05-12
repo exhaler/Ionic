@@ -54,4 +54,8 @@ export class MealPage implements OnInit {
   convertInstructionsToArray(meal: MEALDB_Meal) {
     return meal.strInstructions.split("\n").filter((i) => i.trim());
   }
+
+  addToFavorites(meal) {
+    console.log(meal);
+  }
 }

@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="primary">
+      <ion-button routerLink="/favorites">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+      </ion-button>
       <ion-button (click)="searchPage()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
@@ -16,9 +19,17 @@
     <ion-row>
       <ion-col>
         <ion-card *ngFor="let i of Arr(num).fill(1)">
-          <ion-skeleton-text animated class="skeleton-image"></ion-skeleton-text>
+          <ion-skeleton-text
+            animated
+            class="skeleton-image"
+          ></ion-skeleton-text>
           <ion-card-header>
-            <ion-card-title><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></ion-card-title>
+            <ion-card-title
+              ><ion-skeleton-text
+                animated
+                style="width: 80%;"
+              ></ion-skeleton-text
+            ></ion-card-title>
           </ion-card-header>
         </ion-card>
       </ion-col>
@@ -28,7 +39,11 @@
   <ion-grid class="ion-no-padding" *ngIf="meals$ | async as meals">
     <ion-row>
       <ion-col>
-        <ion-card *ngFor="let meal of meals" button [routerLink]="['/meal', meal.idMeal]">
+        <ion-card
+          *ngFor="let meal of meals"
+          button
+          [routerLink]="['/meal', meal.idMeal]"
+        >
           <img [src]="meal.strMealThumb" [alt]="meal.strMeal" />
           <ion-card-header>
             <ion-card-title>{{ meal.strMeal }}</ion-card-title>
