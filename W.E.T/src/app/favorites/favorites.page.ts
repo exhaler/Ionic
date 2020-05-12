@@ -22,7 +22,6 @@ export class FavoritesPage implements OnInit {
 
   ionViewWillEnter() {
     this.favoritesService.getAllFavoriteMeals().then((data) => {
-      //console.log(data);
       this.meals = data;
     });
   }
