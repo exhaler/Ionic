@@ -1,7 +1,7 @@
 <ion-grid fixed>
   <ion-row>
     <ion-col size="12" *ngFor="let article of (news | async)?.articles">
-      <ion-card [href]="article.url">
+      <ion-card [href]="article.url" target="_blank">
         <ion-img
           *ngIf="article.urlToImage"
           [src]="article.urlToImage"

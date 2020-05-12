@@ -31,19 +31,20 @@ export class SourcesPage implements OnInit {
   }
 
   addFavorite(source, slidingEl: IonItemSliding) {
-    this.storage.get("favorite").then((val) => {
+    this.storage.get("favorites").then((val) => {
       let items = [];
       if (val != null) {
         items = JSON.parse(val);
       }
 
       items.push(source);
-      this.storage.set("favorite", JSON.stringify(items));
+      this.storage.set("favorites", JSON.stringify(items));
       this.toastCtrl
         .create({
           color: "success",
           message: source.name + " added to favorites",
           duration: 1500,
+          position: "top"
         })
         .then((toastEl) => {
           toastEl.present();

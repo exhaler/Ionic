@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 import { Storage } from "@ionic/storage";
-import { IonItemSliding } from '@ionic/angular';
+import { IonItemSliding } from "@ionic/angular";
 
 @Component({
   selector: "app-favorites",
@@ -16,7 +16,7 @@ export class FavoritesPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.storage.get("favorite").then((val) => {
+    this.storage.get("favorites").then((val) => {
       let items = [];
       if (val != null) {
         this.sources = JSON.parse(val);
@@ -29,7 +29,12 @@ export class FavoritesPage implements OnInit {
     //console.log(source);
     const index = this.sources.indexOf(source);
     this.sources.splice(index, 1);
-    this.storage.set("favorite", JSON.stringify(this.sources));
+    this.storage.set("favorites", JSON.stringify(this.sources));
     slidingEl.close();
+  }
+
+  removeAllFavorites() {
+    this.storage.remove("favorites");
+    this.sources = [];
   }
 }
