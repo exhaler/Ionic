@@ -25,7 +25,7 @@ export const MEALDB_API = {
     return this.ROOT + "search.php";
   },
   get CATEGORIES() {
-    return this.ROOT + "list.php?c=list";
+    return this.ROOT + "categories.php";
   },
   get AREAS() {
     return this.ROOT + "list.php?a=list";
@@ -81,8 +81,8 @@ export class MealdbApiService {
   getCategories(): Observable<MEALDB_ListCategory> {
     return this.http.get(`${MEALDB_API.CATEGORIES}`).pipe(
       map((res: any) => {
-        if (res.meals) {
-          return res.meals;
+        if (res.categories) {
+          return res.categories;
         } else {
           return null;
         }

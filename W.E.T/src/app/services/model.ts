@@ -17,7 +17,10 @@ export interface MEALDB_ListItem {
 }
 
 export interface MEALDB_ListCategory {
+    idCategory: string;
     strCategory: string;
+    strCategoryThumb: string;
+    strCategoryDescription: string;
 }
 
 export interface MEALDB_ListArea {

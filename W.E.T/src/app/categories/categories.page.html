@@ -29,6 +29,9 @@
     *ngFor="let category of categories"
     routerLink="/category/{{ category.strCategory }}"
   >
+    <ion-thumbnail slot="start">
+      <ion-img [src]="category.strCategoryThumb" [alt]="category.strCategory"></ion-img>
+    </ion-thumbnail>
     <ion-label>{{ category.strCategory }}</ion-label>
   </ion-item>
 </ion-content>
