@@ -6,7 +6,7 @@ import { IonicModule } from "@ionic/angular";
 
 import { IngredientsPageRoutingModule } from "./ingredients-routing.module";
 import { IngredientsPage } from "./ingredients.page";
-import { SlugifyPipe } from "../services/slugify.pipe";
+import { SlugifyPipe } from "../pipes/slugify.pipe";
 
 @NgModule({
   imports: [

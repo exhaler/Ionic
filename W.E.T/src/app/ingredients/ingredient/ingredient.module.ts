@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IngredientPageRoutingModule } from './ingredient-routing.module';
 
 import { IngredientPage } from './ingredient.page';
-import { ReplaceUnderscorePipe } from "../../services/replace-underscore.pipe";
+import { ReplaceUnderscorePipe } from "../../pipes/replace-underscore.pipe";
 
 @NgModule({
   imports: [

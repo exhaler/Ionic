@@ -8,7 +8,7 @@
 
 <ion-content>
   <ng-container *ngIf="isLoading">
-    <ion-item detail *ngFor="let i of Arr(num).fill(1)">
+    <ion-item *ngFor="let i of Arr(num).fill(1)">
       <ion-label
         ><ion-skeleton-text animated style="width: 75%;"></ion-skeleton-text
       ></ion-label>
