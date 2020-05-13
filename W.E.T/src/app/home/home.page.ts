@@ -13,8 +13,6 @@ import { MealdbApiService } from "../services/mealdb-api.service";
 export class HomePage {
   meals$ = this.mealdb.meals$;
   isLoading: boolean = false;
-  Arr = Array;
-  num: number = 5;
 
   constructor(private mealdb: MealdbApiService, private router: Router) {
     this.loadData();

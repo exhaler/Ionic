@@ -14,6 +14,7 @@ import { ActivatedRoute } from "@angular/router";
 export class AreaPage implements OnInit {
   meals: MEALDB_ListItem;
   areaName: string;
+  isLoading: boolean = false;
 
   constructor(
     private mealdb: MealdbApiService,
@@ -21,11 +22,13 @@ export class AreaPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.areaName = this.activatedRoute.snapshot.paramMap.get("areaId");
     this.mealdb
       .getMealsByArea(this.areaName)
       .pipe(take(1))
       .subscribe((results) => {
+        this.isLoading = false;
         this.meals = results;
       });
   }

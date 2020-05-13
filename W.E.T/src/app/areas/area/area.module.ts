@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { AreaPageRoutingModule } from './area-routing.module';
-
+import { SharedModule } from "../../shared/shared.module";
 import { AreaPage } from './area.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { AreaPage } from './area.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AreaPageRoutingModule
+    AreaPageRoutingModule,
+    SharedModule
   ],
   declarations: [AreaPage]
 })

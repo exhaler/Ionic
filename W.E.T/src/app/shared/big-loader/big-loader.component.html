@@ -1,0 +1,14 @@
+<ion-grid class="ion-no-padding" *ngIf="isLoading">
+  <ion-row>
+    <ion-col>
+      <ion-card *ngFor="let i of Arr(num).fill(1)">
+        <ion-skeleton-text animated class="skeleton-image"></ion-skeleton-text>
+        <ion-card-header>
+          <ion-card-title
+            ><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text
+          ></ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

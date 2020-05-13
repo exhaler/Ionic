@@ -5,14 +5,15 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from "@ionic/angular";
 
 import { SmallLoaderComponent } from "./small-loader/small-loader.component";
+import { BigLoaderComponent } from './big-loader/big-loader.component';
 
 @NgModule({
-  declarations: [SmallLoaderComponent],
+  declarations: [SmallLoaderComponent, BigLoaderComponent],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule
   ],
-  exports: [SmallLoaderComponent]
+  exports: [SmallLoaderComponent, BigLoaderComponent]
 })
 export class SharedModule { }
