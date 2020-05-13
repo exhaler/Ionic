@@ -90,7 +90,7 @@ export class MealdbApiService {
     );
   }
 
-  getIngredients(): Observable<MEALDB_ListIngredient> {
+  getIngredients(): Observable<MEALDB_ListIngredient[]> {
     return this.http.get(`${MEALDB_API.INGREDIENTS}`).pipe(
       map((res: any) => {
         if (res.meals) {

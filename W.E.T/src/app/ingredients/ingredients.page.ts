@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 
-import { take } from 'rxjs/operators';
+import { take } from "rxjs/operators";
 
-import { MealdbApiService } from '../services/mealdb-api.service';
-import { MEALDB_ListIngredient } from '../services/model';
+import { MealdbApiService } from "../services/mealdb-api.service";
+import { MEALDB_ListIngredient } from "../services/model";
 
 @Component({
   selector: "app-ingredients",
@@ -11,8 +11,11 @@ import { MEALDB_ListIngredient } from '../services/model';
   styleUrls: ["./ingredients.page.scss"],
 })
 export class IngredientsPage implements OnInit {
-  ingredients: MEALDB_ListIngredient;
+  ingredients: MEALDB_ListIngredient[];
   isLoading: boolean = false;
+  ios: boolean;
+  showSearchbar: boolean;
+  filterIngredients = "";
 
   constructor(private mealdb: MealdbApiService) {}
 
