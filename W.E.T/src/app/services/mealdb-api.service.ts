@@ -10,6 +10,7 @@ import {
   MEALDB_Meal,
   MEALDB_ListCategory,
   MEALDB_ListArea,
+  MEALDB_ListIngredient,
 } from "./model";
 
 export const MEALDB_API = {
@@ -28,6 +29,9 @@ export const MEALDB_API = {
   },
   get AREAS() {
     return this.ROOT + "list.php?a=list";
+  },
+  get INGREDIENTS() {
+    return this.ROOT + "list.php?i=list";
   },
 };
 
@@ -76,6 +80,18 @@ export class MealdbApiService {
 
   getCategories(): Observable<MEALDB_ListCategory> {
     return this.http.get(`${MEALDB_API.CATEGORIES}`).pipe(
+      map((res: any) => {
+        if (res.meals) {
+          return res.meals;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getIngredients(): Observable<MEALDB_ListIngredient> {
+    return this.http.get(`${MEALDB_API.INGREDIENTS}`).pipe(
       map((res: any) => {
         if (res.meals) {
           return res.meals;

@@ -24,6 +24,13 @@ export interface MEALDB_ListArea {
     strArea: string;
 }
 
+export interface MEALDB_ListIngredient {
+    idIngredient: string;
+    strIngredient: string;
+    strDescription: string;
+    strType: string;
+}
+
 export interface MEALDB_Meal {
     idMeal: string;
     strMeal: string;

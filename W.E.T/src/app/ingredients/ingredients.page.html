@@ -1,9 +1,17 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>ingredients</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Ingredients
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-item
+    detail
+    *ngFor="let ingredient of ingredients"
+    routerLink="/ingredient/{{ ingredient.strIngredient }}"
+  >
+    <ion-label>{{ ingredient.strIngredient }}</ion-label>
+  </ion-item>
 </ion-content>
