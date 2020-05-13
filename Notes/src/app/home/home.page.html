@@ -5,5 +5,23 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list *mobxAutorun>
+    <ion-item
+      [color]="note.archived ? 'danger' : ''"
+      *ngFor="let note of notes"
+    >
+      <ion-label>
+        {{ note.title }}
+      </ion-label>
+      <ion-button (click)="archiveNote(note)" slot="end">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>Archived noted: {{ archivedNotesCount }}</ion-label>
+    </ion-item>
+    <ion-button (click)="createNote()" expand="block">
+      Create note
+    </ion-button>
+  </ion-list>
 </ion-content>
