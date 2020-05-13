@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { IonSearchbar } from "@ionic/angular";
 
 import { take } from "rxjs/operators";
 
@@ -12,7 +11,7 @@ import { MEALDB_ListItem } from "../services/model";
   styleUrls: ["./search.page.scss"],
 })
 export class SearchPage implements OnInit {
-  @ViewChild("searchbar", { static: false }) searchbar: IonSearchbar;
+  @ViewChild("searchbar", { static: false }) searchbar;
   queryText = "";
   meals: MEALDB_ListItem;
   isLoading: boolean = false;

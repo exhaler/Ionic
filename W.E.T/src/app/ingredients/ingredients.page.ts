@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { take } from "rxjs/operators";
 
@@ -11,6 +11,7 @@ import { MEALDB_ListIngredient } from "../services/model";
   styleUrls: ["./ingredients.page.scss"],
 })
 export class IngredientsPage implements OnInit {
+  @ViewChild("filterBar", { static: false }) filterBar;
   ingredients: MEALDB_ListIngredient[];
   isLoading: boolean = false;
   ios: boolean;
@@ -28,5 +29,11 @@ export class IngredientsPage implements OnInit {
         this.isLoading = false;
         this.ingredients = results;
       });
+  }
+
+  focusFilter() {
+    setTimeout(() => {
+      this.filterBar.setFocus();
+    },150);
   }
 }
