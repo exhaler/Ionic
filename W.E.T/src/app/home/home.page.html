@@ -1,9 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="primary">
-      <ion-button routerLink="/favorites">
-        <ion-icon slot="icon-only" color="danger" name="heart"></ion-icon>
-      </ion-button>
       <ion-button (click)="searchPage()">
         <ion-icon slot="icon-only" color="light" name="search"></ion-icon>
       </ion-button>
@@ -17,7 +14,7 @@
 <ion-content>
   <app-big-loader [isLoading]="isLoading"></app-big-loader>
 
-  <ion-grid class="ion-no-padding" *ngIf="!isLoading && meals$ | async as meals">
+  <ion-grid class="ion-no-padding" *ngIf="meals$ | async as meals">
     <ion-row>
       <ion-col>
         <ion-card

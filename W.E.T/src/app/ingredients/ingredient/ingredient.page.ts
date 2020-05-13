@@ -14,6 +14,7 @@ import { MealdbApiService } from '../../services/mealdb-api.service';
 export class IngredientPage implements OnInit {
   meals: MEALDB_ListItem;
   ingredientName: string;
+  isLoading: boolean = false;
 
   constructor(
     private mealdb: MealdbApiService,
@@ -21,11 +22,13 @@ export class IngredientPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.ingredientName = this.activatedRoute.snapshot.paramMap.get("ingredientId");
     this.mealdb
       .getMealsByIngredient(this.ingredientName)
       .pipe(take(1))
       .subscribe((results) => {
+        this.isLoading = false;
         this.meals = results;
       });
   }

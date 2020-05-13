@@ -32,6 +32,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "favorites",
+        loadChildren: () =>
+          import("../favorites/favorites.module").then(
+            (m) => m.FavoritesPageModule
+          ),
+      },
+      {
         path: "",
         redirectTo: "/tabs/home",
         pathMatch: "full",

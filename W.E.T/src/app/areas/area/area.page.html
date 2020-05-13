@@ -12,7 +12,7 @@
 <ion-content>
   <app-big-loader [isLoading]="isLoading"></app-big-loader>
   
-  <ion-grid class="ion-no-padding">
+  <ion-grid class="ion-no-padding" *ngIf="!isLoading">
     <ion-row>
       <ion-col>
         <ion-card

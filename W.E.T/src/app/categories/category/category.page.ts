@@ -13,6 +13,7 @@ import { take } from "rxjs/operators";
 export class CategoryPage implements OnInit {
   meals: MEALDB_ListItem;
   categoryName: string;
+  isLoading: boolean = false;
 
   constructor(
     private mealdb: MealdbApiService,
@@ -20,6 +21,7 @@ export class CategoryPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.categoryName = this.activatedRoute.snapshot.paramMap.get(
       "categoryId"
     );
@@ -27,6 +29,7 @@ export class CategoryPage implements OnInit {
       .getMealsByCategory(this.categoryName, false)
       .pipe(take(1))
       .subscribe((results) => {
+        this.isLoading = false;
         this.meals = results;
       });
   }
