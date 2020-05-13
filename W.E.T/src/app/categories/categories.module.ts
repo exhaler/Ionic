@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { CategoriesPageRoutingModule } from './categories-routing.module';
-
+import { SharedModule } from "../shared/shared.module";
 import { CategoriesPage } from './categories.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { CategoriesPage } from './categories.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CategoriesPageRoutingModule
+    CategoriesPageRoutingModule,
+    SharedModule
   ],
   declarations: [CategoriesPage]
 })

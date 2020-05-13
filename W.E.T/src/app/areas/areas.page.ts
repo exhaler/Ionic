@@ -12,14 +12,17 @@ import { MEALDB_ListArea } from "../services/model";
 })
 export class AreasPage implements OnInit {
   areas: MEALDB_ListArea;
+  isLoading: boolean = false;
 
   constructor(private mealdb: MealdbApiService) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.mealdb
       .getAreas()
       .pipe(take(1))
       .subscribe((results) => {
+        this.isLoading = false;
         this.areas = results;
       });
   }

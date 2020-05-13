@@ -17,16 +17,18 @@ export class CategoriesPage implements OnInit {
   showSearchbar: boolean;
   queryText = "";
   categories: MEALDB_ListCategory;
+  isLoading: boolean = false;
 
   constructor(public config: Config, private mealdb: MealdbApiService) {}
 
   ngOnInit() {
     this.ios = this.config.get("mode") === "ios";
-    
+    this.isLoading = true;
     this.mealdb
       .getCategories()
       .pipe(take(1))
       .subscribe((results) => {
+        this.isLoading = false;
         this.categories = results;
       });
   }

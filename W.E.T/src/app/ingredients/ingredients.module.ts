@@ -7,6 +7,7 @@ import { IonicModule } from "@ionic/angular";
 import { IngredientsPageRoutingModule } from "./ingredients-routing.module";
 import { IngredientsPage } from "./ingredients.page";
 import { SlugifyPipe } from "../pipes/slugify.pipe";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { SlugifyPipe } from "../pipes/slugify.pipe";
     FormsModule,
     IonicModule,
     IngredientsPageRoutingModule,
+    SharedModule,
   ],
   declarations: [IngredientsPage, SlugifyPipe],
 })

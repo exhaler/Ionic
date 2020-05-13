@@ -10,6 +10,7 @@ import { IonicStorageModule } from "@ionic/storage";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,8 @@ import { AppRoutingModule } from "./app-routing.module";
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     StatusBar,

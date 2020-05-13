@@ -22,6 +22,8 @@
 </ion-header>
 
 <ion-content>
+  <app-small-loader [isLoading]="isLoading"></app-small-loader>
+
   <ion-item
     detail
     *ngFor="let category of categories"

@@ -13,8 +13,6 @@ import { MEALDB_ListIngredient } from '../services/model';
 export class IngredientsPage implements OnInit {
   ingredients: MEALDB_ListIngredient;
   isLoading: boolean = false;
-  Arr = Array;
-  num: number = 20;
 
   constructor(private mealdb: MealdbApiService) {}
 
