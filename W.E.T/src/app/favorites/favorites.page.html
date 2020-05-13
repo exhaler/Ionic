@@ -10,6 +10,17 @@
     <ion-icon name="heart-dislike-outline"></ion-icon>
   </div>
 
+  <ion-refresher
+    *ngIf="meals.length > 0"
+    slot="fixed"
+    (ionRefresh)="onRefresh($event)"
+    pullFactor="0.8"
+    pullMin="60"
+    pullMax="120"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-grid class="ion-no-padding" *ngIf="meals.length > 0">
     <ion-row>
       <ion-col>

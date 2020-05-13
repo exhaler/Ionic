@@ -20,9 +20,16 @@ export class FavoritesPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewWillEnter() {
+  onRefresh(event) {
+    this.ionViewWillEnter(event);
+  }
+
+  ionViewWillEnter(event = null) {
     this.favoritesService.getAllFavoriteMeals().then((data) => {
       this.meals = data;
+      if (event) {
+        event.target.complete();
+      }
     });
   }
 }
