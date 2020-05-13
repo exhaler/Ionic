@@ -4,7 +4,13 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { MEALDB_Category, MEALDB_ListItem, MEALDB_Meal, MEALDB_ListCategory } from "./model";
+import {
+  MEALDB_Category,
+  MEALDB_ListItem,
+  MEALDB_Meal,
+  MEALDB_ListCategory,
+  MEALDB_ListArea,
+} from "./model";
 
 export const MEALDB_API = {
   ROOT: "https://www.themealdb.com/api/json/v1/1/",
@@ -17,9 +23,12 @@ export const MEALDB_API = {
   get SEARCH() {
     return this.ROOT + "search.php";
   },
-  get CATEGORIES(){
+  get CATEGORIES() {
     return this.ROOT + "list.php?c=list";
-  }
+  },
+  get AREAS() {
+    return this.ROOT + "list.php?a=list";
+  },
 };
 
 @Injectable({
@@ -77,7 +86,34 @@ export class MealdbApiService {
     );
   }
 
-  getMealsByCategory(category: string, checkDupes: boolean = true): Observable<MEALDB_ListItem> {
+  getAreas(): Observable<MEALDB_ListArea> {
+    return this.http.get(`${MEALDB_API.AREAS}`).pipe(
+      map((res: any) => {
+        if (res.meals) {
+          return res.meals;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getMealsByArea(area: string): Observable<MEALDB_ListItem> {
+    return this.http.get(`${MEALDB_API.FILTER}?a=${area}`).pipe(
+      map((res: any) => {
+        if (res.meals) {
+          return res.meals;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getMealsByCategory(
+    category: string,
+    checkDupes: boolean = true
+  ): Observable<MEALDB_ListItem> {
     return this.http.get(`${MEALDB_API.FILTER}?c=${category}`).pipe(
       map((res: any) => {
         if (res.meals) {

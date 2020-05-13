@@ -22,7 +22,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-item detail *ngFor="let category of categories" routerLink="/category/{{ category.strCategory }}">
+  <ion-item
+    detail
+    *ngFor="let category of categories"
+    routerLink="/category/{{ category.strCategory }}"
+  >
     <ion-label>{{ category.strCategory }}</ion-label>
   </ion-item>
 </ion-content>

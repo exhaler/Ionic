@@ -20,9 +20,9 @@ const routes: Routes = [
           ),
       },
       {
-        path: "area",
+        path: "areas",
         loadChildren: () =>
-          import("../area/area.module").then((m) => m.AreaPageModule),
+          import("../areas/areas.module").then((m) => m.AreasPageModule),
       },
       {
         path: "ingredients",

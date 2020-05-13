@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Areas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item
+    detail
+    *ngFor="let area of areas"
+    routerLink="/area/{{ area.strArea }}"
+  >
+    <ion-label>{{ area.strArea }}</ion-label>
+  </ion-item>
+</ion-content>

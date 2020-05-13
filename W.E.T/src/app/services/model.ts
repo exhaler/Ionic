@@ -20,6 +20,10 @@ export interface MEALDB_ListCategory {
     strCategory: string;
 }
 
+export interface MEALDB_ListArea {
+    strArea: string;
+}
+
 export interface MEALDB_Meal {
     idMeal: string;
     strMeal: string;
