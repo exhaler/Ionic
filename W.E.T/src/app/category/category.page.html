@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{ categoryName }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col>
+        <ion-card
+          *ngFor="let meal of meals"
+          button
+          [routerLink]="['/meal', meal.idMeal]"
+        >
+          <img [src]="meal.strMealThumb" [alt]="meal.strMeal" />
+          <ion-card-header>
+            <ion-card-title>{{ meal.strMeal }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

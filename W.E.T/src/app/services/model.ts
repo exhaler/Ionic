@@ -16,6 +16,10 @@ export interface MEALDB_ListItem {
     strMealThumb: string;
 }
 
+export interface MEALDB_ListCategory {
+    strCategory: string;
+}
+
 export interface MEALDB_Meal {
     idMeal: string;
     strMeal: string;

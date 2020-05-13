@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="end">
+      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar
+      *ngIf="showSearchbar"
+      showCancelButton="always"
+      [(ngModel)]="queryText"
+      [debounce]="500"
+      (ionChange)="filterCategories()"
+      (ionCancel)="showSearchbar = false"
+      placeholder="Filter"
+    ></ion-searchbar>
+    <ion-title *ngIf="!ios && !showSearchbar"> -->
+    <ion-title>
+      Categories
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item detail *ngFor="let category of categories" routerLink="/category/{{ category.strCategory }}">
+    <ion-label>{{ category.strCategory }}</ion-label>
+  </ion-item>
+</ion-content>

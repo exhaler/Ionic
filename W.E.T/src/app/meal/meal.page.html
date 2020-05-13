@@ -3,7 +3,7 @@
     <ion-toolbar color="primary">
       <ion-title>{{ meal.strMeal }}</ion-title>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="home"></ion-back-button>
+        <ion-back-button defaultHref="/tabs/home"></ion-back-button>
       </ion-buttons>
       <ion-buttons slot="end">
         <ion-button *ngIf="!isFavorite" (click)="addToFavorites(meal)">

@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { MEALDB_Category, MEALDB_ListItem, MEALDB_Meal } from "./model";
+import { MEALDB_Category, MEALDB_ListItem, MEALDB_Meal, MEALDB_ListCategory } from "./model";
 
 export const MEALDB_API = {
   ROOT: "https://www.themealdb.com/api/json/v1/1/",
@@ -16,6 +16,9 @@ export const MEALDB_API = {
   },
   get SEARCH() {
     return this.ROOT + "search.php";
+  },
+  get CATEGORIES(){
+    return this.ROOT + "list.php?c=list";
   }
 };
 
@@ -50,7 +53,7 @@ export class MealdbApiService {
   }
 
   searchForMeals(query: string): Observable<MEALDB_ListItem> {
-    console.log(query);
+    //console.log(query);
     return this.http.get(`${MEALDB_API.SEARCH}?s=${query}`).pipe(
       map((res: any) => {
         if (res.meals) {
@@ -62,10 +65,26 @@ export class MealdbApiService {
     );
   }
 
-  getMealsByCategory(category: string): Observable<MEALDB_ListItem> {
+  getCategories(): Observable<MEALDB_ListCategory> {
+    return this.http.get(`${MEALDB_API.CATEGORIES}`).pipe(
+      map((res: any) => {
+        if (res.meals) {
+          return res.meals;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getMealsByCategory(category: string, checkDupes: boolean = true): Observable<MEALDB_ListItem> {
     return this.http.get(`${MEALDB_API.FILTER}?c=${category}`).pipe(
       map((res: any) => {
         if (res.meals) {
+          if (!checkDupes) {
+            return res.meals;
+          }
+
           let count = 0;
           let results;
           // check for dupes
