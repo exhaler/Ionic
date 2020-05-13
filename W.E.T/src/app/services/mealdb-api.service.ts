@@ -126,6 +126,18 @@ export class MealdbApiService {
     );
   }
 
+  getMealsByIngredient(ingredient: string): Observable<MEALDB_ListItem> {
+    return this.http.get(`${MEALDB_API.FILTER}?i=${ingredient}`).pipe(
+      map((res: any) => {
+        if (res.meals) {
+          return res.meals;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
   getMealsByCategory(
     category: string,
     checkDupes: boolean = true

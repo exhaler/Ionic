@@ -7,15 +7,6 @@ const routes: Routes = [
     loadChildren: () =>
       import("./tabs/tabs.module").then((m) => m.TabsPageModule),
   },
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  // },
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full'
-  // },
   {
     path: "meal/:mealId",
     loadChildren: () =>
@@ -32,12 +23,23 @@ const routes: Routes = [
       import("./favorites/favorites.module").then((m) => m.FavoritesPageModule),
   },
   {
-    path: 'category/:categoryId',
-    loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
+    path: "category/:categoryId",
+    loadChildren: () =>
+      import("./categories/category/category.module").then(
+        (m) => m.CategoryPageModule
+      ),
   },
   {
-    path: 'area/:areaId',
-    loadChildren: () => import('./area/area.module').then( m => m.AreaPageModule)
+    path: "area/:areaId",
+    loadChildren: () =>
+      import("./areas/area/area.module").then((m) => m.AreaPageModule),
+  },
+  {
+    path: "ingredient/:ingredientId",
+    loadChildren: () =>
+      import("./ingredients/ingredient/ingredient.module").then(
+        (m) => m.IngredientPageModule
+      ),
   },
 ];
 

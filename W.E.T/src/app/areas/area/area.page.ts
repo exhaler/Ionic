@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 
 import { take } from "rxjs/operators";
 
-import { MealdbApiService } from "../services/mealdb-api.service";
-import { MEALDB_ListItem } from "../services/model";
+import { MealdbApiService } from "../../services/mealdb-api.service";
+import { MEALDB_ListItem } from "../../services/model";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
