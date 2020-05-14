@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
-import { observable } from "mobx-angular";
-import { action, computed } from "mobx";
+import { Note } from "../core/models/note.model";
+import { NotesService } from "../core/services/notes.service";
 
 @Component({
   selector: "app-home",
@@ -10,36 +10,19 @@ import { action, computed } from "mobx";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
-  @observable notes;
+  constructor(public store: NotesService) {}
 
-  constructor() {}
+  ngOnInit() {}
 
-  ngOnInit() {
-    this.initNotes();
+  archiveNote(note: Note) {
+    this.store.archiveNote(note);
   }
 
-  @action
-  archiveNote(note) {
-    note.archived = true;
-  }
-
-  @action
-  initNotes() {
-    this.notes = [];
-  }
-
-  @action
   createNote() {
-    this.notes.push({
+    this.store.createNote({
       title: "new note",
       description: "desc",
       archived: false,
     });
-    console.log("added new note");
-  }
-
-  @computed
-  get archivedNotesCount() {
-    return this.notes.filter((note) => !!note.archived).length;
   }
 }
