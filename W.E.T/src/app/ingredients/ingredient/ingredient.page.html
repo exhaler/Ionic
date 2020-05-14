@@ -12,7 +12,9 @@
 <ion-content>
   <app-big-loader [isLoading]="isLoading"></app-big-loader>
 
-  <ion-grid class="ion-no-padding" *ngIf="!isLoading">
+  <p *ngIf="!isLoading && !meals" class="ion-text-center">No meals found</p>
+
+  <ion-grid class="ion-no-padding"  >
     <ion-row>
       <ion-col>
         <ion-card
