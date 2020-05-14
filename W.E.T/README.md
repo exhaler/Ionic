@@ -1,7 +1,9 @@
 # W.E.T
-What to Eat Today app, using API from https://www.themealdb.com
+What to Eat Today app, API: https://www.themealdb.com
 
 ## Features
 * Random meals when you start the app
+* View meal instructions
 * Search for meals
-* Save meals as favorites to view later
+* List categories, areas and ingredients
+* Save meals to favorites to view later
