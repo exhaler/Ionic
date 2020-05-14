@@ -20,7 +20,7 @@
   <ion-content>
     <img [src]="meal.strMealThumb" [alt]="meal.strMeal" />
 
-    <ion-item lines="none">
+    <ion-item lines="none" routerLink="/category/{{ meal.strCategory }}">
       <h1>
         {{ meal.strMeal }}
       </h1>
@@ -36,7 +36,7 @@
         <ion-thumbnail slot="start">
           <img src="https://www.themealdb.com/images/ingredients/{{ ingredient[0] | titlecase }}-small.png" [alt]="ingredient[0] | titlecase" />
         </ion-thumbnail>
-        <ion-label>{{ ingredient[0] | titlecase }}</ion-label>
+        <ion-label routerLink="/ingredient/{{ ingredient[0] | slugify }}">{{ ingredient[0] | titlecase }}</ion-label>
         <ion-note color="dark" class="ion-padding-vertical">{{ ingredient[1] }}</ion-note>
       </ion-item>
     </ion-list>

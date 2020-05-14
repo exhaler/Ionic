@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MealPageRoutingModule } from './meal-routing.module';
-
+import { PipesModule } from '../pipes/pipes.module';
 import { MealPage } from './meal.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { MealPage } from './meal.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MealPageRoutingModule
+    MealPageRoutingModule,
+    PipesModule
   ],
   declarations: [MealPage]
 })
