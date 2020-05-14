@@ -6,9 +6,8 @@ import { IonicModule } from "@ionic/angular";
 
 import { IngredientsPageRoutingModule } from "./ingredients-routing.module";
 import { IngredientsPage } from "./ingredients.page";
-import { SlugifyPipe } from "../pipes/slugify.pipe";
-import { SearchIngredientsPipe } from "../pipes/search-ingredients.pipe";
 import { SharedModule } from "../shared/shared.module";
+import { PipesModule } from "../pipes/pipes.module";
 
 @NgModule({
   imports: [
@@ -17,7 +16,8 @@ import { SharedModule } from "../shared/shared.module";
     IonicModule,
     IngredientsPageRoutingModule,
     SharedModule,
+    PipesModule
   ],
-  declarations: [IngredientsPage, SlugifyPipe, SearchIngredientsPipe],
+  declarations: [IngredientsPage],
 })
 export class IngredientsPageModule {}

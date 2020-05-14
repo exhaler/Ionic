@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { IngredientPageRoutingModule } from './ingredient-routing.module';
-import { SharedModule } from "../../shared/shared.module";
 import { IngredientPage } from './ingredient.page';
-import { ReplaceUnderscorePipe } from "../../pipes/replace-underscore.pipe";
+import { SharedModule } from "../../shared/shared.module";
+import { PipesModule } from "../../pipes/pipes.module";
+
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ReplaceUnderscorePipe } from "../../pipes/replace-underscore.pipe";
     IonicModule,
     IngredientPageRoutingModule,
     SharedModule,
+    PipesModule
   ],
-  declarations: [IngredientPage, ReplaceUnderscorePipe]
+  declarations: [IngredientPage]
 })
 export class IngredientPageModule {}
