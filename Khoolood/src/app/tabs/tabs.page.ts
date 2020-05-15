@@ -9,7 +9,7 @@ import { IonTabs } from "@ionic/angular";
   styleUrls: ["./tabs.page.scss"],
 })
 export class TabsPage {
-  @ViewChild("mainTabs", { static: false }) tabs: IonTabs;
+  @ViewChild("mainTabs", { static: true }) tabs: IonTabs;
   selectedTab;
 
   constructor(public menu: MenuController) {}
