@@ -21,22 +21,26 @@ export class FavoriteService {
     });
   }
 
-  favoriteMeal(mealId) {
+  favoriteMeal(meal) {
     return this.getAllFavoriteMeals().then((result) => {
       if (result) {
-        result.push(mealId);
+        result.push(meal);
         return this.storage.set(this.STORAGE_KEY, result);
       } else {
-        return this.storage.set(this.STORAGE_KEY, [mealId]);
+        return this.storage.set(this.STORAGE_KEY, [meal]);
       }
     });
   }
 
-  unfavoriteMeal(mealId) {
+  unfavoriteMeal(meal) {
     return this.getAllFavoriteMeals().then((result) => {
       if (result) {
-        var index = result.indexOf(mealId);
-        result.splice(index, 1);
+        var removeIndex = result
+          .map(function (item) {
+            return item.idMeal;
+          })
+          .indexOf(meal.idMeal);
+        result.splice(removeIndex, 1);
         return this.storage.set(this.STORAGE_KEY, result);
       }
     });
