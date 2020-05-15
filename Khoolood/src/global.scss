@@ -36,6 +36,11 @@ ion-skeleton-text {
   --background-rgb: var(--ion-color-primary-rgb);
 }
 
+ion-tab-bar ion-tab-button {
+  background: var(--ion-identity-color);
+  color: var(--ion-color-primary-contrast);
+}
+
 .obituaries-list {
   ion-avatar {
     width: 80px;

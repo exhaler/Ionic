@@ -6,6 +6,9 @@
   /** font **/
   --ion-font-family: "Open Sans", "NotoKufiArabic", sans-serif;
 
+  /** identity color **/
+  --ion-identity-color: #1e3260;
+
   /** primary **/
   --ion-color-primary: #4280aa;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -78,7 +81,7 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
-  --ion-toolbar-background: #1e3260;
+  --ion-toolbar-background: var(--ion-identity-color);
   --ion-toolbar-color: var(--ion-color-primary-contrast);
 }
 
