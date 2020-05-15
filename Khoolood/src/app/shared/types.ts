@@ -33,6 +33,19 @@ export interface ReactionData extends ApiData {
   obituarySponsorId: string;
 }
 
+
+export interface NotificationData extends ApiData {
+  type: string;
+  object: SingleNotificationData;
+}
+
+export interface SingleNotificationData extends ApiData {
+  name_en: number;
+  notificationMessage: number;
+  timestamp: string;
+  notificationId: string;
+}
+
 export interface CommunityData extends ApiData {
   id: number;
   name_en: string;

@@ -112,6 +112,19 @@ export class RelativesObject {
   ) {}
 }
 
+export class Notifications {
+  constructor(public type: string, public object: NotificationObject) {}
+}
+
+export class NotificationObject {
+  constructor(
+    public name_en: string,
+    public message: string,
+    public timestamp: string,
+    public notificationId: string
+  ) {}
+}
+
 export class User {
   constructor(
     public userId: string,

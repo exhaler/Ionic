@@ -8,5 +8,58 @@
 </ion-header>
 
 <ion-content>
+  <p
+    class="ion-text-center"
+    *ngIf="!isLoading && loadedNotifications.length <= 0"
+  >
+    No communities found
+  </p>
 
+  <ion-list *ngIf="isLoading" class="ion-no-padding">
+    <ion-item *ngFor="let i of Arr(num).fill(1)" class="list-loaders">
+      <ion-label>
+        <h2>
+          <ion-skeleton-text
+            animated
+            style="height: 20px; width: 70%;"
+          ></ion-skeleton-text>
+        </h2>
+        <p>
+          <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-container *ngIf="!isLoading && loadedNotifications.length > 0">
+    <ion-list
+      *ngFor="let notification of loadedNotifications"
+      class="ion-no-padding"
+    >
+      <ion-item lines="none">
+        <ion-label>
+          <h2>{{ notification.name_en }}</h2>
+        </ion-label>
+        <ion-badge slot="end" color="medium">
+          {{ notification.timestamp }}</ion-badge
+        >
+      </ion-item>
+
+      <ion-item class="notification-message" lines="full">
+        <ion-label class="ion-text-wrap">
+          <p dir="auto">
+            {{ notification.message }}
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll
+    class="ion-padding"
+    threshold="100px"
+    (ionInfinite)="loadNextPage($event)"
+  >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  </ng-container>
 </ion-content>

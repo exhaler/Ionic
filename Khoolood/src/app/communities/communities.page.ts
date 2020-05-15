@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 
 import { CommunityObject } from "../shared/models";
-import { CommunityService } from '../shared/services/community.service';
+import { CommunityService } from "../shared/services/community.service";
 
 @Component({
   selector: "app-communities",
