@@ -8,5 +8,31 @@
 </ion-header>
 
 <ion-content>
+  <div id="container" *ngIf="savedObituaries.length <= 0">
+    <ion-title>You have no saved items</ion-title>
+    <ion-icon name="alert-circle-outline"></ion-icon>
+  </div>
 
+  <ion-list class="ion-no-padding" *ngIf="savedObituaries.length > 0">
+    <ion-item
+      *ngFor="let obituary of savedObituaries"
+      routerLink="/obituary-detail/{{ obituary.obituaryId }}"
+      detail
+      class="obituaries-list"
+    >
+      <ion-avatar slot="start">
+        <img [src]="obituary.photo" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ obituary.firstName }} {{ obituary.middleName }} {{ obituary.lastName }}</h2>
+        <p class="death-date">
+          Date of death <span>{{ obituary.dateOfDeath }}</span>
+        </p>
+        <p class="death-date">
+          Funeral <span>{{ obituary.funerals.funeralDate }}</span>
+        </p>
+        <p class="funeral-place">{{ obituary.funerals.place }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

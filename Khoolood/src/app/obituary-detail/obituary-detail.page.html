@@ -5,7 +5,7 @@
         <ion-back-button defaultHref="/recent-obits"></ion-back-button>
       </ion-buttons>
 
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" *ngIf="!isLoading">
         <ion-button (click)="share(detailObituary)">
           <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
         </ion-button>
