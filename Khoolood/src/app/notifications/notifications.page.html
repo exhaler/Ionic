@@ -12,7 +12,7 @@
     class="ion-text-center"
     *ngIf="!isLoading && loadedNotifications.length <= 0"
   >
-    No communities found
+    No notifications found
   </p>
 
   <ion-list *ngIf="isLoading" class="ion-no-padding">
@@ -37,7 +37,7 @@
       class="ion-no-padding"
     >
       <ion-item lines="none">
-        <ion-label>
+        <ion-label class="ion-text-wrap">
           <h2>{{ notification.name_en }}</h2>
         </ion-label>
         <ion-badge slot="end" color="medium">
@@ -55,11 +55,11 @@
     </ion-list>
 
     <ion-infinite-scroll
-    class="ion-padding"
-    threshold="100px"
-    (ionInfinite)="loadNextPage($event)"
-  >
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+      class="ion-padding"
+      threshold="100px"
+      (ionInfinite)="loadNextPage($event)"
+    >
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ng-container>
 </ion-content>
