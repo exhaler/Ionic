@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
 
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
@@ -25,7 +27,8 @@ export class MealPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private mealdb: MealdbApiService,
     private sanitizer: DomSanitizer,
-    public favoriteService: FavoriteService
+    public favoriteService: FavoriteService,
+    private socialSharing: SocialSharing
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get("mealId");
     this.favoriteService.isFavorite(this.id).then((isFav) => {
@@ -73,5 +76,20 @@ export class MealPage implements OnInit {
     this.favoriteService.unfavoriteMeal(meal).then(() => {
       this.isFavorite = false;
     });
+  }
+
+  shareMeal(meal) {
+    // var options = {
+    //   message: 'share this', // not supported on some apps (Facebook, Instagram)
+    //   subject: 'the subject', // fi. for email
+    //   files: ['', ''], // an array of filenames either locally or remotely
+    //   url: 'https://www.website.com/foo/#bar?a=b',
+    //   chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title
+    //   appPackageName: 'com.apple.social.facebook', // Android only, you can provide id of the App you want to share with
+    //   iPadCoordinates: '0,0,0,0' //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
+    // };
+    // this.socialSharing.shareWithOptions(options);
+    this.socialSharing.share("Check out this delicious meal", meal.strMeal, meal.strMealThumb, null);
+
   }
 }

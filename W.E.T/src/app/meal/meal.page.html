@@ -6,6 +6,10 @@
         <ion-back-button defaultHref="/tabs/home"></ion-back-button>
       </ion-buttons>
       <ion-buttons slot="end">
+        <ion-button (click)="shareMeal(meal)">
+          <ion-icon color="light" slot="icon-only" name="share-social-outline"></ion-icon>
+        </ion-button>
+
         <ion-button *ngIf="!isFavorite" (click)="addToFavorites(meal)">
           <ion-icon color="danger" slot="icon-only" name="heart-outline"></ion-icon>
         </ion-button>
