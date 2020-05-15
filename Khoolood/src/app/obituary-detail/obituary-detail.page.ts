@@ -7,7 +7,8 @@ import { Subscription } from "rxjs";
 
 import { DetailedObituaryObject } from "../shared/models";
 import { ObituaryService } from "../shared/services/obituary.service";
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from "../auth/auth.service";
+import { SaveService } from "../shared/services/save.service";
 
 @Component({
   selector: "app-obituary-detail",
@@ -16,9 +17,10 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ObituaryDetailPage implements OnInit, OnDestroy {
   detailObituary: DetailedObituaryObject;
-  obituaryId: number;
+  obituaryId: number | string;
   isLoading = false;
   loggedIn = false;
+  isSaved = false;
   private obituarySub: Subscription;
 
   constructor(
@@ -27,11 +29,12 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
     private navCtrl: NavController,
     private obituaryService: ObituaryService,
     private alertCtrl: AlertController,
-    private authService: AuthService
+    private authService: AuthService,
+    private saveService: SaveService
   ) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn().then(loggedIn => {
+    this.authService.isLoggedIn().then((loggedIn) => {
       this.loggedIn = loggedIn;
     });
 
@@ -41,8 +44,13 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
         return;
       }
 
-      this.obituaryId = +paramMap.get("obituaryId");
+      this.obituaryId = paramMap.get("obituaryId");
       this.isLoading = true;
+
+      this.saveService.isSaved(this.obituaryId).then((isSaved) => {
+        this.isSaved = isSaved;
+      });
+
       this.obituarySub = this.obituaryService
         .getObituary(+paramMap.get("obituaryId"))
         .subscribe(
@@ -79,17 +87,20 @@ export class ObituaryDetailPage implements OnInit, OnDestroy {
   }
 
   save(obituary) {
-    console.log(obituary);
+    this.saveService.saveItem(obituary).then(() => {
+      this.isSaved = true;
+    });
+  }
+
+  unSave(obituary) {
+    this.saveService.unSaveItem(obituary).then(() => {
+      this.isSaved = false;
+    });
   }
 
   ngOnDestroy() {
     if (this.obituarySub) {
       this.obituarySub.unsubscribe();
     }
-  }
-
-  isArabic(text) {
-    var pattern = /[\u0600-\u06FF]/;
-    alert(pattern.test(text));
   }
 }

@@ -9,8 +9,12 @@
         <ion-button (click)="share(detailObituary)">
           <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
         </ion-button>
-        <ion-button *ngIf="loggedIn" (click)="save(detailObituary)">
+        <ion-button *ngIf="loggedIn && !isSaved" (click)="save(detailObituary)">
           <ion-icon name="star-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+
+        <ion-button *ngIf="loggedIn && isSaved" (click)="unSave(detailObituary)">
+          <ion-icon name="star" slot="icon-only"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -20,8 +24,9 @@
     <h2 *ngIf="!isLoading">
       {{ detailObituary?.firstName }} {{ detailObituary?.middleName }} {{
       detailObituary?.lastName }}
+      <p *ngIf="!isLoading">Date of death: {{ detailObituary?.dateOfDeath }}</p>
     </h2>
-    <p *ngIf="!isLoading">Date of death: {{ detailObituary?.dateOfDeath }}</p>
+    
     <img
       *ngIf="!isLoading"
       [src]="detailObituary?.photo"
