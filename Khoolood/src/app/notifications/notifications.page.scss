@@ -1,3 +1,7 @@
 .notification-message ion-label {
-    margin-top: 0;
+  margin-top: 0;
+}
+
+ion-badge {
+  --background: var(--ion-color-primary-rgb);
 }

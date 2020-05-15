@@ -15,21 +15,32 @@
     No notifications found
   </p>
 
-  <ion-list *ngIf="isLoading" class="ion-no-padding">
-    <ion-item *ngFor="let i of Arr(num).fill(1)" class="list-loaders">
-      <ion-label>
-        <h2>
-          <ion-skeleton-text
-            animated
-            style="height: 20px; width: 70%;"
-          ></ion-skeleton-text>
-        </h2>
-        <p>
-          <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
-        </p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ng-container *ngIf="isLoading">
+    <ion-list class="ion-no-padding" *ngFor="let i of Arr(num).fill(1)">
+      <ion-item lines="none">
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+          </h2>
+        </ion-label>
+        <ion-badge slot="end" class="ion-no-padding">
+          <ion-skeleton-text animated style="width: 90px;"></ion-skeleton-text></ion-badge
+        >
+      </ion-item>
+
+      <ion-item lines="full" class="notification-message">
+        <ion-label
+          ><p>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text></p
+        ></ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 
   <ng-container *ngIf="!isLoading && loadedNotifications.length > 0">
     <ion-list
