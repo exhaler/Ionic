@@ -1,10 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { SegmentChangeEventDetail } from "@ionic/core";
 import { Router } from "@angular/router";
 
-import { Subscription } from "rxjs";
-
-import { Obituaries } from "../shared/models";
+import { SegmentChangeEventDetail } from "@ionic/core";
 
 @Component({
   selector: "app-home",
@@ -14,9 +11,7 @@ import { Obituaries } from "../shared/models";
 export class HomePage implements OnInit {
   showPage: string = "obituaries";
 
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
