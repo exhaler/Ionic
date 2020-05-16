@@ -9,4 +9,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="manage-note"> </ion-content>
+<ion-content class="manage-note" class="ion-padding">
+  <form [formGroup]="noteForm" (submit)="formSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Title</ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Description</ion-label>
+        <ion-textarea rows="5" formControlName="description"></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" fill="outline" type="submit">
+        Save
+      </ion-button>
+    </ion-list>
+  </form>
+</ion-content>
