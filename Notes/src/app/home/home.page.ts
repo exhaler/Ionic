@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { ModalController } from "@ionic/angular";
 
 import { Note } from "../core/models/note.model";
 import { NotesService } from "../core/services/notes.service";
+import { ManageNoteComponent } from './components/manage-note/manage-note.component';
 
 @Component({
   selector: "app-home",
@@ -10,7 +12,7 @@ import { NotesService } from "../core/services/notes.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
-  constructor(public store: NotesService) {}
+  constructor(public store: NotesService, private modalCtrl: ModalController) {}
 
   ngOnInit() {}
 
@@ -18,7 +20,13 @@ export class HomePage implements OnInit {
     this.store.archiveNote(note);
   }
 
-  createNote() {
+  async createNote() {
+    const modal = await this.modalCtrl.create({
+      component: ManageNoteComponent
+    })
+
+    return await modal.present();
+
     this.store.createNote({
       title: "new note",
       description: "desc",
