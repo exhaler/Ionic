@@ -1,5 +1,5 @@
 # Ionic
-Learning Ionic & Angular while building different apps:
+Learning Ionic while building different apps:
 
 - [PairBnB](https://github.com/exhaler/Ionic/tree/master/PairBnB)
 - [Khoolood](https://github.com/exhaler/Ionic/tree/master/Khoolood)
