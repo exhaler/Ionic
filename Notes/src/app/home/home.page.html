@@ -1,22 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title>Notes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list *mobxAutorun>
-    <ion-item
-      [color]="note.archived ? 'danger' : ''"
-      *ngFor="let note of store.notes"
-    >
-      <ion-label>
-        {{ note.title }}
-      </ion-label>
-      <ion-button (click)="archiveNote(note)" slot="end">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button>
-    </ion-item>
+<ion-content class="home">
+  <ion-list *mobxAutorun class="home__notes">
+    <ion-card *ngFor="let note of store.notes" [class.home__notes__item--archived]="!!note.archived" class="home__notes__item">
+      <ion-card-header>
+        <ion-card-title>{{ note.title }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="home__notes__item__description">
+          {{ note.description }}
+        </div>
+        <div class="home__notes__item__actions">
+          <ion-button color="dark" fill="outline">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button (click)="archiveNote(note)" color="danger" fill="outline">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
     <ion-item>
       <ion-label>Archived noted: {{ store.archivedNotesCount }}</ion-label>
     </ion-item>
