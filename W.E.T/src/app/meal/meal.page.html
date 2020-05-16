@@ -37,7 +37,7 @@
       </ion-list-header>
 
       <ion-item *ngFor="let ingredient of ingredients">
-        <ion-thumbnail slot="start">
+        <ion-thumbnail slot="start" routerLink="/ingredient/{{ ingredient[0] | slugify }}">
           <img src="https://www.themealdb.com/images/ingredients/{{ ingredient[0] | titlecase }}-small.png" [alt]="ingredient[0] | titlecase" />
         </ion-thumbnail>
         <ion-label routerLink="/ingredient/{{ ingredient[0] | slugify }}">{{ ingredient[0] | titlecase }}</ion-label>
