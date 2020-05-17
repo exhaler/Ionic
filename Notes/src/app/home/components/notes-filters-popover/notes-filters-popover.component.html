@@ -1,12 +1,12 @@
 <ion-list>
-  <ion-radio-group>
+  <ion-radio-group [value]="selectedFilter">
     <ion-item (click)="setFilter(filters.ACTIVE);">
       <ion-label>Active</ion-label>
-      <ion-radio [checked]="selectedFilter === filters.ACTIVE" slot="start" value="active"></ion-radio>
+      <ion-radio [value]="filters.ACTIVE" slot="start"></ion-radio>
     </ion-item>
     <ion-item (click)="setFilter(filters.ARCHIVED);">
       <ion-label>Archived</ion-label>
-      <ion-radio [checked]="selectedFilter === filters.ARCHIVED" slot="start" value="archived"></ion-radio>
+      <ion-radio [value]="filters.ARCHIVED" slot="start"></ion-radio>
     </ion-item>
   </ion-radio-group>
 </ion-list>

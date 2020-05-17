@@ -1,5 +1,4 @@
-import { observable } from 'rxjs';
-import { action } from 'mobx';
+import { observable, action } from 'mobx-angular';
 
 export interface INote {
   id: number;
