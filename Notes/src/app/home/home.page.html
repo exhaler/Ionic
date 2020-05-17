@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Notes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showFilters($event)">
+        <ion-icon slot="start" name="funnel"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="home">
   <ion-list *mobxAutorun class="home__notes">
     <ion-card
-      *ngFor="let note of store.notes"
+      *ngFor="let note of store.filteredNotes"
       [class.home__notes__item--archived]="!!note.archived"
       class="home__notes__item"
     >

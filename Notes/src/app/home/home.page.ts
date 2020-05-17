@@ -1,9 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { ModalController, PopoverController } from "@ionic/angular";
 
 import { Note } from "../core/models/note.model";
 import { NotesService } from "../core/services/notes.service";
-import { ManageNoteComponent, NoteManageModes } from "./components/manage-note/manage-note.component";
+import {
+  ManageNoteComponent,
+  NoteManageModes,
+} from "./components/manage-note/manage-note.component";
+import { NotesFiltersPopoverComponent } from "./components/notes-filters-popover/notes-filters-popover.component";
+import { NotesFilters } from "../core/constants/notes-filter.enum";
 
 @Component({
   selector: "app-home",
@@ -12,7 +17,11 @@ import { ManageNoteComponent, NoteManageModes } from "./components/manage-note/m
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
-  constructor(public store: NotesService, private modalCtrl: ModalController) {}
+  constructor(
+    public store: NotesService,
+    private modalCtrl: ModalController,
+    private popOverCtrl: PopoverController
+  ) {}
 
   ngOnInit() {}
 
@@ -20,13 +29,30 @@ export class HomePage implements OnInit {
     this.store.archiveNote(note);
   }
 
+  async showFilters(ev) {
+    const popOver = await this.popOverCtrl.create({
+      component: NotesFiltersPopoverComponent,
+      event: ev,
+      translucent: true,
+      componentProps: {
+        selectedFilter: this.store.filter,
+      },
+    });
+    await popOver.present();
+    const response = await popOver.onDidDismiss();
+    if (response.data) {
+      console.log(response.data);
+      this.store.setFilter(response.data as NotesFilters);
+    }
+  }
+
   async createNote() {
     const modal = await this.modalCtrl.create({
       component: ManageNoteComponent,
       componentProps: {
         mode: NoteManageModes.ADD,
-        note: null
-      }
+        note: null,
+      },
     });
 
     await modal.present();
@@ -42,8 +68,8 @@ export class HomePage implements OnInit {
       component: ManageNoteComponent,
       componentProps: {
         mode: NoteManageModes.EDIT,
-        note: noteItem
-      }
+        note: noteItem,
+      },
     });
 
     await modal.present();

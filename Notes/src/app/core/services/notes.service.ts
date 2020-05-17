@@ -4,12 +4,14 @@ import { observable } from "mobx-angular";
 import { action, computed } from "mobx";
 
 import { Note, INote } from "../models/note.model";
+import { NotesFilters } from "../constants/notes-filter.enum";
 
 @Injectable({
   providedIn: "root",
 })
 export class NotesService {
   @observable notes: Array<Note>;
+  @observable filter: NotesFilters;
 
   constructor() {
     this.initNotes();
@@ -17,12 +19,18 @@ export class NotesService {
 
   @action
   archiveNote(note: Note) {
-    note.archived = true;
+    note.setArchived(true);
   }
 
   @action
   initNotes() {
     this.notes = [];
+    this.filter = NotesFilters.ACTIVE;
+  }
+
+  @action
+  setFilter(filter: NotesFilters) {
+    this.filter = filter;
   }
 
   @action
@@ -43,5 +51,15 @@ export class NotesService {
   @computed
   get archivedNotesCount() {
     return this.notes.filter((note) => !!note.archived).length;
+  }
+
+  @computed
+  get filteredNotes() {
+    switch (this.filter) {
+      case NotesFilters.ACTIVE:
+        return this.notes.filter((note) => !note.archived);
+      case NotesFilters.ARCHIVED:
+        return this.notes.filter((note) => !!note.archived);
+    }
   }
 }

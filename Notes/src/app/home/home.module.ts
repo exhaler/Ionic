@@ -10,6 +10,7 @@ import { HomePageRoutingModule } from "./home-routing.module";
 
 import { HomePage } from "./home.page";
 import { ManageNoteComponent } from "./components/manage-note/manage-note.component";
+import { NotesFiltersPopoverComponent } from "./components/notes-filters-popover/notes-filters-popover.component";
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { ManageNoteComponent } from "./components/manage-note/manage-note.compon
     HomePageRoutingModule,
     MobxAngularModule,
   ],
-  entryComponents: [ManageNoteComponent],
-  declarations: [HomePage, ManageNoteComponent],
+  entryComponents: [ManageNoteComponent, NotesFiltersPopoverComponent],
+  declarations: [HomePage, ManageNoteComponent, NotesFiltersPopoverComponent],
 })
 export class HomePageModule {}
