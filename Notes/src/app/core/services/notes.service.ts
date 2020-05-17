@@ -30,6 +30,16 @@ export class NotesService {
     this.notes.push(new Note(note));
   }
 
+  @action
+  updateNote(note: Note) {
+    for (let i = 0, len = this.notes.length; i < len; ++i) {
+      if (note.id === this.notes[i].id) {
+        this.notes[i] = note;
+        break;
+      }
+    }
+  }
+
   @computed
   get archivedNotesCount() {
     return this.notes.filter((note) => !!note.archived).length;

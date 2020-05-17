@@ -3,7 +3,7 @@ import { ModalController } from "@ionic/angular";
 
 import { Note } from "../core/models/note.model";
 import { NotesService } from "../core/services/notes.service";
-import { ManageNoteComponent } from './components/manage-note/manage-note.component';
+import { ManageNoteComponent, NoteManageModes } from "./components/manage-note/manage-note.component";
 
 @Component({
   selector: "app-home",
@@ -22,15 +22,35 @@ export class HomePage implements OnInit {
 
   async createNote() {
     const modal = await this.modalCtrl.create({
-      component: ManageNoteComponent
-    })
-
-    return await modal.present();
-
-    this.store.createNote({
-      title: "new note",
-      description: "desc",
-      archived: false,
+      component: ManageNoteComponent,
+      componentProps: {
+        mode: NoteManageModes.ADD,
+        note: null
+      }
     });
+
+    await modal.present();
+    const response = await modal.onDidDismiss();
+    const note = response.data as Note;
+    if (note) {
+      this.store.createNote(note);
+    }
+  }
+
+  async editNote(noteItem: Note) {
+    const modal = await this.modalCtrl.create({
+      component: ManageNoteComponent,
+      componentProps: {
+        mode: NoteManageModes.EDIT,
+        note: noteItem
+      }
+    });
+
+    await modal.present();
+    const response = await modal.onDidDismiss();
+    const note = response.data as Note;
+    if (note) {
+      this.store.updateNote(note);
+    }
   }
 }

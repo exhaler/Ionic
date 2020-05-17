@@ -20,7 +20,7 @@
           {{ note.description }}
         </div>
         <div class="home__notes__item__actions">
-          <ion-button color="dark" fill="outline">
+          <ion-button (click)="editNote(note)" color="dark" fill="outline">
             <ion-icon name="create"></ion-icon>
           </ion-button>
           <ion-button (click)="archiveNote(note)" color="danger" fill="outline">
