@@ -13,10 +13,6 @@ export class NotesService {
   @observable notes: Array<Note>;
   @observable filter: NotesFilters;
 
-  constructor() {
-    this.initNotes();
-  }
-
   @action
   archiveNote(note: Note) {
     note.setArchived(true);
