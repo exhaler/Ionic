@@ -5,6 +5,7 @@ import { action, computed } from "mobx";
 
 import { Note, INote } from "../models/note.model";
 import { NotesFilters } from "../constants/notes-filter.enum";
+import { SqliteStorageService } from "./sqlite-storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -12,6 +13,9 @@ import { NotesFilters } from "../constants/notes-filter.enum";
 export class NotesService {
   @observable notes: Array<Note>;
   @observable filter: NotesFilters;
+  tableName = "notes";
+
+  constructor(private sqliteStorage: SqliteStorageService) {}
 
   @action
   archiveNote(note: Note) {
@@ -22,6 +26,17 @@ export class NotesService {
   initNotes() {
     this.notes = [];
     this.filter = NotesFilters.ACTIVE;
+    this.getAllNotes();
+  }
+
+  async getAllNotes() {
+    const notes = await this.sqliteStorage.getAll(this.tableName);
+    this.setNotes(notes);
+  }
+
+  @action
+  setNotes(notes: Array<Note>) {
+    this.notes = notes;
   }
 
   @action
