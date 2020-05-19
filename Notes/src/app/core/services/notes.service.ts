@@ -31,7 +31,7 @@ export class NotesService {
 
   async getAllNotes() {
     const notes = await this.sqliteStorage.getAll(this.tableName);
-    this.setNotes(notes);
+    this.setNotes(notes.map((note) => new Note(note)));
   }
 
   @action
@@ -45,8 +45,17 @@ export class NotesService {
   }
 
   @action
-  createNote(note: Partial<INote>) {
-    this.notes.push(new Note(note));
+  async createNote(note: Partial<INote>) {
+    const response = await this.sqliteStorage.create(
+      this.tableName,
+      ["title", "description", "archived"],
+      [note.title, note.description, note.archived ? 1 : 0]
+    );
+    const savedNote = await this.sqliteStorage.getById(
+      this.tableName,
+      response.insertId
+    );
+    this.setNotes([...this.notes, new Note(savedNote)]);
   }
 
   @action
