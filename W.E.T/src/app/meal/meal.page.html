@@ -7,11 +7,19 @@
       </ion-buttons>
       <ion-buttons slot="end">
         <ion-button (click)="shareMeal(meal)">
-          <ion-icon color="light" slot="icon-only" name="share-social-outline"></ion-icon>
+          <ion-icon
+            color="light"
+            slot="icon-only"
+            name="share-social-outline"
+          ></ion-icon>
         </ion-button>
 
         <ion-button *ngIf="!isFavorite" (click)="addToFavorites(meal)">
-          <ion-icon color="danger" slot="icon-only" name="heart-outline"></ion-icon>
+          <ion-icon
+            color="danger"
+            slot="icon-only"
+            name="heart-outline"
+          ></ion-icon>
         </ion-button>
 
         <ion-button *ngIf="isFavorite" (click)="removeFromFavorites(meal)">
@@ -24,11 +32,16 @@
   <ion-content>
     <img [src]="meal.strMealThumb" [alt]="meal.strMeal" />
 
-    <ion-item lines="none" routerLink="/category/{{ meal.strCategory }}">
+    <ion-item lines="none">
       <h1>
         {{ meal.strMeal }}
       </h1>
-      <ion-badge color="secondary" slot="end">{{ meal.strCategory }}</ion-badge>
+      <ion-badge
+        color="secondary"
+        slot="end"
+        routerLink="/category/{{ meal.strCategory }}"
+        >{{ meal.strCategory }}</ion-badge
+      >
     </ion-item>
 
     <ion-list>
@@ -37,15 +50,26 @@
       </ion-list-header>
 
       <ion-item *ngFor="let ingredient of ingredients">
-        <ion-thumbnail slot="start" routerLink="/ingredient/{{ ingredient[0] | slugify }}">
-          <img src="https://www.themealdb.com/images/ingredients/{{ ingredient[0] | titlecase }}-small.png" [alt]="ingredient[0] | titlecase" />
+        <ion-thumbnail
+          slot="start"
+          routerLink="/ingredient/{{ ingredient[0] | slugify }}"
+        >
+          <img
+            src="https://www.themealdb.com/images/ingredients/{{ ingredient[0] | titlecase }}-small.png"
+            [alt]="ingredient[0] | titlecase"
+          />
         </ion-thumbnail>
-        <ion-label routerLink="/ingredient/{{ ingredient[0] | slugify }}">{{ ingredient[0] | titlecase }}</ion-label>
-        <ion-note color="dark" class="ion-padding-vertical">{{ ingredient[1] }}</ion-note>
+        <ion-label routerLink="/ingredient/{{ ingredient[0] | slugify }}"
+          >{{ ingredient[0] | titlecase }}</ion-label
+        >
+        <ion-note color="dark" class="ion-padding-vertical"
+          >{{ ingredient[1] }}</ion-note
+        >
       </ion-item>
     </ion-list>
 
-    <iframe class="ion-padding-vertical"
+    <iframe
+      class="ion-padding-vertical"
       id="ytplayer"
       type="text/html"
       width="100%"
