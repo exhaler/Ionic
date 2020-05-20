@@ -8,6 +8,7 @@ import { IonSearchbar } from '@ionic/angular';
 })
 export class SearchPage implements OnInit {
   @ViewChild('searchbar', {static: false}) searchbar: IonSearchbar;
+  queryText: string = "";
 
   constructor() {}
 
@@ -15,5 +16,9 @@ export class SearchPage implements OnInit {
 
   ionViewDidEnter() {
     this.searchbar.setFocus();
+  }
+
+  search() {
+    console.log(this.queryText);
   }
 }
