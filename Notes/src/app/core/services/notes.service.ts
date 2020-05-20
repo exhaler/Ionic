@@ -18,8 +18,14 @@ export class NotesService {
   constructor(private sqliteStorage: SqliteStorageService) {}
 
   @action
-  archiveNote(note: Note) {
+  async archiveNote(note: Note) {
     note.setArchived(true);
+    await this.sqliteStorage.update(
+      this.tableName,
+      note.id,
+      ["title", "description", "archived"],
+      [note.title, note.description, note.archived ? 1 : 0]
+    );
   }
 
   @action
@@ -59,7 +65,19 @@ export class NotesService {
   }
 
   @action
-  updateNote(note: Note) {
+  async updateNote(note: Note) {
+    await this.sqliteStorage.update(
+      this.tableName,
+      note.id,
+      ["title", "description", "archived"],
+      [note.title, note.description, note.archived ? 1 : 0]
+    );
+
+    this.setNote(note);
+  }
+
+  @action
+  setNote(note: Note) {
     for (let i = 0, len = this.notes.length; i < len; ++i) {
       if (note.id === this.notes[i].id) {
         this.notes[i] = note;
