@@ -2,12 +2,11 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="dismiss()">
-        <ion-icon name="arrow-back">
-        </ion-icon>
+        <ion-icon name="arrow-back"> </ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>
-      {{mode === manageModes.ADD ? 'Add Note' : 'Edit Note'}}
+      {{ mode === manageModes.ADD ? "Add Note" : "Edit Note" }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -27,35 +26,37 @@
         </ion-label>
         <ion-textarea formControlName="description" rows="5"></ion-textarea>
       </ion-item>
-      <ion-item (click)="takePicture()">
+      <ion-item (click)="takePicture()" lines="full">
         <ion-label>
           Image
         </ion-label>
         <ion-thumbnail *ngIf="noteImage" slot="end">
-          <img [src]="noteImage"> 
+          <img [src]="noteImage" />
         </ion-thumbnail>
-        <ion-icon *ngIf="!noteImage" slot="end" name="camera">
-
-        </ion-icon>
+        <ion-icon *ngIf="!noteImage" slot="end" name="camera"> </ion-icon>
       </ion-item>
       <ion-item class="manage-note__reminder">
-          <ion-label>Reminder</ion-label>
-          <ion-icon slot="end" name="time-outline" *ngIf="!noteForm.get('reminderTime').value"></ion-icon>
-          <ion-datetime
-            (click)="dateTimeClicked()"
-            [min]="minTime"
-            [class.manage-note__reminder--absolute]="!noteForm.get('reminderTime').value"
-            formControlName="reminderTime"
-            displayFormat="D MMM YYYY H:mm"
-            slot="end">
-
-          </ion-datetime
-          >
+        <ion-label>Reminder</ion-label>
+        <ion-icon
+          slot="end"
+          name="time-outline"
+          *ngIf="!noteForm.get('reminderTime').value"
+        ></ion-icon>
+        <ion-datetime
+          (click)="dateTimeClicked()"
+          [min]="minTime"
+          [class.manage-note__reminder--absolute]="
+            !noteForm.get('reminderTime').value
+          "
+          formControlName="reminderTime"
+          displayFormat="D MMM YYYY H:mm"
+          slot="end"
+        >
+        </ion-datetime>
       </ion-item>
-      <ion-button type="submit" expand="block" fill="outline">
+      <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="!noteForm.valid">
         Save
       </ion-button>
     </ion-list>
   </form>
 </ion-content>
-  
