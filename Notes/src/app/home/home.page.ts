@@ -1,7 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
 import { ModalController, PopoverController } from "@ionic/angular";
-import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications/ngx';
+import {
+  LocalNotifications,
+  ILocalNotification,
+} from "@ionic-native/local-notifications/ngx";
 
 import { Note } from "../core/models/note.model";
 import { NotesService } from "../core/services/notes.service";
@@ -11,7 +14,7 @@ import {
 } from "./components/manage-note/manage-note.component";
 import { NotesFiltersPopoverComponent } from "./components/notes-filters-popover/notes-filters-popover.component";
 import { NotesFilters } from "../core/constants/notes-filters.enum";
-import { PictureService } from '../core/services/picture.service';
+import { PictureService } from "../core/services/picture.service";
 
 @Component({
   selector: "app-home",
@@ -20,6 +23,7 @@ import { PictureService } from '../core/services/picture.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
+
   constructor(
     public store: NotesService,
     public modalController: ModalController,
@@ -36,8 +40,8 @@ export class HomePage implements OnInit {
       event: ev,
       translucent: true,
       componentProps: {
-        selectedFilter: this.store.filter
-      }
+        selectedFilter: this.store.filter,
+      },
     });
     await popover.present();
     const response = await popover.onDidDismiss();
@@ -63,8 +67,8 @@ export class HomePage implements OnInit {
       component: ManageNoteComponent,
       componentProps: {
         mode: NoteManageModes.ADD,
-        note: null
-      }
+        note: null,
+      },
     });
     await modal.present();
     const response = await modal.onDidDismiss();
@@ -76,9 +80,9 @@ export class HomePage implements OnInit {
           title: savedNote.title,
           text: savedNote.description,
           trigger: {
-            at: new Date(savedNote.reminderTime)
+            at: new Date(savedNote.reminderTime),
           },
-          id: savedNote.id
+          id: savedNote.id,
         });
       }
     }
@@ -89,22 +93,24 @@ export class HomePage implements OnInit {
       component: ManageNoteComponent,
       componentProps: {
         mode: NoteManageModes.EDIT,
-        note: noteItem
-      }
+        note: noteItem,
+      },
     });
     await modal.present();
     const response = await modal.onDidDismiss();
     const note = response.data as Note;
     if (note) {
       const savedNote = await this.store.updateNote(note);
-      const isScheduled = await this.localNotifications.isScheduled(savedNote.id);
+      const isScheduled = await this.localNotifications.isScheduled(
+        savedNote.id
+      );
       const params: ILocalNotification = {
         title: savedNote.title,
         text: savedNote.description,
         trigger: {
-          at: new Date(savedNote.reminderTime)
+          at: new Date(savedNote.reminderTime),
         },
-        id: savedNote.id
+        id: savedNote.id,
       };
       if (isScheduled) {
         this.localNotifications.clear(params.id);

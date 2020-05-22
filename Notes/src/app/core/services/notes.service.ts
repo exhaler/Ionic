@@ -29,7 +29,6 @@ export class NotesService extends StorageService {
   @action
   setNotes(notes: Array<Note>) {
     this.notes = notes;
-    console.log('notes set', this.notes);
   }
 
   @action
