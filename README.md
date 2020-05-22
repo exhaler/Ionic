@@ -1,6 +1,6 @@
 # Ionic
 
-Learning Ionic while building different apps:
+Different Ionic projects:
 
 - [PairBnB](https://github.com/exhaler/Ionic/tree/master/PairBnB)
 - [Khoolood](https://github.com/exhaler/Ionic/tree/master/Khoolood)
