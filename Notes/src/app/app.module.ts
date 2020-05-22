@@ -36,8 +36,8 @@ configure({
     MobxAngularModule,
     IonicStorageModule.forRoot({
       name: STORE_CONFIG.DATABASE_NAME,
-      driverOrder: ['indexeddb', 'websql']
-    })
+      driverOrder: ["indexeddb", "websql"],
+    }),
   ],
   providers: [
     StatusBar,
@@ -50,9 +50,9 @@ configure({
       provide: APP_INITIALIZER,
       multi: true,
       deps: [AppStartupService],
-      useFactory: startupServiceFactory
+      useFactory: startupServiceFactory,
     },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
 })
