@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+
+import { formatISO, setSeconds } from 'date-fns';
 
 import { ModalController } from "@ionic/angular";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Note } from '../../../core/models/note.model';
+import { PictureService } from '../../../core/services/picture.service';
 
 export enum NoteManageModes {
   ADD = 'add',
@@ -19,35 +22,66 @@ export class ManageNoteComponent implements OnInit {
   mode: NoteManageModes = NoteManageModes.ADD;
   note: Note;
   manageModes = NoteManageModes;
-
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder) {}
+  noteImage: string;
+  minTime;
+  constructor(
+    public modalController: ModalController,
+    private fb: FormBuilder,
+    private pictureService: PictureService
+  ) { }
 
   ngOnInit() {
     this.noteForm = this.fb.group({
-      title: ["", [Validators.required]],
-      description: ["", []],
+      title: ['', [Validators.required]],
+      description: ['', []],
+      reminderTime: ['', []]
     });
     if (this.note && this.mode === this.manageModes.EDIT) {
       this.noteForm.get('title').setValue(this.note.title);
       this.noteForm.get('description').setValue(this.note.description);
+      this.noteForm.get('reminderTime').setValue(this.note.reminderTime);
+      this.noteImage = this.note.imagePath ? this.note.imagePath : '';
     }
+    this.minTime = formatISO(new Date());
+  }
+
+  async takePicture() {
+    try {
+      const imageStr = await this.pictureService.getPicture(this.noteImage);
+      this.noteImage = imageStr;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  dateTimeClicked() {
+    this.minTime = formatISO(new Date());
   }
 
   formSubmit() {
-    // console.log(this.noteForm.value);
     let params;
     if (this.mode === this.manageModes.ADD) {
-      params = this.noteForm.value;
+      params = {
+        ...this.noteForm.value,
+        imagePath: this.noteImage
+      };
     } else {
       params = {
         ...this.note,
-        ...this.noteForm.value
+        ...this.noteForm.value,
+        imagePath: this.noteImage
       };
     }
-    this.modalCtrl.dismiss(params);
+    params.reminderTime = params.reminderTime ?
+      formatISO(
+        setSeconds(
+          new Date(params.reminderTime), 0
+        )
+      ) : '';
+    this.modalController.dismiss(params);
   }
 
   dismiss() {
-    this.modalCtrl.dismiss();
+    this.modalController.dismiss();
   }
 }
