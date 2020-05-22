@@ -4,7 +4,7 @@ import { observable } from "mobx-angular";
 import { action, computed } from "mobx";
 
 import { Note, INote } from "../models/note.model";
-import { NotesFilters } from "../constants/notes-filter.enum";
+import { NotesFilters } from "../constants/notes-filters.enum";
 import { SqliteStorageService } from "./sqlite-storage.service";
 
 @Injectable({

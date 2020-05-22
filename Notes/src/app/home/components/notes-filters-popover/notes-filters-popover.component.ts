@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 
-import { NotesFilters } from "../../../core/constants/notes-filter.enum";
+import { NotesFilters } from "../../../core/constants/notes-filters.enum";
 
 @Component({
   selector: "app-notes-filters-popover",

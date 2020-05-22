@@ -8,7 +8,7 @@ import {
   NoteManageModes,
 } from "./components/manage-note/manage-note.component";
 import { NotesFiltersPopoverComponent } from "./components/notes-filters-popover/notes-filters-popover.component";
-import { NotesFilters } from "../core/constants/notes-filter.enum";
+import { NotesFilters } from "../core/constants/notes-filters.enum";
 
 @Component({
   selector: "app-home",
