@@ -1,32 +1,18 @@
 import { Injectable } from "@angular/core";
 
-import { observable } from "mobx-angular";
-import { action, computed } from "mobx";
+import { observable, action, computed } from "mobx-angular";
 
 import { Note, INote } from "../models/note.model";
 import { NotesFilters } from "../constants/notes-filters.enum";
-import { SqliteStorageService } from "./sqlite-storage.service";
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: "root",
 })
-export class NotesService {
+export class NotesService extends StorageService {
   @observable notes: Array<Note>;
   @observable filter: NotesFilters;
   tableName = "notes";
-
-  constructor(private sqliteStorage: SqliteStorageService) {}
-
-  @action
-  async archiveNote(note: Note) {
-    note.setArchived(true);
-    await this.sqliteStorage.update(
-      this.tableName,
-      note.id,
-      ["title", "description", "archived"],
-      [note.title, note.description, note.archived ? 1 : 0]
-    );
-  }
 
   @action
   initNotes() {
@@ -36,13 +22,14 @@ export class NotesService {
   }
 
   async getAllNotes() {
-    const notes = await this.sqliteStorage.getAll(this.tableName);
-    this.setNotes(notes.map((note) => new Note(note)));
+    const notes = await super.getAll(this.tableName);
+    this.setNotes(notes.map(note => new Note(note)));
   }
 
   @action
   setNotes(notes: Array<Note>) {
     this.notes = notes;
+    console.log('notes set', this.notes);
   }
 
   @action
@@ -51,29 +38,57 @@ export class NotesService {
   }
 
   @action
-  async createNote(note: Partial<INote>) {
-    const response = await this.sqliteStorage.create(
+  async archiveNote(note: Note) {
+    note.setArchived(true);
+    await super.update(
       this.tableName,
-      ["title", "description", "archived"],
-      [note.title, note.description, note.archived ? 1 : 0]
+      note.id,
+      ['archived'],
+      [note.archived ? 1 : 0]
     );
-    const savedNote = await this.sqliteStorage.getById(
+  }
+
+  @action
+  async createNote(note: Partial<INote>) {
+    const response = await super.create(
+      this.tableName,
+      ['title', 'description', 'archived', 'imagePath', 'reminderTime'],
+      [
+        note.title,
+        note.description,
+        note.archived ? 1 : 0,
+        note.imagePath ? note.imagePath : '',
+        note.reminderTime ? note.reminderTime : ''
+      ]
+    );
+    const savedNote = await super.getById(
       this.tableName,
       response.insertId
     );
     this.setNotes([...this.notes, new Note(savedNote)]);
+    return savedNote;
   }
 
   @action
   async updateNote(note: Note) {
-    await this.sqliteStorage.update(
+    await super.update(
       this.tableName,
       note.id,
-      ["title", "description", "archived"],
-      [note.title, note.description, note.archived ? 1 : 0]
+      ['title', 'description', 'archived', 'imagePath', 'reminderTime'],
+      [
+        note.title,
+        note.description,
+        note.archived ? 1 : 0,
+        note.imagePath ? note.imagePath : '',
+        note.reminderTime ? note.reminderTime : ''
+      ]
     );
-
-    this.setNote(note);
+    const savedNote = await super.getById(
+      this.tableName,
+      note.id
+    );
+    this.setNote(new Note(savedNote));
+    return savedNote;
   }
 
   @action
@@ -95,9 +110,9 @@ export class NotesService {
   get filteredNotes() {
     switch (this.filter) {
       case NotesFilters.ACTIVE:
-        return this.notes.filter((note) => !note.archived);
+        return this.notes.filter(note => !note.archived);
       case NotesFilters.ARCHIVED:
-        return this.notes.filter((note) => !!note.archived);
+        return this.notes.filter(note => !!note.archived);
     }
   }
 }
