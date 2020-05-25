@@ -1,0 +1,47 @@
+<ion-content>
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/recent-obits"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="community-background ion-text-center">
+    <h2 *ngIf="!isLoading">
+      {{ detailCommunity?.name_en }}
+      <p *ngIf="!isLoading">
+        {{ detailCommunity?.place }} - {{ detailCommunity?.membersCount }}
+        Members
+      </p>
+    </h2>
+
+    <img
+      *ngIf="!isLoading"
+      [src]="detailCommunity?.image"
+      [alt]="detailCommunity?.name_en"
+    />
+
+    <ion-col class="ion-text-center loader" *ngIf="isLoading">
+      <ion-spinner color="light"></ion-spinner>
+    </ion-col>
+  </div>
+
+  <ion-grid class="ion-padding-top" *ngIf="isLoading">
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col>
+        <h3>About the community</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="map" #map></div>
+</ion-content>

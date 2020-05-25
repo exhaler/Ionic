@@ -51,7 +51,7 @@ const routes: Routes = [
   {
     path: "community-detail/:communityId",
     loadChildren: () =>
-      import("./community-detail/community-detail.module").then(
+      import("./communities/community-detail/community-detail.module").then(
         (m) => m.CommunityDetailPageModule
       ),
   },
