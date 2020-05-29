@@ -11,7 +11,7 @@ import { DetailedObituaryObject } from '../shared/models';
   styleUrls: ["./saved.page.scss"],
 })
 export class SavedPage implements OnInit {
-  savedObituaries: DetailedObituaryObject[] = [];
+  savedObituaries: DetailedObituaryObject[];
   
   constructor(private saveService: SaveService, public storage: Storage) {}
 

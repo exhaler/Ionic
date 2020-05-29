@@ -8,12 +8,12 @@
 </ion-header>
 
 <ion-content>
-  <div id="container" *ngIf="savedObituaries.length <= 0">
+  <div id="container" *ngIf="!savedObituaries">
     <ion-title>You have no saved items</ion-title>
     <ion-icon name="alert-circle-outline"></ion-icon>
   </div>
 
-  <ion-list class="ion-no-padding" *ngIf="savedObituaries.length > 0">
+  <ion-list class="ion-no-padding" *ngIf="savedObituaries">
     <ion-item
       *ngFor="let obituary of savedObituaries"
       routerLink="/obituary-detail/{{ obituary.obituaryId }}"
