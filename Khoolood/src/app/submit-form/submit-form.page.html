@@ -1,11 +1,166 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/app/home"></ion-back-button>
+    <ion-buttons slot="start" *ngIf="showPreviousBtn">
+      <ion-button (click)="slides.slidePrev()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Submit form</ion-title>
+    <ion-title>{{ stepText }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-back-button
+        defaultHref="/app/home"
+        icon="close-sharp"
+      ></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen="true">
+  <form [formGroup]="newsForm">
+    <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)">
+      <ion-slide class="step-1">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12">
+              <ion-list>
+                <ion-radio-group value="obituary">
+                  <ion-list-header>
+                    <ion-label class="ion-text-left"
+                      >Select the type of announcement</ion-label
+                    >
+                  </ion-list-header>
+
+                  <ion-item>
+                    <ion-label>Obituary</ion-label>
+                    <ion-radio slot="start" value="obituary"></ion-radio>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Commemoration</ion-label>
+                    <ion-radio slot="start" value="commemoration"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+
+                <ion-item>
+                  <ion-label position="floating">Their first name</ion-label>
+                  <ion-input
+                    type="text"
+                    formControlName="firstName"
+                  ></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Their last name</ion-label>
+                  <ion-input
+                    type="text"
+                    formControlName="lastName"
+                  ></ion-input>
+                </ion-item>
+
+                <ion-radio-group value="male">
+                  <ion-item>
+                    <ion-label>Female</ion-label>
+                    <ion-radio slot="start" value="female"></ion-radio>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Male</ion-label>
+                    <ion-radio slot="start" value="male"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+
+                <ion-item>
+                  <ion-label position="floating">Their date of birth</ion-label>
+                  <ion-datetime
+                    formControlName="dateOfBirth"
+                    displayFormat="D MMM, YYYY"
+                    [max]="currentDate"
+                    #dateOfBirth
+                  ></ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Their date of death</ion-label>
+                  <ion-datetime
+                    formControlName="dateOfDeath"
+                    [min]="dateOfBirth.value"
+                    [max]="currentDate"
+                    displayFormat="D MMM, YYYY"
+                  ></ion-datetime>
+                </ion-item>
+
+                <ion-item button (click)="addPhoto()">
+                  <ion-avatar slot="start">
+                    <img src="./assets/img/profile-pic.svg" />
+                  </ion-avatar>
+                  <ion-label>Add photo</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+      <ion-slide class="step-2">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item>
+                <ion-label position="floating">Funeral date</ion-label>
+                <ion-datetime
+                  formControlName="funeralDate"
+                  displayFormat="D MMM, YYYY"
+                  [min]="currentDate"
+                ></ion-datetime>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Funeral time</ion-label>
+                <ion-datetime
+                  formControlName="funeralTime"
+                  displayFormat="hh:mm a"
+                ></ion-datetime>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Children</ion-label>
+                <ion-textarea rows="8" formControlName="children"></ion-textarea>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Relatives</ion-label>
+                <ion-textarea rows="8" formControlName="relatives"></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+      <ion-slide class="step-3">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item>
+                <ion-label position="floating">Date of publishing</ion-label>
+                <ion-datetime
+                  formControlName="dateOfPublish"
+                  displayFormat="D MMM, YYYY"
+                  [min]="currentDate"
+                ></ion-datetime>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Number of days to keep</ion-label>
+                <ion-input type="number" formControlName="numberOfDay"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+    </ion-slides>
+  </form>
 </ion-content>
+
+<ion-footer class="ion-no-border ion-text-center">
+  <ion-toolbar>
+    <ion-title (click)="nextStep()">Next</ion-title>
+  </ion-toolbar>
+</ion-footer>
