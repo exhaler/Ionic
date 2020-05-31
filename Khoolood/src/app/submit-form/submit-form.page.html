@@ -91,7 +91,7 @@
 
                 <ion-item button (click)="addPhoto()">
                   <ion-avatar slot="start">
-                    <img src="./assets/img/profile-pic.svg" />
+                    <img [src]="selectedPhoto" />
                   </ion-avatar>
                   <ion-label>Add photo</ion-label>
                 </ion-item>

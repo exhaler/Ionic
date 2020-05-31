@@ -22,6 +22,7 @@ export class SubmitFormPage implements OnInit {
   lastSlide: boolean = false;
   slideIndex: number = 0;
   stepText: string = "1/3 About your loved one";
+  selectedPhoto = "./assets/img/profile-pic.svg";
   currentDate: String = new Date().toISOString();
 
   constructor(
@@ -215,9 +216,10 @@ export class SubmitFormPage implements OnInit {
           text: "Camera",
           handler: () => {
             this.camera.getPicture(cameraOptions).then((imageData) => {
-              // this.myProfileImage = "data:image/jpeg;base64" + imageData;
-              const image = "data:image/jpeg;base64" + imageData;
+              const image = 'data:image/jpeg;base64,' + imageData;
               console.log("camera image: ", image);
+
+              this.selectedPhoto = image;
             });
           },
         },
@@ -225,9 +227,10 @@ export class SubmitFormPage implements OnInit {
           text: "Gallery",
           handler: () => {
             this.camera.getPicture(galleryOptions).then((imageData) => {
-              // this.myProfileImage = "data:image/jpeg;base64" + imageData;
-              const image = "data:image/jpeg;base64" + imageData;
+              const image = 'data:image/jpeg;base64,' + imageData;
               console.log("gallery image: ", image);
+
+              this.selectedPhoto = image;
             });
           },
         },
