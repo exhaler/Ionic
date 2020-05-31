@@ -51,10 +51,7 @@
 
                 <ion-item>
                   <ion-label position="floating">Their last name</ion-label>
-                  <ion-input
-                    type="text"
-                    formControlName="lastName"
-                  ></ion-input>
+                  <ion-input type="text" formControlName="lastName"></ion-input>
                 </ion-item>
 
                 <ion-radio-group value="male">
@@ -89,7 +86,12 @@
                   ></ion-datetime>
                 </ion-item>
 
-                <ion-item button (click)="addPhoto()">
+                <ion-item
+                  lines="none"
+                  class="add-photo"
+                  button
+                  (click)="addPhoto()"
+                >
                   <ion-avatar slot="start">
                     <img [src]="selectedPhoto" />
                   </ion-avatar>
@@ -123,12 +125,18 @@
 
               <ion-item>
                 <ion-label position="floating">Children</ion-label>
-                <ion-textarea rows="8" formControlName="children"></ion-textarea>
+                <ion-textarea
+                  rows="8"
+                  formControlName="children"
+                ></ion-textarea>
               </ion-item>
 
               <ion-item>
                 <ion-label position="floating">Relatives</ion-label>
-                <ion-textarea rows="8" formControlName="relatives"></ion-textarea>
+                <ion-textarea
+                  rows="8"
+                  formControlName="relatives"
+                ></ion-textarea>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -148,8 +156,13 @@
               </ion-item>
 
               <ion-item>
-                <ion-label position="floating">Number of days to keep</ion-label>
-                <ion-input type="number" formControlName="numberOfDay"></ion-input>
+                <ion-label position="floating"
+                  >Number of days to keep</ion-label
+                >
+                <ion-input
+                  type="number"
+                  formControlName="numberOfDay"
+                ></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -162,6 +175,8 @@
 <ion-footer class="ion-no-border ion-text-center">
   <ion-toolbar>
     <ion-title *ngIf="!lastSlide" (click)="nextStep()">Next</ion-title>
-    <ion-title *ngIf="lastSlide" (click)="onSubmitForm()">Submit obituary</ion-title>
+    <ion-title *ngIf="lastSlide" (click)="onSubmitForm()"
+      >Submit obituary</ion-title
+    >
   </ion-toolbar>
 </ion-footer>

@@ -1,31 +1,7 @@
-/* Without setting height the slides will take up the height of the slide's content */
-// form {
-//   height: 100%;
-// }
-
-// ion-slides {
-//   height: 100%;
-// }
-
-.picker {
-    width: 30rem;
-    max-width: 80%;
-    height: 20rem;
-    max-height: 30vh;
-    border: 1px solid var(--ion-color-primary);
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
-
-.image {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-input[type='file'] {
-    display: none;
+.add-photo {
+  ion-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
 }

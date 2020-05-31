@@ -194,7 +194,7 @@ export class SubmitFormPage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      targetHeight: 200,
+      targetWidth: 200,
       correctOrientation: true,
       sourceType: this.camera.PictureSourceType.CAMERA,
     };
@@ -204,7 +204,7 @@ export class SubmitFormPage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      targetHeight: 200,
+      targetWidth: 200,
       correctOrientation: true,
       sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
     };
