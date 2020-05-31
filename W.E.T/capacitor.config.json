@@ -1,6 +1,6 @@
 {
-  "appId": "com.ionic.whattoeat",
-  "appName": "W.E.T",
+  "appId": "com.ionic.whattoeattoday",
+  "appName": "What To Eat Today",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
