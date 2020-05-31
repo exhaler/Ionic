@@ -1,9 +1,14 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 import { CameraOptions, Camera } from "@ionic-native/camera/ngx";
-import { ActionSheetController, AlertController } from "@ionic/angular";
-import { MenuController, IonSlides } from "@ionic/angular";
+import {
+  ActionSheetController,
+  AlertController,
+  ToastController,
+} from "@ionic/angular";
+import { IonSlides } from "@ionic/angular";
 
 @Component({
   selector: "app-submit-form",
@@ -14,6 +19,7 @@ export class SubmitFormPage implements OnInit {
   @ViewChild("slides", { static: true }) slides: IonSlides;
   newsForm: FormGroup;
   showPreviousBtn: boolean = false;
+  lastSlide: boolean = false;
   slideIndex: number = 0;
   stepText: string = "1/3 About your loved one";
   currentDate: String = new Date().toISOString();
@@ -21,7 +27,9 @@ export class SubmitFormPage implements OnInit {
   constructor(
     public actionCtrl: ActionSheetController,
     private camera: Camera,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -44,21 +52,37 @@ export class SubmitFormPage implements OnInit {
       funeralTime: new FormControl(null, {
         validators: [Validators.required],
       }),
-      children: new FormControl(null, {
-        validators: [Validators.required],
-      }),
-      relatives: new FormControl(null, {
-        validators: [Validators.required],
-      }),
+      children: new FormControl(null, {}),
+      relatives: new FormControl(null, {}),
       dateOfPublish: new FormControl(null, {
         validators: [Validators.required],
       }),
       numberOfDay: new FormControl(null, {
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.min(1), Validators.max(4)],
       }),
     });
 
     this.slides.lockSwipes(true);
+  }
+
+  onSubmitForm() {
+    if (!this.newsForm.valid) {
+      return;
+    }
+
+    console.log(this.newsForm.value);
+    this.toastCtrl
+      .create({
+        message: "Obituary created successfully",
+        duration: 2500,
+        position: "top",
+        color: "success",
+      })
+      .then((toastEl) => {
+        this.newsForm.reset();
+        this.router.navigateByUrl("/app/home");
+        toastEl.present();
+      });
   }
 
   onSlideChangeStart(event) {
@@ -71,14 +95,17 @@ export class SubmitFormPage implements OnInit {
       switch (index) {
         case 1:
           this.stepText = "2/3 About the funeral";
+          this.lastSlide = false;
           break;
 
         case 2:
           this.stepText = "3/3 Submit obituary";
+          this.lastSlide = true;
           break;
 
         default:
           this.stepText = "1/3 About your loved one";
+          this.lastSlide = false;
           break;
       }
     });

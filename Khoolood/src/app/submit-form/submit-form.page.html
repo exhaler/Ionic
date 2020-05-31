@@ -16,7 +16,7 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <form [formGroup]="newsForm">
+  <form [formGroup]="newsForm" (ngSubmit)="onSubmitForm()">
     <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)">
       <ion-slide class="step-1">
         <ion-grid fixed>
@@ -161,6 +161,7 @@
 
 <ion-footer class="ion-no-border ion-text-center">
   <ion-toolbar>
-    <ion-title (click)="nextStep()">Next</ion-title>
+    <ion-title *ngIf="!lastSlide" (click)="nextStep()">Next</ion-title>
+    <ion-title *ngIf="lastSlide" (click)="onSubmitForm()">Submit obituary</ion-title>
   </ion-toolbar>
 </ion-footer>
