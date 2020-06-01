@@ -61,6 +61,7 @@ export class SubmitFormPage implements OnInit {
       numberOfDay: new FormControl(null, {
         validators: [Validators.required, Validators.min(1), Validators.max(4)],
       }),
+      image: new FormControl(null, {}),
     });
 
     this.slides.lockSwipes(true);
@@ -216,10 +217,13 @@ export class SubmitFormPage implements OnInit {
           text: "Camera",
           handler: () => {
             this.camera.getPicture(cameraOptions).then((imageData) => {
-              const image = 'data:image/jpeg;base64,' + imageData;
+              const image = "data:image/jpeg;base64," + imageData;
               console.log("camera image: ", image);
 
               this.selectedPhoto = image;
+              this.newsForm.patchValue({
+                image: image,
+              });
             });
           },
         },
@@ -227,10 +231,13 @@ export class SubmitFormPage implements OnInit {
           text: "Gallery",
           handler: () => {
             this.camera.getPicture(galleryOptions).then((imageData) => {
-              const image = 'data:image/jpeg;base64,' + imageData;
+              const image = "data:image/jpeg;base64," + imageData;
               console.log("gallery image: ", image);
 
               this.selectedPhoto = image;
+              this.newsForm.patchValue({
+                image: image,
+              });
             });
           },
         },
