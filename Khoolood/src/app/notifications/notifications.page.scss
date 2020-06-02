@@ -1,5 +1,12 @@
-.notification-message ion-label {
-  margin-top: 0;
+.notification-message {
+  ion-label {
+    margin-top: 0;
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 21px;
+  }
 }
 
 ion-badge {

@@ -52,7 +52,7 @@
           <h2>{{ notification.name_en }}</h2>
         </ion-label>
         <ion-badge slot="end" color="medium">
-          {{ notification.timestamp }}</ion-badge
+          {{ notification.timestamp| date:'dd-MM-yyyy' }}</ion-badge
         >
       </ion-item>
 
