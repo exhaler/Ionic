@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
 
 import { SaveService } from "../shared/services/save.service";
-import { DetailedObituaryObject } from '../shared/models';
+import { DetailedObituaryObject } from "../shared/models";
 
 @Component({
   selector: "app-saved",
@@ -11,8 +11,8 @@ import { DetailedObituaryObject } from '../shared/models';
   styleUrls: ["./saved.page.scss"],
 })
 export class SavedPage implements OnInit {
-  savedObituaries: DetailedObituaryObject[];
-  
+  savedObituaries: DetailedObituaryObject[] = [];
+
   constructor(private saveService: SaveService, public storage: Storage) {}
 
   ngOnInit() {}
@@ -20,6 +20,7 @@ export class SavedPage implements OnInit {
   ionViewWillEnter() {
     this.saveService.getAllSavedItems().then((data) => {
       this.savedObituaries = data;
+      console.log(this.savedObituaries);
     });
   }
 }
