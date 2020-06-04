@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { take } from "rxjs/operators";
 
 import { MealdbApiService } from "../services/mealdb-api.service";
-import { MEALDB_ListIngredient } from "../services/model";
+import { MEALDB_GroupListIngredient } from "../services/model";
 
 @Component({
   selector: "app-ingredients",
@@ -12,7 +12,7 @@ import { MEALDB_ListIngredient } from "../services/model";
 })
 export class IngredientsPage implements OnInit {
   @ViewChild("filterBar", { static: false }) filterBar;
-  ingredients: MEALDB_ListIngredient[];
+  groupedIngredients: MEALDB_GroupListIngredient[];
   isLoading: boolean = false;
   ios: boolean;
   showSearchbar: boolean;
@@ -27,13 +27,13 @@ export class IngredientsPage implements OnInit {
       .pipe(take(1))
       .subscribe((results) => {
         this.isLoading = false;
-        this.ingredients = results;
+        this.groupedIngredients = results;
       });
   }
 
   focusFilter() {
     setTimeout(() => {
       this.filterBar.setFocus();
-    },150);
+    }, 150);
   }
 }

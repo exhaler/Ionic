@@ -10,7 +10,7 @@ import {
   MEALDB_Meal,
   MEALDB_ListCategory,
   MEALDB_ListArea,
-  MEALDB_ListIngredient,
+  MEALDB_GroupListIngredient,
 } from "./model";
 
 export const MEALDB_API = {
@@ -40,6 +40,7 @@ export const MEALDB_API = {
 })
 export class MealdbApiService {
   meals$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  groupedIngredients = [];
   usedIds = new Set();
   constructor(private http: HttpClient) {}
 
@@ -90,11 +91,12 @@ export class MealdbApiService {
     );
   }
 
-  getIngredients(): Observable<MEALDB_ListIngredient[]> {
+  getIngredients(): Observable<MEALDB_GroupListIngredient[]> {
     return this.http.get(`${MEALDB_API.INGREDIENTS}`).pipe(
       map((res: any) => {
         if (res.meals) {
-          return res.meals;
+          this.groupIngredients(res.meals);
+          return this.groupedIngredients;
         } else {
           return null;
         }
@@ -166,6 +168,30 @@ export class MealdbApiService {
         }
       })
     );
+  }
+
+  groupIngredients(ingredients) {
+    let sortedIngredients = ingredients.sort((a, b) =>
+      a.strIngredient > b.strIngredient ? 1 : -1
+    );
+    let currentLetter = false;
+    let currentIngredients = [];
+
+    sortedIngredients.forEach((value, index) => {
+      if (value.strIngredient.charAt(0) != currentLetter) {
+        currentLetter = value.strIngredient.charAt(0);
+
+        let newGroup = {
+          letter: currentLetter,
+          ingredients: [],
+        };
+
+        currentIngredients = newGroup.ingredients;
+        this.groupedIngredients.push(newGroup);
+      }
+
+      currentIngredients.push(value);
+    });
   }
 
   private _randomFromArray(array, times = 1): any[] {
