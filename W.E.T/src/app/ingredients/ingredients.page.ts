@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { take } from "rxjs/operators";
 
 import { MealdbApiService } from "../services/mealdb-api.service";
-import { MEALDB_GroupListIngredient } from "../services/model";
+import { MEALDB_ListIngredient, MEALDB_GroupListIngredient } from "../services/model";
 
 @Component({
   selector: "app-ingredients",
@@ -13,6 +13,7 @@ import { MEALDB_GroupListIngredient } from "../services/model";
 export class IngredientsPage implements OnInit {
   @ViewChild("filterBar", { static: false }) filterBar;
   groupedIngredients: MEALDB_GroupListIngredient[];
+  ingredients: MEALDB_ListIngredient[];
   isLoading: boolean = false;
   ios: boolean;
   showSearchbar: boolean;
@@ -27,7 +28,8 @@ export class IngredientsPage implements OnInit {
       .pipe(take(1))
       .subscribe((results) => {
         this.isLoading = false;
-        this.groupedIngredients = results;
+        this.ingredients = results;
+        // this.groupedIngredients = results;
       });
   }
 

@@ -28,6 +28,15 @@
   <app-small-loader [isLoading]="isLoading"></app-small-loader>
 
   <ion-list *ngIf="!isLoading">
+    <ion-item
+      detail
+      *ngFor="let ingredient of ingredients | searchIngredients: filterIngredients"
+      routerLink="/ingredient/{{ ingredient.strIngredient | slugify }}"
+      ><ion-label>{{ ingredient.strIngredient }}</ion-label></ion-item
+    >
+  </ion-list>
+
+  <!-- <ion-list *ngIf="!isLoading">
     <ng-container *ngFor="let group of groupedIngredients">
       <ion-item-divider sticky color="light">
         <ion-label>
@@ -42,5 +51,5 @@
         ><ion-label>{{ ingredient.strIngredient }}</ion-label></ion-item
       >
     </ng-container>
-  </ion-list>
+  </ion-list> -->
 </ion-content>
