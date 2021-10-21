@@ -1,5 +1,5 @@
 {
-  "name": "What To Eat Today",
+  "name": "what_to_eat_today",
   "version": "1.0.0",
   "author": "Fadi Barakat",
   "homepage": "",
@@ -26,6 +26,7 @@
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
+    "@ionic/angular-toolkit": "^4.0.0",
     "@ionic/storage": "^2.2.0",
     "cordova-plugin-x-socialsharing": "^5.6.5",
     "core-js": "^2.5.4",
@@ -36,13 +37,12 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.20",
-    "@angular/cli": "~8.3.23",
-    "@angular/compiler": "~8.2.14",
-    "@angular/compiler-cli": "~8.2.14",
+    "@angular-devkit/build-angular": "^12.2.11",
+    "@angular/cli": "^12.2.11",
+    "@angular/compiler": "^12.2.11",
+    "@angular/compiler-cli": "^12.2.11",
     "@angular/language-service": "~8.2.14",
     "@capacitor/cli": "2.0.2",
-    "@ionic/angular-toolkit": "^2.1.1",
     "@ionic/lab": "3.1.6",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
